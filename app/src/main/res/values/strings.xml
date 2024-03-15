@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Privacy Checker</string>
+    <string name="menu_overview">Overview</string>
+    <string name="menu_accessibility">Accessibility</string>
+    <string name="menu_installed_app">Installed App</string>
+    <string name="menu_about_app">About App</string>
+</resources>

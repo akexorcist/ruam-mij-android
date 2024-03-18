@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Privacy Checker"
+rootProject.name = "Ruam Mij"
 include(":app")

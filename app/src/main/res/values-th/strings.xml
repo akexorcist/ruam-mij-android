@@ -83,24 +83,6 @@
     <string name="app_info_installed_at_unknown">ไม่ทราบเวลา</string>
     <string name="app_info_installed_by">ติดตั้งโดย</string>
     <string name="app_info_installer_unknown">Preload หรือ ADB</string>
-    <string name="app_info_installer_google_play">Google Play</string>
-    <string name="app_info_installer_huawei_app_gallery">AppGallery</string>
-    <string name="app_info_installer_amazon_appstore">Amazon Appstore</string>
-    <string name="app_info_installer_galaxy_store">Galaxy Store</string>
-    <string name="app_info_installer_app_marker">App Market</string>
-    <string name="app_info_installer_v_appstore">V-Appstore</string>
-    <string name="app_info_installer_xiaomi_market">Xiaomi Market</string>
-    <string name="app_info_installer_facebook">Facebook</string>
-    <string name="app_info_installer_samsung_omc_agent">Samsung OMC Agent</string>
-    <string name="app_info_installer_samsung_smart_switch">Samsung Smart Switch</string>
-    <string name="app_info_installer_samsung_cloud">Samsung Cloud</string>
-    <string name="app_info_installer_vivo_system_launcher">vivo System Launcher</string>
-    <string name="app_info_installer_huawei_system_services">HUAWEI System Services</string>
-    <string name="app_info_installer_huawei_hmd_services_framework">HUAWEI HMS Services Framework</string>
-    <string name="app_info_installer_huawei_software_update">HUAWEI Software Update</string>
-    <string name="app_info_installer_apk_pure">APKPure</string>
-    <string name="app_info_installer_color_os_my_files">ColorOS My Files</string>
-    <string name="app_info_installer_sideload">Sideload</string>
     <string name="app_info_open_settings">เปิดการตั้งค่าของแอป</string>
 
     <string name="state_enabled">เปิดอยู่</string>

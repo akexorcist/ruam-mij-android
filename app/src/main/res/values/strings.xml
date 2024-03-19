@@ -83,24 +83,26 @@
     <string name="app_info_installed_at_unknown">Unknown time</string>
     <string name="app_info_installed_by">Installed by</string>
     <string name="app_info_installer_unknown">Preload or ADB</string>
-    <string name="app_info_installer_google_play">Google Play</string>
-    <string name="app_info_installer_huawei_app_gallery">AppGallery</string>
-    <string name="app_info_installer_amazon_appstore">Amazon Appstore</string>
-    <string name="app_info_installer_galaxy_store">Galaxy Store</string>
-    <string name="app_info_installer_app_marker">App Market</string>
-    <string name="app_info_installer_v_appstore">V-Appstore</string>
-    <string name="app_info_installer_xiaomi_market">Xiaomi Market</string>
-    <string name="app_info_installer_facebook">Facebook</string>
-    <string name="app_info_installer_samsung_omc_agent">Samsung OMC Agent</string>
-    <string name="app_info_installer_samsung_smart_switch">Samsung Smart Switch</string>
-    <string name="app_info_installer_samsung_cloud">Samsung Cloud</string>
-    <string name="app_info_installer_vivo_system_launcher">vivo System Launcher</string>
-    <string name="app_info_installer_huawei_system_services">HUAWEI System Services</string>
-    <string name="app_info_installer_huawei_hmd_services_framework">HUAWEI HMS Services Framework</string>
-    <string name="app_info_installer_huawei_software_update">HUAWEI Software Update</string>
-    <string name="app_info_installer_apk_pure">APKPure</string>
-    <string name="app_info_installer_color_os_my_files">ColorOS My Files</string>
-    <string name="app_info_installer_sideload">Sideload</string>
+    <string name="app_info_installer_google_play" translatable="false">Google Play</string>
+    <string name="app_info_installer_amazon_appstore" translatable="false">Amazon Appstore</string>
+    <string name="app_info_installer_app_market" translatable="false">App Market</string>
+    <string name="app_info_installer_vivo_v_appstore" translatable="false">vivo V-Appstore</string>
+    <string name="app_info_installer_vivo_system_launcher" translatable="false">vivo System Launcher</string>
+    <string name="app_info_installer_facebook" translatable="false">Facebook</string>
+    <string name="app_info_installer_galaxy_store" translatable="false">Samsung Galaxy Store</string>
+    <string name="app_info_installer_samsung_omc_agent" translatable="false">Samsung OMC Agent</string>
+    <string name="app_info_installer_samsung_smart_switch" translatable="false">Samsung Smart Switch</string>
+    <string name="app_info_installer_samsung_cloud" translatable="false">Samsung Cloud</string>
+    <string name="app_info_installer_huawei_app_gallery" translatable="false">HUAWEI AppGallery</string>
+    <string name="app_info_installer_huawei_system_services" translatable="false">HUAWEI System Services</string>
+    <string name="app_info_installer_huawei_hms_services_framework" translatable="false">HUAWEI HMS Services Framework</string>
+    <string name="app_info_installer_huawei_software_update" translatable="false">HUAWEI Software Update</string>
+    <string name="app_info_installer_xiaomi_market" translatable="false">Xiaomi Market</string>
+    <string name="app_info_installer_xiaomi_get_apps" translatable="false">Xiaomi GetApps</string>
+    <string name="app_info_installer_xiaomi_analytics" translatable="false">Xiaomi Analytics</string>
+    <string name="app_info_installer_apk_pure" translatable="false">APKPure</string>
+    <string name="app_info_installer_color_os_my_files" translatable="false">ColorOS My Files</string>
+    <string name="app_info_installer_sideload" translatable="false">Sideload</string>
     <string name="app_info_open_settings">Open app settings</string>
 
     <string name="state_enabled">Enabled</string>

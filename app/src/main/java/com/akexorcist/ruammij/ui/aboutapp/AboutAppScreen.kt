@@ -103,12 +103,12 @@ private fun AboutAppScreen(
     ) {
         Header()
         Spacer(modifier = Modifier.height(16.dp))
-        MenuItem(
-            label = stringResource(R.string.about_app_menu_frequently_asked_questions),
-            icon = painterResource(R.drawable.ic_about_app_faq),
-            onClick = onFaqClick,
-        )
-        Spacer(modifier = Modifier.height(16.dp))
+//        MenuItem(
+//            label = stringResource(R.string.about_app_menu_frequently_asked_questions),
+//            icon = painterResource(R.drawable.ic_about_app_faq),
+//            onClick = onFaqClick,
+//        )
+//        Spacer(modifier = Modifier.height(16.dp))
         MenuItem(
             label = stringResource(R.string.about_app_menu_privacy_policy),
             icon = painterResource(R.drawable.ic_about_app_privacy_policy),

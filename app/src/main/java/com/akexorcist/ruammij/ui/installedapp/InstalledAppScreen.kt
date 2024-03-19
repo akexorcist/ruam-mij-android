@@ -79,6 +79,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun InstalledAppRoute(
     preferredInstaller: String?,
+    preferredShowSystemApp: Boolean?,
     viewModel: InstalledAppViewModel = koinViewModel(),
 ) {
     val uiState by viewModel.installedAppUiState.collectAsStateWithLifecycle()
@@ -90,6 +91,7 @@ fun InstalledAppRoute(
     LaunchedEffect(Unit) {
         viewModel.loadInstalledApps(
             preferredInstaller = preferredInstaller,
+            preferredShowSystemApp = preferredShowSystemApp,
         )
     }
 
@@ -126,7 +128,12 @@ fun InstalledAppRoute(
                 data = Uri.parse("package:$packageName")
             })
         },
-        onRecheckClick = { viewModel.loadInstalledApps(preferredInstaller = null) },
+        onRecheckClick = {
+            viewModel.loadInstalledApps(
+                preferredInstaller = null,
+                preferredShowSystemApp = null,
+            )
+        },
         onDisplayOptionClick = { showDisplayOption = true },
     )
 }

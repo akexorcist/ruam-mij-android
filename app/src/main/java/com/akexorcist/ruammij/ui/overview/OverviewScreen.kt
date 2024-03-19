@@ -105,7 +105,12 @@ fun OverviewRoute(
             activity.startActivity(intent)
         },
         onAccessibilityAppClick = { navController.navigateToAccessibility() },
-        onUnverifiedInstallerClick = { installer -> navController.navigateToInstalledApp(installer = installer) },
+        onUnverifiedInstallerClick = { installer ->
+            navController.navigateToInstalledApp(
+                installer = installer,
+                showSystemApp = true,
+            )
+        },
     )
 }
 

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">รวมมิจ</string>
     <string name="app_description">รวมสารพัดข้อมูลเพื่อช่วยให้คุณพ้นภัยจากมิจฉาชีพ</string>
     <string name="overview_title">ภาพรวมความปลอดภัยของอุปกรณ์</string>
@@ -45,9 +45,9 @@
     <string name="installed_app_loading_title">@string/overview_loading_title</string>
     <string name="installed_app_loading_description">@string/overview_loading_description</string>
     <string name="installed_app_installer_unknown">ไม่มีข้อมูลผู้ติดตั้งรายนี้</string>
-    <plurals name="installed_app_installer_amount">
-        <item quantity="one">พบ %d แอปที่ติดตั้งจากผู้ติดตั้งรายนี้</item>
-        <item quantity="other">พบ %d แอปที่ติดตั้งจากผู้ติดตั้งรายนี้</item>
+    <plurals name="installed_app_installer_amount" tools:ignore="UnusedQuantity">
+        <item quantity="one">พบ %1$d แอปที่ติดตั้งจากผู้ติดตั้งรายนี้</item>
+        <item quantity="other">พบ %1$d แอปที่ติดตั้งจากผู้ติดตั้งรายนี้</item>
     </plurals>
     <string name="installed_app_display_option_title">ตั้งค่าการแสดงผล</string>
     <string name="installed_app_display_option_description">ตัวเลือกเพื่อช่วยในการแสดงผลรายชื่อแอป</string>

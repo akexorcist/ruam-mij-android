@@ -5,6 +5,7 @@ import android.hardware.display.DisplayManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.akexorcist.ruammij.data.InstalledApp
 import com.akexorcist.ruammij.ui.RuamMijApp
 import com.akexorcist.ruammij.ui.rememberAppState
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContent {
             RuamMijTheme {

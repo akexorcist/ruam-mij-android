@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 @Suppress("MemberVisibilityCanBePrivate")
 object Colors {
     val LightPrimary10 = Color(0xFFF5F7FC)
-    val LightPrimary50 = Color(0xFFe8EBF8)
+    val LightPrimary50 = Color(0xFFE8EBF8)
     val LightPrimary100 = Color(0xFFC5CCEE)
     val LightPrimary200 = Color(0xFF9EACE3)
     val LightPrimary300 = Color(0xFF778BD7)

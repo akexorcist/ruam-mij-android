@@ -46,8 +46,8 @@
     <string name="installed_app_loading_description">@string/overview_loading_description</string>
     <string name="installed_app_installer_unknown">No information about this installer</string>
     <plurals name="installed_app_installer_amount">
-        <item quantity="one">Found %d app installed by this installer</item>
-        <item quantity="other">Found %d apps installed by this installer</item>
+        <item quantity="one">Found %1$d app installed by this installer</item>
+        <item quantity="other">Found %1$d apps installed by this installer</item>
     </plurals>
     <string name="installed_app_display_option_title">Display options</string>
     <string name="installed_app_display_option_description">Options to display the apps list</string>

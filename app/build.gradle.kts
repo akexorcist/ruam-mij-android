@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.compose.navigation)
     implementation(libs.accompanist.drawable.painter)
+    implementation(libs.androidx.splashscreen)
 
     coreLibraryDesugaring(libs.desugar)
 }

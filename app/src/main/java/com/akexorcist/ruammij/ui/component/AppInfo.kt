@@ -71,7 +71,7 @@ fun AppInfoContent(
                         modifier = Modifier.size(18.dp),
                         painter = painterResource(R.drawable.ic_open_in_settings),
                         contentDescription = stringResource(R.string.button_open_in_setting_description),
-                        tint = MaterialTheme.colorScheme.onSurface,
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
                     )
                 }
             }
@@ -136,7 +136,7 @@ private fun AppInfoContentPreview() {
     RuamMijTheme {
         Box(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.surface)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(16.dp),
         ) {
             AppInfoContent(
@@ -161,7 +161,7 @@ private fun SystemAppInfoContentPreview() {
     RuamMijTheme {
         Box(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.surface)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(16.dp),
         ) {
             AppInfoContent(

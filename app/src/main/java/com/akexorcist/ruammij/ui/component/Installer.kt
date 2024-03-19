@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.common.Installers
-import com.akexorcist.ruammij.ui.theme.Colors
+import com.akexorcist.ruammij.ui.theme.MaterialAdditionColorScheme
 
 @Composable
 fun AppInstaller(packageName: String?) {
@@ -67,7 +67,7 @@ private fun VerifiedInstaller(
             modifier = Modifier.size(16.dp),
             painter = rememberVectorPainter(Icons.Filled.CheckCircle),
             contentDescription = stringResource(R.string.description_safe),
-            tint = Colors.Green500,
+            tint = MaterialAdditionColorScheme.colorScheme.success,
         )
         Spacer(modifier = Modifier.width(4.dp))
         LabelText(text = name)
@@ -82,7 +82,7 @@ private fun UnverifiedInstaller(
         modifier = Modifier
             .border(
                 width = 1.dp,
-                color = Colors.Amber700,
+                color = MaterialAdditionColorScheme.colorScheme.warning,
                 shape = RoundedCornerShape(6.dp)
             )
             .padding(horizontal = 4.dp, vertical = 2.dp),
@@ -92,7 +92,7 @@ private fun UnverifiedInstaller(
             modifier = Modifier.size(16.dp),
             painter = rememberVectorPainter(Icons.Filled.Info),
             contentDescription = stringResource(R.string.description_unsafe),
-            tint = Colors.Amber700,
+            tint = MaterialAdditionColorScheme.colorScheme.warning,
         )
         Spacer(modifier = Modifier.width(4.dp))
         LabelText(text = name)

@@ -193,8 +193,9 @@ private fun ContributorBottomSheet(
     onDismissRequest: () -> Unit,
 ) {
     ModalBottomSheet(
-        onDismissRequest = onDismissRequest,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        onDismissRequest = onDismissRequest,
     ) {
         ContributorContent(
             onCloseClick = onDismissRequest,
@@ -272,8 +273,9 @@ private fun PrivacyPolicyBottomSheet(
     onDismissRequest: () -> Unit,
 ) {
     ModalBottomSheet(
-        onDismissRequest = onDismissRequest,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        onDismissRequest = onDismissRequest,
     ) {
         PrivacyPolicyContent(
             onCloseClick = onDismissRequest,

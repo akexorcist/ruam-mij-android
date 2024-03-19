@@ -10,6 +10,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -21,6 +22,7 @@ import androidx.navigation.NavDestination
 import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.ui.aboutapp.ABOUT_APP_ROUTE
 import com.akexorcist.ruammij.ui.accessibility.ACCESSIBILITY_ROUTE
+import com.akexorcist.ruammij.ui.component.BoldLabelText
 import com.akexorcist.ruammij.ui.component.LabelText
 import com.akexorcist.ruammij.ui.installedapp.INSTALLED_APP_ROUTE
 import com.akexorcist.ruammij.ui.overview.OVERVIEW_ROUTE
@@ -56,13 +58,18 @@ fun RowScope.BottomMenuItem(
     onDestinationSelected: (BottomMenuDestination) -> Unit,
 ) {
     NavigationBarItem(
+        colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = MaterialTheme.colorScheme.primary,
+            selectedTextColor = MaterialTheme.colorScheme.primary,
+            indicatorColor = MaterialTheme.colorScheme.primaryContainer,
+            unselectedIconColor = MaterialTheme.colorScheme.tertiary,
+            unselectedTextColor = MaterialTheme.colorScheme.tertiary,
+            disabledIconColor = MaterialTheme.colorScheme.surface,
+            disabledTextColor = MaterialTheme.colorScheme.surface,
+        ),
         label = {
-            LabelText(
+            BoldLabelText(
                 text = stringResource(destination.label),
-                color = when (selected) {
-                    true -> MaterialTheme.colorScheme.primary
-                    false -> MaterialTheme.colorScheme.outline
-                },
                 textAlign = TextAlign.Center,
             )
         },
@@ -71,10 +78,6 @@ fun RowScope.BottomMenuItem(
                 modifier = Modifier.size(24.dp),
                 painter = painterResource(destination.icon),
                 contentDescription = stringResource(destination.label),
-                tint = when (selected) {
-                    true -> MaterialTheme.colorScheme.primary
-                    false -> MaterialTheme.colorScheme.outline
-                },
             )
         },
         onClick = { onDestinationSelected(destination) },

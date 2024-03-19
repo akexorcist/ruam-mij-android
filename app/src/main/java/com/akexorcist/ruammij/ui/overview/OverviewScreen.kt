@@ -8,7 +8,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -67,6 +66,7 @@ import com.akexorcist.ruammij.ui.component.TitleText
 import com.akexorcist.ruammij.ui.installedapp.navigateToInstalledApp
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.Colors
+import com.akexorcist.ruammij.ui.theme.MaterialAdditionColorScheme
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.koinActivityViewModel
 import com.akexorcist.ruammij.utility.toReadableDatetime
@@ -265,10 +265,8 @@ private fun DeviceConfigItem(
         Spacer(modifier = Modifier.weight(1f))
         Badge(
             containerColor = when {
-                isSystemInDarkTheme() && enabled == true -> Colors.Green700
-                isSystemInDarkTheme() && enabled == false -> Colors.BlueGray700
-                !isSystemInDarkTheme() && enabled == true -> Colors.Green300
-                else -> Colors.BlueGray100
+                enabled == true -> MaterialAdditionColorScheme.colorScheme.successContainer
+                else -> MaterialTheme.colorScheme.tertiaryContainer
             }
         ) {
             Box(
@@ -362,12 +360,12 @@ private fun UnverifiedInstalledAppItem(
             modifier = Modifier.size(24.dp),
             painter = rememberVectorPainter(Icons.Outlined.Warning),
             contentDescription = stringResource(R.string.description_unsafe),
-            tint = Colors.Amber700,
+            tint = MaterialAdditionColorScheme.colorScheme.warning,
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column(modifier = Modifier.weight(1f)) {
             BoldBodyText(text = installer ?: stringResource(R.string.installed_app_installer_unknown))
-            BodyText(text = pluralStringResource(R.plurals.installed_app_installer_amount, appCount))
+            BodyText(text = pluralStringResource(R.plurals.installed_app_installer_amount, appCount, appCount))
         }
         Icon(
             modifier = Modifier.size(24.dp),
@@ -432,10 +430,7 @@ private fun EmptyAppItem(
             modifier = Modifier
                 .size(24.dp)
                 .background(
-                    color = when (isSystemInDarkTheme()) {
-                        true -> Colors.Green700
-                        false -> Colors.Green300
-                    },
+                    color = MaterialAdditionColorScheme.colorScheme.successContainer,
                     shape = CircleShape,
                 ),
             contentAlignment = Alignment.Center,
@@ -506,9 +501,9 @@ private fun MediaProjectionAppItem(
                     ),
                     color = when (state) {
                         MediaProjectionState.AUTO_DETECTED,
-                        MediaProjectionState.MANUAL_DETECTED -> Colors.Green700
+                        MediaProjectionState.MANUAL_DETECTED -> MaterialAdditionColorScheme.colorScheme.success
 
-                        MediaProjectionState.DEACTIVATED -> Colors.Amber700
+                        MediaProjectionState.DEACTIVATED -> MaterialAdditionColorScheme.colorScheme.warning
                     }
                 )
                 Spacer(modifier = Modifier.width(2.dp))

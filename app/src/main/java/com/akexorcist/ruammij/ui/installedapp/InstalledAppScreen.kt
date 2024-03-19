@@ -37,6 +37,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -51,6 +52,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -306,8 +308,9 @@ private fun DisplayOptionBottomSheet(
     }
 
     ModalBottomSheet(
-        onDismissRequest = onDismissRequest,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        onDismissRequest = onDismissRequest,
     ) {
         DisplayOptionContent(
             sortBy = currentSortBy,
@@ -506,7 +509,7 @@ private fun OptionItem(
                 modifier = Modifier.size(18.dp),
                 painter = rememberVectorPainter(Icons.Outlined.Check),
                 contentDescription = stringResource(R.string.description_checked),
-                tint = MaterialTheme.colorScheme.onSurface,
+                tint = MaterialTheme.colorScheme.onSecondary,
             )
         }
     },
@@ -517,6 +520,15 @@ private fun OptionItem(
         onClick = onClick,
         leadingIcon = leadingIcon,
         label = { BodyText(text = label) },
+        colors = FilterChipDefaults.filterChipColors(
+            containerColor = Color.Transparent,
+            labelColor = MaterialTheme.colorScheme.onBackground,
+            iconColor = MaterialTheme.colorScheme.onBackground,
+            selectedContainerColor = MaterialTheme.colorScheme.secondary,
+            selectedLabelColor = MaterialTheme.colorScheme.onSecondary,
+            selectedLeadingIconColor = MaterialTheme.colorScheme.onSecondary,
+            selectedTrailingIconColor = MaterialTheme.colorScheme.onSecondary,
+        ),
     )
 }
 
@@ -557,7 +569,7 @@ private fun InstallerOptionItem(
                     modifier = Modifier.size(18.dp),
                     painter = rememberVectorPainter(Icons.Outlined.Check),
                     contentDescription = stringResource(R.string.description_checked),
-                    tint = MaterialTheme.colorScheme.onSurface,
+                    tint = MaterialTheme.colorScheme.onSecondary,
                 )
             }
         },
@@ -588,6 +600,15 @@ private fun InstallerOptionItem(
                 }
             }
         },
+        colors = FilterChipDefaults.filterChipColors(
+            containerColor = Color.Transparent,
+            labelColor = MaterialTheme.colorScheme.onBackground,
+            iconColor = MaterialTheme.colorScheme.onBackground,
+            selectedContainerColor = MaterialTheme.colorScheme.secondary,
+            selectedLabelColor = MaterialTheme.colorScheme.onSecondary,
+            selectedLeadingIconColor = MaterialTheme.colorScheme.onSecondary,
+            selectedTrailingIconColor = MaterialTheme.colorScheme.onSecondary,
+        ),
     )
 }
 

@@ -6,7 +6,6 @@ import android.net.Uri
 import android.provider.Settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -47,7 +46,7 @@ import com.akexorcist.ruammij.ui.component.LoadingContent
 import com.akexorcist.ruammij.ui.component.OutlinedButtonWithIcon
 import com.akexorcist.ruammij.ui.component.SectionCard
 import com.akexorcist.ruammij.ui.component.TitleText
-import com.akexorcist.ruammij.ui.theme.Colors
+import com.akexorcist.ruammij.ui.theme.MaterialAdditionColorScheme
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -238,10 +237,7 @@ private fun EmptyAppItem(
             modifier = Modifier
                 .size(24.dp)
                 .background(
-                    color = when (isSystemInDarkTheme()) {
-                        true -> Colors.Green700
-                        false -> Colors.Green300
-                    },
+                    color = MaterialAdditionColorScheme.colorScheme.successContainer,
                     shape = CircleShape,
                 ),
             contentAlignment = Alignment.Center,

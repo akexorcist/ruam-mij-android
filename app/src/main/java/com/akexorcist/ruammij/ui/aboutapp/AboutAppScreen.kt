@@ -379,6 +379,7 @@ private fun getContributorList(): List<String> = listOf(
     "Sorakrich Oanmanee",
     "เอกลักษณ์ ต่อติด",
     "Kritsadin Rayanakorn",
+    "Tipatai Puthanukunkit",
 )
 
 data class PageContent(

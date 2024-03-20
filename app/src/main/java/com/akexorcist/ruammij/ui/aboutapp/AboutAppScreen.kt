@@ -52,6 +52,7 @@ import com.akexorcist.ruammij.ui.component.BodyText
 import com.akexorcist.ruammij.ui.component.BoldBodyText
 import com.akexorcist.ruammij.ui.component.DescriptionText
 import com.akexorcist.ruammij.ui.component.HeadlineText
+import com.akexorcist.ruammij.ui.component.LanguageDropdownButton
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 
@@ -102,7 +103,13 @@ private fun AboutAppScreen(
             .verticalScroll(state = rememberScrollState()),
     ) {
         Header()
+
         Spacer(modifier = Modifier.height(16.dp))
+
+        LanguageDropdownButton()
+
+        Spacer(modifier = Modifier.height(16.dp))
+
 //        MenuItem(
 //            label = stringResource(R.string.about_app_menu_frequently_asked_questions),
 //            icon = painterResource(R.drawable.ic_about_app_faq),

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Ruam Mij</string>
     <string name="app_description">A collection (Ruam) of information to help you avoid scammers (Mij)</string>
+    <string name="language">Language</string>
     <string name="overview_title">Device Privacy Overview</string>
     <string name="overview_subtitle">Overall privacy details for device at risk of being controlled by unsafe apps</string>
     <string name="overview_loading_title">Scanning all apps</string>

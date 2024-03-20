@@ -42,8 +42,7 @@ class MainActivity : AppCompatActivity() {
         override fun onDisplayAdded(displayId: Int) {
             val display = displayManager.getDisplay(displayId) ?: return
             val packageName = display.getOwnerPackageName() ?: return
-            val app = getInstalledApp(packageName) ?: return
-            sharedEventViewModel.onMediaProjectionDetected(app, displayId)
+            sharedEventViewModel.onMediaProjectionDetected(packageName, displayId)
         }
 
         override fun onDisplayRemoved(displayId: Int) {
@@ -51,14 +50,5 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onDisplayChanged(displayId: Int) = Unit
-    }
-
-    private fun getInstalledApp(packageName: String): InstalledApp? {
-        return try {
-            packageManager.getPackageInfo(packageName, 0).toInstalledApp(packageManager)
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-            null
-        }
     }
 }

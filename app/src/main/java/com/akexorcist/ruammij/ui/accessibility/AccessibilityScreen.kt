@@ -37,6 +37,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.akexorcist.ruammij.R
+import com.akexorcist.ruammij.common.Installer
+import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.data.InstalledApp
 import com.akexorcist.ruammij.ui.component.AppInfoContent
 import com.akexorcist.ruammij.ui.component.BodyText
@@ -283,7 +285,11 @@ private fun RunningAccessibilityServiceAppsPreview() {
                     appVersion = "1.0.0 (1234)",
                     systemApp = false,
                     installedAt = System.currentTimeMillis(),
-                    installer = "com.android.vending",
+                    installer = Installer(
+                        name = "Google Play",
+                        packageName = "com.android.vending",
+                        verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    ),
                 ),
                 InstalledApp(
                     name = "Accessibility Service",
@@ -292,7 +298,11 @@ private fun RunningAccessibilityServiceAppsPreview() {
                     appVersion = "1.0.0.1234567890123456789012345678901234567890 (1234)",
                     systemApp = true,
                     installedAt = System.currentTimeMillis(),
-                    installer = null,
+                    installer = Installer(
+                        name = "OS and ADB",
+                        packageName = null,
+                        verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    ),
                 ),
             ),
             onAppOpenInSettingClick = {},
@@ -324,7 +334,11 @@ private fun InactiveAccessibilityServiceAppsPreview() {
                     appVersion = "1.0.0 (1234)",
                     systemApp = false,
                     installedAt = System.currentTimeMillis(),
-                    installer = "com.android.vending",
+                    installer = Installer(
+                        name = "Google Play",
+                        packageName = "com.android.vending",
+                        verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    ),
                 ),
                 InstalledApp(
                     name = "Accessibility Service",
@@ -333,7 +347,11 @@ private fun InactiveAccessibilityServiceAppsPreview() {
                     appVersion = "1.0.0.1234567890123456789012345678901234567890 (1234)",
                     systemApp = true,
                     installedAt = System.currentTimeMillis(),
-                    installer = null,
+                    installer = Installer(
+                        name = "OS and ADB",
+                        packageName = null,
+                        verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    ),
                 ),
             ),
             onAppOpenInSettingClick = {},

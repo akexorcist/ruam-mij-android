@@ -1,7 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">รวมมิจ</string>
     <string name="app_description">รวมสารพัดข้อมูลเพื่อช่วยให้คุณพ้นภัยจากมิจฉาชีพ</string>
-    <string name="language">ภาษา</string>
     <string name="overview_title">ภาพรวมความปลอดภัยของอุปกรณ์</string>
     <string name="overview_subtitle">รายละเอียดโดยรวมสำหรับความปลอดภัยของอุปกรณ์ที่สุ่มเสี่ยงต่อการถูกควบคุมจากแอปที่ไม่ปลอดภัยที่ติดตั้งอยู่ในเครื่อง</string>
     <string name="overview_loading_title">กำลังตรวจสอบแอปทั้งหมด</string>
@@ -67,6 +66,7 @@
     <string name="installed_app_empty">ไม่พบแอปจากการตั้งค่านี้ ลองเปลี่ยนค่าในการแสดงผลเป็นแบบอื่นแทน</string>
 
     <string name="about_app_menu_frequently_asked_questions">คำถามที่พบบ่อย (FAQ)</string>
+    <string name="about_app_menu_language">ภาษา</string>
     <string name="about_app_menu_privacy_policy">นโยบายความเป็นส่วนตัว</string>
     <string name="about_app_menu_open_source_licenses">Open Source Licenses</string>
     <string name="about_app_menu_source_code">Source Code</string>

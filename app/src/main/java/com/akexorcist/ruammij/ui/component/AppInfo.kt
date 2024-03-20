@@ -25,6 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.akexorcist.ruammij.R
+import com.akexorcist.ruammij.common.Installer
+import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.data.InstalledApp
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.toReadableDatetime
@@ -93,9 +95,15 @@ fun AppInfoContent(
             Spacer(modifier = Modifier.height(4.dp))
             AdditionalAppInfo(
                 label = stringResource(R.string.app_info_installed_by),
-                value = app.installer ?: "",
+                value = app.installer.packageName ?: "",
                 verticalAlignment = Alignment.CenterVertically,
-                valueContent = { AppInstaller(app.installer) }
+                valueContent = {
+                    AppInstaller(
+                        name = app.installer.name,
+                        packageName = app.installer.packageName,
+                        verificationStatus = app.installer.verificationStatus,
+                    )
+                }
             )
         }
     }
@@ -145,7 +153,11 @@ private fun AppInfoContentPreview() {
                     packageName = "com.akexorcist.ruammij",
                     appVersion = "1.0.0",
                     installedAt = System.currentTimeMillis(),
-                    installer = "Google Play Store",
+                    installer = Installer(
+                        name = "Google Play",
+                        packageName = "com.android.vending",
+                        verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    ),
                     icon = null,
                     systemApp = false,
                 ),
@@ -170,7 +182,11 @@ private fun SystemAppInfoContentPreview() {
                     packageName = "com.akexorcist.ruammij",
                     appVersion = "1.0.0",
                     installedAt = System.currentTimeMillis(),
-                    installer = "Google Play Store",
+                    installer = Installer(
+                        name = "Google Play",
+                        packageName = "com.android.vending",
+                        verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    ),
                     icon = null,
                     systemApp = true,
                 ),

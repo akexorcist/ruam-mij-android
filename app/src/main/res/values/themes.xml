@@ -12,6 +12,7 @@
 
         <item name="windowSplashScreenBackground">@color/background_light</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_screen</item>
+        <item name="windowSplashScreenAnimationDuration">500</item>
         <item name="android:statusBarColor">@color/status_bar_light</item>
         <item name="android:navigationBarColor">@color/navigation_bar_light</item>
         <item name="android:windowLightStatusBar">true</item>

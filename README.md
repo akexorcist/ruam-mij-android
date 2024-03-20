@@ -6,7 +6,7 @@
 แอปสำหรับตรวจสอบแอปที่น่าสงสัยภายในเครื่องที่สุ่มเสี่ยงต่อความปลอดภัยของผู้ใช้ในด้านต่าง ๆ เช่น แอปที่ถูกติดตั้งจากช่องทางที่ไม่ปลอดภัย หรือการใช้ Accessibility Services ในทางที่ไม่ถูกต้อง เป็นต้น
 
 ## การติดตั้ง
-[ดาวน์โหลดเวอร์ชันล่าสุด](https://github.com/akexorcist/ruam-mij-android/releases/download/1.0.1/app-release.apk)
+[![ดาวน์โหลดเวอร์ชันล่าสุด](image%2Fbutton.png)](https://github.com/akexorcist/ruam-mij-android/releases/download/1.0.1/app-release.apk)
 
 ดาวน์โหลดแอปและติดตั้งผ่านไฟล์ APK ในแต่ละเวอร์ชันได้จากหน้า [Release บน GitHub ของ Repository นี้](https://github.com/akexorcist/ruam-mij-android/releases)
 

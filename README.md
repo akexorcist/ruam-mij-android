@@ -43,5 +43,26 @@
 * ทำ Snapshot Testing
 * ทำ CI/CD ด้วย GitHub Actions เพื่อ Publish App ผ่านหน้า Releases โดยอัตโนมัติ
 
+## คำแนะนำสำหรับการ build debug apk จาก source code โดยตรง (สำหรับทดสอบ app แบบ nightly กรณีทีมงานอัพเดท source code ล่าสุดแต่ยังไม่ปล่อย release )
+ตรวจสอบให้แน่ใจว่าตั้งค่า environment variable `ANDROID_HOME` ให้ชี้ไปยัง Android SDK ที่ถูกต้อง
+และควรตั้งค่า `JAVA_HOME` ให้ชี้ไปยัง JDK ที่ต้องการใช้งานด้วย
+
+```bash
+echo $ANDROID_HOME
+echo $JAVA_HOME
+```
+หลังจาก run command ข้างต้น หากเห็น path ชี้ไปยัง SDK และ JDK ที่ต้องการแล้ว ให้ run command ด้านล่างต่อไปนี้เพื่อ build debug apk สำหรับทดสอบ
+
+```bash
+git clone https://github.com/akexorcist/ruam-mij-android.git
+cd ruam-mij-android
+
+# List all task from gradlew
+./gradlew task
+
+# Build a debug apk
+./gradlew assembleDebug
+```
+
 ## License
 ดูได้ที่ [LICENSE](LICENSE)

@@ -46,7 +46,6 @@
 ## ฟีเจอร์ที่ยังไม่ได้ทำ (สำหรับผู้ที่สนใจเข้ามาร่วมพัฒนาด้วย)
 * เพิ่มเมนู FAQ ในหน้า About App
 * เพิ่มเมนู Open Source License ในหน้า About App
-* Cache apps result เก็บไว้ใน Memory จะได้ไม่ต้องสแกนใหม่ทุกครั้งที่เปลี่ยนหน้าไปมา
 * เก็บประวัติแอปที่เรียกใช้งาน Media Projection เพื่อให้ผู้ใช้ดูย้อนหลังได้
 * รองรับการเปลี่ยนภาษาภายในแอปโดยใช้ Per-app language preferences ใน AppCompat
 * ทำ Snapshot Testing

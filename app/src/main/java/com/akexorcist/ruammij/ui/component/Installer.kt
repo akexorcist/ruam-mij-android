@@ -1,6 +1,7 @@
 package com.akexorcist.ruammij.ui.component
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -24,20 +25,33 @@ import com.akexorcist.ruammij.common.*
 import com.akexorcist.ruammij.ui.theme.MaterialAdditionColorScheme
 
 @Composable
-fun AppInstaller(packageName: String?) {
-    val installer = Installer.fromPackageName(packageName)
-    val verificationStatus = installer?.verificationStatus ?: InstallerVerificationStatus.VERIFIED
-    val name = installer?.readableName ?: packageName ?: stringResource(id = R.string.app_info_installer_unknown)
+fun AppInstaller(
+    name: String?,
+    packageName: String?,
+    verificationStatus: InstallerVerificationStatus,
+) {
     when (verificationStatus) {
-        InstallerVerificationStatus.VERIFIED -> VerifiedInstaller(name)
-        InstallerVerificationStatus.UNVERIFIED -> UnverifiedInstaller(name)
-        InstallerVerificationStatus.SIDE_LOAD -> SideloadInstaller(name)
+        InstallerVerificationStatus.VERIFIED -> VerifiedInstaller(
+            name = name,
+            packageName = packageName,
+        )
+
+        InstallerVerificationStatus.UNVERIFIED -> UnverifiedInstaller(
+            name = name,
+            packageName = packageName,
+        )
+
+        InstallerVerificationStatus.SIDE_LOAD -> SideloadInstaller(
+            name = name,
+            packageName = packageName,
+        )
     }
 }
 
 @Composable
 private fun VerifiedInstaller(
-    name: String,
+    name: String?,
+    packageName: String?,
 ) {
     Row(
         modifier = Modifier
@@ -56,13 +70,21 @@ private fun VerifiedInstaller(
             tint = MaterialAdditionColorScheme.colorScheme.success,
         )
         Spacer(modifier = Modifier.width(4.dp))
-        LabelText(text = name)
+        Column {
+            if (name != null) {
+                LabelText(text = name)
+            }
+            if (packageName != null) {
+                LabelText(text = packageName)
+            }
+        }
     }
 }
 
 @Composable
 private fun UnverifiedInstaller(
-    name: String,
+    name: String?,
+    packageName: String?,
 ) {
     Row(
         modifier = Modifier
@@ -81,13 +103,21 @@ private fun UnverifiedInstaller(
             tint = MaterialAdditionColorScheme.colorScheme.warning,
         )
         Spacer(modifier = Modifier.width(4.dp))
-        LabelText(text = name)
+        Column {
+            if (name != null) {
+                BoldLabelText(text = name)
+            }
+            if (packageName != null) {
+                LabelText(text = packageName)
+            }
+        }
     }
 }
 
 @Composable
 private fun SideloadInstaller(
-    name: String,
+    name: String?,
+    packageName: String?,
 ) {
     Row(
         modifier = Modifier
@@ -102,10 +132,17 @@ private fun SideloadInstaller(
         Icon(
             modifier = Modifier.size(16.dp),
             painter = rememberVectorPainter(Icons.Filled.Warning),
-            contentDescription = "Danger",
+            contentDescription = stringResource(R.string.description_unsafe),
             tint = MaterialTheme.colorScheme.error,
         )
         Spacer(modifier = Modifier.width(4.dp))
-        LabelText(text = name)
+        Column {
+            if (name != null) {
+                BoldLabelText(text = name)
+            }
+            if (packageName != null) {
+                LabelText(text = packageName)
+            }
+        }
     }
 }

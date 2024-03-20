@@ -2,7 +2,6 @@ package com.akexorcist.ruammij
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akexorcist.ruammij.data.InstalledApp
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -12,12 +11,12 @@ class SharedEventViewModel : ViewModel() {
     val mediaProjectionEvent = _mediaProjectionEvent.receiveAsFlow()
 
     fun onMediaProjectionDetected(
-        app: InstalledApp,
+        packageName: String,
         displayId: Int,
     ) = viewModelScope.launch {
         _mediaProjectionEvent.send(
             AutoMediaProjectionDetectionEvent.Detected(
-                app = app,
+                packageName = packageName,
                 displayId = displayId,
             )
         )
@@ -36,7 +35,7 @@ class SharedEventViewModel : ViewModel() {
 
 sealed class AutoMediaProjectionDetectionEvent {
     data class Detected(
-        val app: InstalledApp,
+        val packageName: String,
         val displayId: Int,
     ) : AutoMediaProjectionDetectionEvent()
 

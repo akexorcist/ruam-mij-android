@@ -13,41 +13,43 @@ import androidx.compose.ui.draw.*
 import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.*
 import androidx.core.os.*
-
-const val ENGLISH_TEXT = "English"
-const val THAI_TEXT = "ไทย"
+import com.akexorcist.ruammij.R
 
 @Composable
 fun LanguageDropdownButton() {
     var expanded by remember { mutableStateOf(false) }
     val selectedLanguage = AppCompatDelegate.getApplicationLocales().toLanguageTags()
 
-    Row(modifier = Modifier
-        .border(
-            width = 1.dp,
-            color = MaterialTheme.colorScheme.outline,
-            shape = RoundedCornerShape(6.dp),
-        )
-        .clip(shape = RoundedCornerShape(6.dp))
-        .clickable { expanded = true }
-        .padding(12.dp),
-        verticalAlignment = Alignment.CenterVertically) {
-
-
-        BodyText(text = stringResource(id = com.akexorcist.ruammij.R.string.language))
+    Row(
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.outline,
+                shape = RoundedCornerShape(6.dp),
+            )
+            .clip(shape = RoundedCornerShape(6.dp))
+            .clickable { expanded = true }
+            .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        BodyText(text = stringResource(R.string.about_app_menu_language))
 
         Spacer(modifier = Modifier.weight(1f))
 
         Box {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                BoldBodyText(text = if (selectedLanguage.contains("th")) THAI_TEXT else ENGLISH_TEXT)
-
+                BoldBodyText(
+                    text = when (selectedLanguage.contains("th")) {
+                        true -> stringResource(R.string.about_app_language_thai)
+                        false -> stringResource(R.string.about_app_language_english)
+                    }
+                )
 
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Icon(
                     modifier = Modifier.size(24.dp),
-                    contentDescription = "language",
+                    contentDescription = stringResource(R.string.about_app_menu_language),
                     tint = MaterialTheme.colorScheme.onSurface,
                     imageVector = Icons.Rounded.ArrowDropDown,
                 )
@@ -57,17 +59,21 @@ fun LanguageDropdownButton() {
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
             ) {
-                DropdownMenuItem(onClick = {
-                    expanded = false
-                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
-                }, text = { BoldBodyText(ENGLISH_TEXT) })
-                DropdownMenuItem(onClick = {
-                    expanded = false
-                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("th"))
-                }, text = { BoldBodyText(THAI_TEXT) })
+                DropdownMenuItem(
+                    onClick = {
+                        expanded = false
+                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
+                    },
+                    text = { BoldBodyText(text = stringResource(R.string.about_app_language_english)) },
+                )
+                DropdownMenuItem(
+                    onClick = {
+                        expanded = false
+                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("th"))
+                    },
+                    text = { BoldBodyText(text = stringResource(R.string.about_app_language_thai)) },
+                )
             }
         }
     }
-
-
 }

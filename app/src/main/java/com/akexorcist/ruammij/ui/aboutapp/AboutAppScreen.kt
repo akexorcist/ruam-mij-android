@@ -48,6 +48,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.akexorcist.ruammij.BuildConfig
 import com.akexorcist.ruammij.R
+import com.akexorcist.ruammij.common.Contributors
 import com.akexorcist.ruammij.ui.component.BodyText
 import com.akexorcist.ruammij.ui.component.BoldBodyText
 import com.akexorcist.ruammij.ui.component.DescriptionText
@@ -214,7 +215,7 @@ private fun ContributorBottomSheet(
 private fun ContributorContent(
     onCloseClick: () -> Unit,
 ) {
-    val contributors by remember { mutableStateOf(getContributorList()) }
+    val contributors by remember { mutableStateOf(Contributors.contributors) }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -379,17 +380,6 @@ private fun PrivacyPolicyContent(
         Spacer(modifier = Modifier.height(16.dp))
     }
 }
-
-private fun getContributorList(): List<String> = listOf(
-    "9arm",
-    "Somkiat Khitwongwattana",
-    "Sorakrich Oanmanee",
-    "เอกลักษณ์ ต่อติด",
-    "Kritsadin Rayanakorn",
-    "Tipatai Puthanukunkit",
-    "Dheerapat Tookkane",
-    "Kajornsak Peerapathananont",
-)
 
 data class PageContent(
     val items: List<Item>

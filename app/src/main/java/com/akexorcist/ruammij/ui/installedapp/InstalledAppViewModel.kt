@@ -31,10 +31,13 @@ class InstalledAppViewModel(
             val installers = installedApps
                 .distinctBy { app -> app.installer }
                 .map { app -> app.installer }
-                .sortedBy { installer -> installer }
+                .sortedBy { installer -> installer.packageName }
 
             val displayOption: DisplayOption = it.displayOption.let { option ->
-                option.copy(installers = preferredInstaller?.let { listOf(it) } ?: installers)
+                option.copy(installers = preferredInstaller
+                    ?.let { installer -> listOf(installer) }
+                    ?: installers.map { installer -> installer.packageName }
+                )
             }.copy(showSystemApp = preferredShowSystemApp ?: false)
 
             InstalledAppUiState.InstalledAppLoaded(
@@ -65,8 +68,8 @@ class InstalledAppViewModel(
             else -> this.filterNot { it.systemApp }
         }.let { apps ->
             when {
-                displayOption.hideVerifiedInstaller -> apps.filterNot { isVerifiedInstaller(it.installer) }
-                displayOption.installers.isNotEmpty() -> apps.filter { displayOption.installers.contains(it.installer) }
+                displayOption.hideVerifiedInstaller -> apps.filterNot { it.installer.verificationStatus == InstallerVerificationStatus.VERIFIED }
+                displayOption.installers.isNotEmpty() -> apps.filter { displayOption.installers.contains(it.installer.packageName) }
                 else -> apps
             }
         }.sortedBy {
@@ -74,13 +77,10 @@ class InstalledAppViewModel(
                 SortBy.Name -> it.name
                 SortBy.PackageName -> it.packageName
                 SortBy.InstalledDate -> Instant.ofEpochMilli(it.installedAt ?: 0L).toString()
-                SortBy.Installer -> it.installer
+                SortBy.Installer -> it.installer.packageName
             }
         }
     }
-
-    private fun isVerifiedInstaller(installer: String?): Boolean =
-        Installer.fromPackageName(installer)?.verificationStatus == InstallerVerificationStatus.VERIFIED
 }
 
 sealed class InstalledAppUiState(
@@ -92,7 +92,7 @@ sealed class InstalledAppUiState(
         override val displayOption: DisplayOption,
         val installedApps: List<InstalledApp>,
         val displayInstalledApps: List<InstalledApp>,
-        val installers: List<String?>,
+        val installers: List<Installer>,
     ) : InstalledAppUiState(displayOption)
 }
 

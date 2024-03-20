@@ -10,8 +10,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import org.koin.core.time.*
-import kotlin.system.*
 
 class OverviewViewModel(
     private val deviceRepository: DeviceRepository,
@@ -38,7 +36,7 @@ class OverviewViewModel(
         }
         val unknownInstallerDeferred = async {
             deviceRepository.getInstalledApps(forceRefresh).filter {
-                Installer.fromPackageName(it.installer)?.verificationStatus != InstallerVerificationStatus.VERIFIED
+                it.installer.verificationStatus != InstallerVerificationStatus.VERIFIED
             }
         }
         _overviewUiState.update {
@@ -60,13 +58,17 @@ class OverviewViewModel(
 
         val updateMediaProjectionApps = when (event) {
             is AutoMediaProjectionDetectionEvent.Detected -> {
+                val app = deviceRepository.getInstalledApp(
+                    forceRefresh = false,
+                    packageName = event.packageName,
+                ) ?: return@launch
                 uiState.mediaProjectionApps.map { app ->
-                    when (app.app.packageName == event.app.packageName) {
+                    when (app.app.packageName == event.packageName) {
                         true -> app.copy(state = MediaProjectionState.DEACTIVATED)
                         false -> app
                     }
                 } + MediaProjectionApp(
-                    app = event.app,
+                    app = app,
                     state = MediaProjectionState.AUTO_DETECTED,
                     displayId = event.displayId,
                     updatedAt = System.currentTimeMillis(),

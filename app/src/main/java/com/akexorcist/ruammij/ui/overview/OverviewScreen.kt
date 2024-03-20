@@ -49,6 +49,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.SharedEventViewModel
+import com.akexorcist.ruammij.common.Installer
+import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.data.InstalledApp
 import com.akexorcist.ruammij.ui.accessibility.navigateToAccessibility
 import com.akexorcist.ruammij.ui.component.AppInstaller
@@ -265,7 +267,7 @@ private fun DeviceConfigItem(
         ) {
             Box(
                 modifier = Modifier
-                    .width(60.dp)
+                    .width(96.dp)
                     .padding(horizontal = 4.dp, vertical = 2.dp),
                 contentAlignment = Alignment.Center
             ) {
@@ -316,7 +318,8 @@ private fun UnverifiedInstalledAppGroup(
     if (groups.isNotEmpty()) {
         groups.onEachIndexed { index, (installer, app) ->
             UnverifiedInstalledAppItem(
-                installer = installer,
+                name = installer.name,
+                packageName = installer.packageName,
                 appCount = app.size,
                 onInstallerClick = onInstallerClick,
             )
@@ -333,7 +336,8 @@ private fun UnverifiedInstalledAppGroup(
 
 @Composable
 private fun UnverifiedInstalledAppItem(
-    installer: String?,
+    name: String?,
+    packageName: String?,
     appCount: Int,
     onInstallerClick: (String?) -> Unit,
 ) {
@@ -346,7 +350,7 @@ private fun UnverifiedInstalledAppItem(
                 shape = RoundedCornerShape(6.dp),
             )
             .clip(shape = RoundedCornerShape(6.dp))
-            .clickable { onInstallerClick(installer) }
+            .clickable { onInstallerClick(packageName) }
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -358,7 +362,10 @@ private fun UnverifiedInstalledAppItem(
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column(modifier = Modifier.weight(1f)) {
-            BoldBodyText(text = installer ?: stringResource(R.string.installed_app_installer_unknown))
+            BoldBodyText(text = name ?: stringResource(R.string.installed_app_installer_unknown))
+            if (packageName != null) {
+                BoldBodyText(text = packageName)
+            }
             BodyText(text = pluralStringResource(R.plurals.installed_app_installer_amount, appCount, appCount))
         }
         Icon(
@@ -477,7 +484,11 @@ private fun MediaProjectionAppItem(
             ) {
                 BoldLabelText(text = stringResource(R.string.app_info_installed_by))
                 Spacer(modifier = Modifier.width(4.dp))
-                AppInstaller(app.installer)
+                AppInstaller(
+                    name = app.installer.name,
+                    packageName = app.installer.packageName,
+                    verificationStatus = app.installer.verificationStatus,
+                )
             }
             Spacer(modifier = Modifier.height(4.dp))
             Column(
@@ -650,7 +661,11 @@ private fun CheckedContentPreview() {
                                 icon = null,
                                 systemApp = false,
                                 installedAt = System.currentTimeMillis(),
-                                installer = "com.akexorcist.appstore",
+                                installer = Installer(
+                                    name = "App Store",
+                                    packageName = "com.akexorcist.appstore",
+                                    verificationStatus = InstallerVerificationStatus.VERIFIED,
+                                ),
                             ),
                             state = MediaProjectionState.AUTO_DETECTED,
                             displayId = 1,
@@ -663,7 +678,11 @@ private fun CheckedContentPreview() {
                                 icon = null,
                                 systemApp = false,
                                 installedAt = System.currentTimeMillis(),
-                                installer = "com.akexorcist.appstore",
+                                installer = Installer(
+                                    name = "App Store",
+                                    packageName = "com.akexorcist.appstore",
+                                    verificationStatus = InstallerVerificationStatus.VERIFIED,
+                                ),
                             ),
                             state = MediaProjectionState.DEACTIVATED,
                             displayId = 2,
@@ -678,7 +697,11 @@ private fun CheckedContentPreview() {
                             icon = null,
                             systemApp = false,
                             installedAt = System.currentTimeMillis(),
-                            installer = "com.akexorcist.appstore",
+                            installer = Installer(
+                                name = "App Store",
+                                packageName = "com.akexorcist.appstore",
+                                verificationStatus = InstallerVerificationStatus.VERIFIED,
+                            ),
                         ),
                     ),
                     unknownInstaller = listOf(
@@ -689,7 +712,11 @@ private fun CheckedContentPreview() {
                             icon = null,
                             systemApp = false,
                             installedAt = System.currentTimeMillis(),
-                            installer = "com.akexorcist.appstore",
+                            installer = Installer(
+                                name = "App Store",
+                                packageName = "com.akexorcist.appstore",
+                                verificationStatus = InstallerVerificationStatus.VERIFIED,
+                            ),
                         ),
                     ),
                 ),
@@ -727,7 +754,11 @@ private fun UnverifiedInstalledAppSectionPreview() {
                     icon = null,
                     systemApp = false,
                     installedAt = System.currentTimeMillis(),
-                    installer = "com.akexorcist.appstore",
+                    installer = Installer(
+                        name = "App Store",
+                        packageName = "com.akexorcist.appstore",
+                        verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    ),
                 ),
                 InstalledApp(
                     name = "App 2",
@@ -736,7 +767,11 @@ private fun UnverifiedInstalledAppSectionPreview() {
                     icon = null,
                     systemApp = false,
                     installedAt = System.currentTimeMillis(),
-                    installer = "com.akexorcist.appstore",
+                    installer = Installer(
+                        name = "App Store",
+                        packageName = "com.akexorcist.appstore",
+                        verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    ),
                 ),
                 InstalledApp(
                     name = "App 3",
@@ -745,7 +780,11 @@ private fun UnverifiedInstalledAppSectionPreview() {
                     icon = null,
                     systemApp = false,
                     installedAt = System.currentTimeMillis(),
-                    installer = "com.external.appstore",
+                    installer = Installer(
+                        name = "App Store",
+                        packageName = "com.akexorcist.appstore",
+                        verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    ),
                 ),
             ),
             onUnverifiedInstallerClick = {},
@@ -778,7 +817,11 @@ private fun MediaProjectionSectionPreview() {
                         icon = null,
                         systemApp = false,
                         installedAt = System.currentTimeMillis(),
-                        installer = "",
+                        installer = Installer(
+                            name = "App Store",
+                            packageName = "com.akexorcist.appstore",
+                            verificationStatus = InstallerVerificationStatus.VERIFIED,
+                        ),
                     ),
                     state = MediaProjectionState.MANUAL_DETECTED,
                     displayId = 1,
@@ -791,7 +834,11 @@ private fun MediaProjectionSectionPreview() {
                         icon = null,
                         systemApp = false,
                         installedAt = System.currentTimeMillis(),
-                        installer = "",
+                        installer = Installer(
+                            name = "App Store",
+                            packageName = "com.akexorcist.appstore",
+                            verificationStatus = InstallerVerificationStatus.VERIFIED,
+                        ),
                     ),
                     state = MediaProjectionState.AUTO_DETECTED,
                     displayId = 2,
@@ -825,7 +872,11 @@ private fun RunningAccessibilitySectionPreview() {
                     icon = null,
                     systemApp = false,
                     installedAt = System.currentTimeMillis(),
-                    installer = "",
+                    installer = Installer(
+                        name = "App Store",
+                        packageName = "com.akexorcist.appstore",
+                        verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    ),
                 ),
                 InstalledApp(
                     "Privacy Checker", "com.akexorcist.app2",
@@ -833,7 +884,11 @@ private fun RunningAccessibilitySectionPreview() {
                     icon = null,
                     systemApp = false,
                     installedAt = System.currentTimeMillis(),
-                    installer = "",
+                    installer = Installer(
+                        name = "App Store",
+                        packageName = "com.akexorcist.appstore",
+                        verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    ),
                 ),
             ),
             onAppClick = {},

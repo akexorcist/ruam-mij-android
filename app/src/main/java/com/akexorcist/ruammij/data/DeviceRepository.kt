@@ -14,21 +14,22 @@ import com.akexorcist.ruammij.ui.overview.MediaProjectionState
 import com.akexorcist.ruammij.utility.getOwnerPackageName
 import com.akexorcist.ruammij.utility.toInstalledApp
 import kotlinx.coroutines.withContext
+import kotlin.reflect.*
 
 interface DeviceRepository {
-    suspend fun getInstalledApps(): List<InstalledApp>
+    suspend fun getInstalledApps(forceRefresh: Boolean = false): List<InstalledApp>
 
-    suspend fun getEnabledAccessibilityApps(): List<InstalledApp>
+    suspend fun getEnabledAccessibilityApps(forceRefresh: Boolean = false): List<InstalledApp>
 
-    suspend fun getAccessibilitySupportApps(): List<InstalledApp>
+    suspend fun getAccessibilitySupportApps(forceRefresh: Boolean = false): List<InstalledApp>
+
+    suspend fun getRunningMediaProjectionApps(forceRefresh: Boolean = false): List<MediaProjectionApp>
 
     suspend fun isUsbDebuggingEnabled(): Boolean
 
     suspend fun isWirelessDebuggingEnabled(): Boolean?
 
     suspend fun isDeveloperOptionsEnabled(): Boolean
-
-    suspend fun getRunningMediaProjectionApps(): List<MediaProjectionApp>
 }
 
 class DefaultDeviceRepository(
@@ -44,39 +45,66 @@ class DefaultDeviceRepository(
     private val displayManager: DisplayManager
         get() = context.getSystemService(DisplayManager::class.java)
 
-    override suspend fun getInstalledApps(): List<InstalledApp> = withContext(dispatcherProvider.io()) {
-        packageManager.getInstalledApplications(0).mapNotNull {
-            try {
-                packageManager.getPackageInfo(it.packageName, 0).toInstalledApp(packageManager)
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-                null
+    private var cacheInstalledApps: List<InstalledApp>? = null
+
+    override suspend fun getInstalledApps(forceRefresh: Boolean): List<InstalledApp> =
+        getCachedDataOrFetch(this::cacheInstalledApps, forceRefresh) {
+            packageManager.getInstalledApplications(0).mapNotNull {
+                runCatching {
+                    packageManager.getPackageInfo(it.packageName, 0).toInstalledApp(packageManager)
+                }.getOrNull()
             }
         }
-    }
 
-    override suspend fun getEnabledAccessibilityApps(): List<InstalledApp> = withContext(dispatcherProvider.io()) {
-        accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
-            ?.mapNotNull {
-                val packageName = it.resolveInfo.serviceInfo.packageName
-                try {
-                    packageManager.getPackageInfo(packageName, 0).toInstalledApp(packageManager)
-                } catch (e: PackageManager.NameNotFoundException) {
-                    e.printStackTrace()
-                    null
+    private var cacheEnabledAccessibilityApps: List<InstalledApp>? = null
+
+    override suspend fun getEnabledAccessibilityApps(forceRefresh: Boolean): List<InstalledApp> =
+        getCachedDataOrFetch(::cacheEnabledAccessibilityApps, forceRefresh) {
+            accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
+                .orEmpty()
+                .mapNotNull { info ->
+                    runCatching {
+                        info.resolveInfo.serviceInfo.packageName.let { packageManager.getPackageInfo(it, 0) }
+                            .toInstalledApp(packageManager)
+                    }.getOrNull()
                 }
-            }
-            ?: listOf()
-    }
+        }
 
-    override suspend fun getAccessibilitySupportApps(): List<InstalledApp> = withContext(dispatcherProvider.io()) {
-        packageManager.getInstalledPackages(PackageManager.GET_SERVICES)
-            .filter { packageInfo ->
-                packageInfo.services
-                    ?.any { serviceInfo -> serviceInfo.permission == Manifest.permission.BIND_ACCESSIBILITY_SERVICE }
-                    ?: false
-            }.map { it.toInstalledApp(packageManager) }
-    }
+    private var cacheAccessibilitySupportApps: List<InstalledApp>? = null
+
+    override suspend fun getAccessibilitySupportApps(forceRefresh: Boolean): List<InstalledApp> =
+        getCachedDataOrFetch(::cacheAccessibilitySupportApps, forceRefresh) {
+            packageManager.getInstalledPackages(PackageManager.GET_SERVICES)
+                .filter { packageInfo ->
+                    packageInfo.services
+                        ?.any { serviceInfo -> serviceInfo.permission == Manifest.permission.BIND_ACCESSIBILITY_SERVICE }
+                        ?: false
+                }.map { it.toInstalledApp(packageManager) }
+        }
+
+    private var cacheRunningMediaProjectionApps: List<MediaProjectionApp>? = null
+
+    override suspend fun getRunningMediaProjectionApps(forceRefresh: Boolean): List<MediaProjectionApp> =
+        getCachedDataOrFetch(::cacheRunningMediaProjectionApps, forceRefresh) {
+            (1 until 1000).asSequence().mapNotNull { displayId ->
+                displayManager.getDisplay(displayId)
+            }.mapNotNull { display ->
+                display.getOwnerPackageName()?.let { packageName ->
+                    display.displayId to packageName
+                }
+            }.mapNotNull { (displayId, packageName) ->
+                runCatching { packageManager.getPackageInfo(packageName, 0).toInstalledApp(packageManager) }
+                    .getOrNull()
+                    ?.let { app -> displayId to app }
+            }.map { (displayId, app) ->
+                MediaProjectionApp(
+                    app = app,
+                    state = MediaProjectionState.MANUAL_DETECTED,
+                    displayId = displayId,
+                    updatedAt = System.currentTimeMillis(),
+                )
+            }.toList()
+        }
 
     override suspend fun isUsbDebuggingEnabled(): Boolean = withContext(dispatcherProvider.io()) {
         Settings.Secure.getInt(context.contentResolver, Settings.Global.ADB_ENABLED, 0) == 1
@@ -94,27 +122,11 @@ class DefaultDeviceRepository(
         Settings.Secure.getInt(context.contentResolver, Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) == 1
     }
 
-    override suspend fun getRunningMediaProjectionApps(): List<MediaProjectionApp> = withContext(dispatcherProvider.io()) {
-        (1 until 1000).mapNotNull { displayId ->
-            displayManager.getDisplay(displayId)
-        }.mapNotNull { display ->
-            display.getOwnerPackageName()?.let { packageName ->
-                display.displayId to packageName
-            }
-        }.mapNotNull { (displayId, packageName) ->
-            try {
-                packageManager.getPackageInfo(packageName, 0).toInstalledApp(packageManager)
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-                null
-            }?.let { app -> displayId to app }
-        }.map { (displayId, app) ->
-            MediaProjectionApp(
-                app = app,
-                state = MediaProjectionState.MANUAL_DETECTED,
-                displayId = displayId,
-                updatedAt = System.currentTimeMillis(),
-            )
-        }
-    }
+    private suspend inline fun <reified T> getCachedDataOrFetch(
+        cacheProperty: KMutableProperty0<T?>,
+        forceRefresh: Boolean,
+        crossinline fetcher: suspend () -> T
+    ): T =
+        cacheProperty.takeIf { !forceRefresh }?.get()
+            ?: withContext(dispatcherProvider.io()) { fetcher() }.also { cacheProperty.set(it) }
 }

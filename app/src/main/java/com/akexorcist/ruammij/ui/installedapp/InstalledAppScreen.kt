@@ -134,6 +134,7 @@ fun InstalledAppRoute(
             viewModel.loadInstalledApps(
                 preferredInstaller = null,
                 preferredShowSystemApp = null,
+                forceRefresh = true,
             )
         },
         onDisplayOptionClick = { showDisplayOption = true },

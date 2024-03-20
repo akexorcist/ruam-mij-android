@@ -6,10 +6,12 @@ import com.akexorcist.ruammij.AutoMediaProjectionDetectionEvent
 import com.akexorcist.ruammij.common.*
 import com.akexorcist.ruammij.data.DeviceRepository
 import com.akexorcist.ruammij.data.InstalledApp
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import org.koin.core.time.*
+import kotlin.system.*
 
 class OverviewViewModel(
     private val deviceRepository: DeviceRepository,
@@ -20,24 +22,33 @@ class OverviewViewModel(
     )
     val overviewUiState = _overviewUiState.asStateFlow()
 
-    fun checkDevicePrivacy() = viewModelScope.launch {
+    fun checkDevicePrivacy(forceRefresh: Boolean = false) = viewModelScope.launch {
         _overviewUiState.update { OverviewUiState.Loading }
-        val mediaProjectionApps = deviceRepository.getRunningMediaProjectionApps()
         val usbDebugging = deviceRepository.isUsbDebuggingEnabled()
         val wirelessDebugging = deviceRepository.isWirelessDebuggingEnabled()
         val developerOptions = deviceRepository.isDeveloperOptionsEnabled()
-        val runningAccessibilityApps = deviceRepository.getEnabledAccessibilityApps()
-        val unknownInstaller = deviceRepository.getInstalledApps().filter {
-            Installer.fromPackageName(it.installer)?.verificationStatus != InstallerVerificationStatus.VERIFIED
+
+
+        val mediaProjectionAppsDeferred = async {
+            deviceRepository.getRunningMediaProjectionApps(forceRefresh)
+        }
+
+        val runningAccessibilityAppsDeferred = async {
+            deviceRepository.getEnabledAccessibilityApps(forceRefresh)
+        }
+        val unknownInstallerDeferred = async {
+            deviceRepository.getInstalledApps(forceRefresh).filter {
+                Installer.fromPackageName(it.installer)?.verificationStatus != InstallerVerificationStatus.VERIFIED
+            }
         }
         _overviewUiState.update {
             OverviewUiState.Complete(
                 usbDebugging = usbDebugging,
                 wirelessDebugging = wirelessDebugging,
                 developerOptions = developerOptions,
-                mediaProjectionApps = mediaProjectionApps,
-                runningAccessibilityApps = runningAccessibilityApps,
-                unknownInstaller = unknownInstaller,
+                mediaProjectionApps = mediaProjectionAppsDeferred.await(),
+                runningAccessibilityApps = runningAccessibilityAppsDeferred.await(),
+                unknownInstaller = unknownInstallerDeferred.await(),
             )
         }
     }

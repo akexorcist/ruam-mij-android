@@ -1,8 +1,5 @@
 package com.akexorcist.ruammij.ui
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,10 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -50,54 +44,38 @@ import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 @Composable
 fun RuamMijApp(
     appState: AppState,
-    initialUnverifiedInstaller: Boolean = false,
 ) {
-    val context = LocalContext.current
-    val activity = context as Activity
     val navController = appState.navController
-    var showUnverifiedInstaller by remember { mutableStateOf(initialUnverifiedInstaller) }
 
-    if (showUnverifiedInstaller) {
-        UnverifiedInstallerContent(
-            onDownloadButtonClick = {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${context.packageName}"))
-                activity.startActivity(intent)
-            },
-        )
-    } else {
-        Scaffold(
-            bottomBar = {
-                BottomMenu(
-                    currentDestination = appState.currentDestination.toBottomMenuDestination(),
-                    onDestinationSelected = {
-                        when (it) {
-                            BottomMenuDestination.Overview -> navController.navigateToOverview()
-                            BottomMenuDestination.Accessibility -> navController.navigateToAccessibility()
-                            BottomMenuDestination.InstalledApp -> navController.navigateToInstalledApp()
-                            BottomMenuDestination.AboutApp -> navController.navigateToAboutApp()
-                        }
-                    },
-                )
-            },
-            content = { padding ->
-                NavHost(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(padding),
-                    navController = appState.navController,
-                    startDestination = OVERVIEW_ROUTE,
-                ) {
-                    overviewScreen(
-                        navController = navController,
-                        onUnverifiedInstaller = { showUnverifiedInstaller = true },
-                    )
-                    accessibilityScreen()
-                    installedAppScreen()
-                    aboutAppScreen()
-                }
-            },
-        )
-    }
+    Scaffold(
+        bottomBar = {
+            BottomMenu(
+                currentDestination = appState.currentDestination.toBottomMenuDestination(),
+                onDestinationSelected = {
+                    when (it) {
+                        BottomMenuDestination.Overview -> navController.navigateToOverview()
+                        BottomMenuDestination.Accessibility -> navController.navigateToAccessibility()
+                        BottomMenuDestination.InstalledApp -> navController.navigateToInstalledApp()
+                        BottomMenuDestination.AboutApp -> navController.navigateToAboutApp()
+                    }
+                },
+            )
+        },
+        content = { padding ->
+            NavHost(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
+                navController = appState.navController,
+                startDestination = OVERVIEW_ROUTE,
+            ) {
+                overviewScreen(navController = navController)
+                accessibilityScreen()
+                installedAppScreen()
+                aboutAppScreen()
+            }
+        },
+    )
 }
 
 @Composable

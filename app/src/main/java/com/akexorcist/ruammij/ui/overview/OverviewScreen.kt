@@ -3,7 +3,6 @@ package com.akexorcist.ruammij.ui.overview
 import android.app.Activity
 import android.content.Intent
 import android.provider.Settings
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -65,7 +64,6 @@ import com.akexorcist.ruammij.ui.component.SectionCard
 import com.akexorcist.ruammij.ui.component.TitleText
 import com.akexorcist.ruammij.ui.installedapp.navigateToInstalledApp
 import com.akexorcist.ruammij.ui.theme.Buttons
-import com.akexorcist.ruammij.ui.theme.Colors
 import com.akexorcist.ruammij.ui.theme.MaterialAdditionColorScheme
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.koinActivityViewModel
@@ -78,7 +76,6 @@ fun OverviewRoute(
     navController: NavController,
     viewModel: OverviewViewModel = koinViewModel(),
     sharedEventViewModel: SharedEventViewModel = koinActivityViewModel(),
-    onUnverifiedInstaller: () -> Unit,
 ) {
     val activity = LocalContext.current as Activity
     val uiState by viewModel.overviewUiState.collectAsStateWithLifecycle()
@@ -86,13 +83,7 @@ fun OverviewRoute(
 
     LaunchedEffect(Unit) { viewModel.checkDevicePrivacy() }
 
-    LaunchedEffect(uiState) {
-        if (uiState !is OverviewUiState.Unverified) return@LaunchedEffect
-        onUnverifiedInstaller()
-    }
-
     LaunchedEffect(mediaProjectionDetectionEvent) {
-        Log.e("Check", "mediaProjectionDetectionEvent $mediaProjectionDetectionEvent")
         val event = mediaProjectionDetectionEvent ?: return@LaunchedEffect
         viewModel.updateMediaProjectionEventStatus(event = event)
     }
@@ -143,8 +134,6 @@ private fun OverviewScreen(
                     onUnverifiedInstallerClick = onUnverifiedInstallerClick,
                 )
             }
-
-            is OverviewUiState.Unverified -> {}
         }
     }
 }

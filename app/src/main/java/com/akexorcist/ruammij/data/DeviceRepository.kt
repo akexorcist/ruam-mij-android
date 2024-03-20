@@ -8,12 +8,9 @@ import android.hardware.display.DisplayManager
 import android.os.Build
 import android.provider.Settings
 import android.view.accessibility.AccessibilityManager
-import com.akexorcist.ruammij.BuildConfig
 import com.akexorcist.ruammij.common.CoroutineDispatcherProvider
-import com.akexorcist.ruammij.common.Installers
 import com.akexorcist.ruammij.ui.overview.MediaProjectionApp
 import com.akexorcist.ruammij.ui.overview.MediaProjectionState
-import com.akexorcist.ruammij.utility.getInstaller
 import com.akexorcist.ruammij.utility.getOwnerPackageName
 import com.akexorcist.ruammij.utility.toInstalledApp
 import kotlinx.coroutines.withContext
@@ -32,8 +29,6 @@ interface DeviceRepository {
     suspend fun isDeveloperOptionsEnabled(): Boolean
 
     suspend fun getRunningMediaProjectionApps(): List<MediaProjectionApp>
-
-    suspend fun verifyAppInstaller(): Boolean
 }
 
 class DefaultDeviceRepository(
@@ -120,15 +115,6 @@ class DefaultDeviceRepository(
                 displayId = displayId,
                 updatedAt = System.currentTimeMillis(),
             )
-        }
-    }
-
-    override suspend fun verifyAppInstaller(): Boolean {
-        val installer = packageManager.getApplicationInfo(context.packageName, 0).getInstaller(packageManager)
-        return if (BuildConfig.DEBUG) {
-            listOf(Installers.GOOGLE_PLAY, null).contains(installer)
-        } else {
-            Installers.GOOGLE_PLAY == installer
         }
     }
 }

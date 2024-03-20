@@ -13,12 +13,10 @@ fun NavController.navigateToOverview() = navigate(OVERVIEW_ROUTE) {
 
 fun NavGraphBuilder.overviewScreen(
     navController: NavController,
-    onUnverifiedInstaller: () -> Unit,
 ) {
     composable(route = OVERVIEW_ROUTE) {
         OverviewRoute(
             navController = navController,
-            onUnverifiedInstaller = onUnverifiedInstaller,
         )
     }
 }

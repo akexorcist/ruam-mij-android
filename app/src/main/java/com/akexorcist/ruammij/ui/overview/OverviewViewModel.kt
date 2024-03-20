@@ -22,10 +22,6 @@ class OverviewViewModel(
 
     fun checkDevicePrivacy() = viewModelScope.launch {
         _overviewUiState.update { OverviewUiState.Loading }
-        if (!deviceRepository.verifyAppInstaller()) {
-            _overviewUiState.update { OverviewUiState.Unverified }
-            return@launch
-        }
         val mediaProjectionApps = deviceRepository.getRunningMediaProjectionApps()
         val usbDebugging = deviceRepository.isUsbDebuggingEnabled()
         val wirelessDebugging = deviceRepository.isWirelessDebuggingEnabled()
@@ -81,8 +77,6 @@ class OverviewViewModel(
 
 sealed class OverviewUiState {
     data object Loading : OverviewUiState()
-
-    data object Unverified : OverviewUiState()
 
     data class Complete(
         val usbDebugging: Boolean,

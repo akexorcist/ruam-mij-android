@@ -27,6 +27,13 @@
 ## ถ้ามีคำถามหรือข้อสงสัย
 * สามารถตั้งคำถามได้ผ่านหน้า [Issue บน GitHub ของ Repository นี้](https://github.com/akexorcist/ruam-mij-android/issues)
 
+## ผู้ที่มีส่วนรวมในการพัฒนาแอปนี้
+* 9arm
+* Somkiat Khitwongwattana
+* Sorakrich Oanmanee
+* เอกลักษณ์ ต่อติด
+* Kritsadin Rayanakorn
+
 ## ฟีเจอร์ที่ยังไม่ได้ทำ (สำหรับผู้ที่สนใจเข้ามาร่วมพัฒนาด้วย)
 * เพิ่มเมนู FAQ ในหน้า About App
 * เพิ่มเมนู Open Source License ในหน้า About App

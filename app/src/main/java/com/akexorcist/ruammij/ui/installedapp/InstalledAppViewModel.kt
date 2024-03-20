@@ -2,7 +2,7 @@ package com.akexorcist.ruammij.ui.installedapp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akexorcist.ruammij.common.Installers
+import com.akexorcist.ruammij.common.*
 import com.akexorcist.ruammij.data.DeviceRepository
 import com.akexorcist.ruammij.data.InstalledApp
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -78,7 +78,8 @@ class InstalledAppViewModel(
         }
     }
 
-    private fun isVerifiedInstaller(installer: String?): Boolean = Installers.getVerifiedInstallers().contains(installer)
+    private fun isVerifiedInstaller(installer: String?): Boolean =
+        Installer.fromPackageName(installer)?.verificationStatus == InstallerVerificationStatus.VERIFIED
 }
 
 sealed class InstalledAppUiState(

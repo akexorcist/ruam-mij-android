@@ -3,7 +3,7 @@ package com.akexorcist.ruammij.ui.overview
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akexorcist.ruammij.AutoMediaProjectionDetectionEvent
-import com.akexorcist.ruammij.common.Installers
+import com.akexorcist.ruammij.common.*
 import com.akexorcist.ruammij.data.DeviceRepository
 import com.akexorcist.ruammij.data.InstalledApp
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,8 +27,8 @@ class OverviewViewModel(
         val wirelessDebugging = deviceRepository.isWirelessDebuggingEnabled()
         val developerOptions = deviceRepository.isDeveloperOptionsEnabled()
         val runningAccessibilityApps = deviceRepository.getEnabledAccessibilityApps()
-        val unknownInstaller = deviceRepository.getInstalledApps().filterNot { app ->
-            Installers.getVerifiedInstallers().contains(app.installer)
+        val unknownInstaller = deviceRepository.getInstalledApps().filter {
+            Installer.fromPackageName(it.installer)?.verificationStatus != InstallerVerificationStatus.VERIFIED
         }
         _overviewUiState.update {
             OverviewUiState.Complete(

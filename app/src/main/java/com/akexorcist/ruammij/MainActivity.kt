@@ -3,8 +3,8 @@ package com.akexorcist.ruammij
 import android.content.pm.PackageManager
 import android.hardware.display.DisplayManager
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.akexorcist.ruammij.data.InstalledApp
 import com.akexorcist.ruammij.ui.RuamMijApp
@@ -14,7 +14,7 @@ import com.akexorcist.ruammij.utility.getOwnerPackageName
 import com.akexorcist.ruammij.utility.toInstalledApp
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     private val sharedEventViewModel: SharedEventViewModel by viewModel()
 
     private val displayManager: DisplayManager by lazy {

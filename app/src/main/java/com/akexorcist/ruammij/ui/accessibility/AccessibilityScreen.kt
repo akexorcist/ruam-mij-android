@@ -66,7 +66,7 @@ fun AccessibilityRoute(
                 data = Uri.parse("package:$packageName")
             })
         },
-        onRecheckClick = { viewModel.loadAccessibilityApps() },
+        onRecheckClick = { viewModel.loadAccessibilityApps(forceRefresh = true) },
     )
 }
 

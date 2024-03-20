@@ -22,21 +22,21 @@ class InstalledAppViewModel(
     fun loadInstalledApps(
         preferredInstaller: String?,
         preferredShowSystemApp: Boolean?,
+        forceRefresh: Boolean = false,
     ) = viewModelScope.launch {
         _installedAppUiState.update { InstalledAppUiState.Loading(it.displayOption) }
-        val installedApps = deviceRepository.getInstalledApps()
+        val installedApps = deviceRepository.getInstalledApps(forceRefresh)
+
         _installedAppUiState.update {
             val installers = installedApps
                 .distinctBy { app -> app.installer }
                 .map { app -> app.installer }
                 .sortedBy { installer -> installer }
-            val displayOption: DisplayOption = it.displayOption.let { option ->
-                when (preferredInstaller != null) {
-                    true -> option.copy(installers = listOf(preferredInstaller))
 
-                    false -> option.copy(installers = installers)
-                }
+            val displayOption: DisplayOption = it.displayOption.let { option ->
+                option.copy(installers = preferredInstaller?.let { listOf(it) } ?: installers)
             }.copy(showSystemApp = preferredShowSystemApp ?: false)
+
             InstalledAppUiState.InstalledAppLoaded(
                 displayOption = displayOption,
                 installedApps = installedApps,
@@ -44,6 +44,7 @@ class InstalledAppViewModel(
                 displayInstalledApps = installedApps.applyDisplayOption(displayOption)
             )
         }
+
     }
 
     fun updateDisplayOption(displayOption: DisplayOption) {

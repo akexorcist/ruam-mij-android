@@ -90,7 +90,7 @@ fun OverviewRoute(
 
     OverviewScreen(
         uiState = uiState,
-        onRecheckClick = { viewModel.checkDevicePrivacy() },
+        onRecheckClick = { viewModel.checkDevicePrivacy(forceRefresh = true) },
         onOpenDrawOverOtherAppsClick = {
             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
             activity.startActivity(intent)

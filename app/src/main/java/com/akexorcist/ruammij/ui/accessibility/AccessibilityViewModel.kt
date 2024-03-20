@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akexorcist.ruammij.data.DeviceRepository
 import com.akexorcist.ruammij.data.InstalledApp
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 class AccessibilityViewModel(
     private val deviceRepository: DeviceRepository,
@@ -17,11 +17,16 @@ class AccessibilityViewModel(
     )
     val accessibilityUiState = _accessibilityUiState.asStateFlow()
 
-    fun loadAccessibilityApps() = viewModelScope.launch {
+    fun loadAccessibilityApps(forceRefresh: Boolean = false) = viewModelScope.launch {
         _accessibilityUiState.update { AccessibilityUiState.Loading }
-        val activeAccessibilityApps = deviceRepository.getEnabledAccessibilityApps()
-        val accessibilitySupportApps = deviceRepository.getAccessibilitySupportApps()
-        val inactiveAccessibilityApps = accessibilitySupportApps.filterNot { app -> activeAccessibilityApps.any { it.packageName == app.packageName } }
+        val activeAccessibilityAppsDeferred = async { deviceRepository.getEnabledAccessibilityApps(forceRefresh) }
+        val accessibilitySupportAppsDeferred = async { deviceRepository.getAccessibilitySupportApps(forceRefresh) }
+
+        val activeAccessibilityApps = activeAccessibilityAppsDeferred.await()
+        val accessibilitySupportApps = accessibilitySupportAppsDeferred.await()
+        val inactiveAccessibilityApps = accessibilitySupportApps
+            .filterNot { app -> activeAccessibilityApps.any { it.packageName == app.packageName } }
+
         _accessibilityUiState.update {
             AccessibilityUiState.AccessibilityAppLoaded(
                 active = activeAccessibilityApps,

@@ -47,11 +47,11 @@ jobs:
         generate_release_notes: true
         files: |
           app/build/outputs/apk/release/app-release.apk
-      - name: Bump version code
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: "bump: ${{ github.event.inputs.version }}"
-          title: "bump: ${{ github.event.inputs.version }}"
-          body: "Bump versionName of the app"
-          branch: bump/${{ github.event.inputs.version }}
-          base: main
+    - name: Bump version code
+      uses: peter-evans/create-pull-request@v6
+      with:
+        commit-message: "bump: ${{ github.event.inputs.version }}"
+        title: "bump: ${{ github.event.inputs.version }}"
+        body: "Bump versionName of the app"
+        branch: bump/${{ github.event.inputs.version }}
+        base: main

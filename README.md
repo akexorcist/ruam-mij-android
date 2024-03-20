@@ -40,6 +40,7 @@
 * ทำ Mapping สำหรับ Installer Package Name ให้สะดวกต่อการเข้ามาเพิ่มข้อมูลในภายหลัง
 * Cache apps result เก็บไว้ใน Memory จะได้ไม่ต้องสแกนใหม่ทุกครั้งที่เปลี่ยนหน้าไปมา
 * เก็บประวัติแอปที่เรียกใช้งาน Media Projection เพื่อให้ผู้ใช้ดูย้อนหลังได้
+* รองรับการเปลี่ยนภาษาภายในแอปโดยใช้ Per-app language preferences ใน AppCompat
 * ทำ Snapshot Testing
 * ทำ CI/CD ด้วย GitHub Actions เพื่อ Publish App ผ่านหน้า Releases โดยอัตโนมัติ
 

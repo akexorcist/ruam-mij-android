@@ -41,11 +41,12 @@ jobs:
         SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
       run: ./gradlew assembleRelease
-    - name: Upload to Artifacts
-      uses: actions/upload-artifact@v4
+    - name: Create a release
+      uses: softprops/action-gh-release@v2
       with:
-        generate_release_notes: true
-        path: app/build/outputs/apk/release/app-release.apk
+        tag_name: ${{ github.event.inputs.version }}
+        files: |
+          app/build/outputs/apk/debug/app-debug.apk
     - name: Bump version code
       uses: peter-evans/create-pull-request@v6
       with:

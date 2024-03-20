@@ -32,12 +32,11 @@ class InstalledAppViewModel(
                 .distinctBy { app -> app.installer }
                 .map { app -> app.installer }
                 .sortedBy { installer -> installer }
+
             val displayOption: DisplayOption = it.displayOption.let { option ->
-                when (preferredInstaller != null) {
-                    true -> option.copy(installers = listOf(preferredInstaller))
-                    false -> option.copy(installers = installers)
-                }
+                option.copy(installers = preferredInstaller?.let { listOf(it) } ?: installers)
             }.copy(showSystemApp = preferredShowSystemApp ?: false)
+
             InstalledAppUiState.InstalledAppLoaded(
                 displayOption = displayOption,
                 installedApps = installedApps,

@@ -48,7 +48,7 @@ class DefaultDeviceRepository(
     private var cacheInstalledApps: List<InstalledApp>? = null
 
     override suspend fun getInstalledApps(forceRefresh: Boolean): List<InstalledApp> =
-        getCachedDataOrFetch(this::cacheInstalledApps, forceRefresh) {
+        getCachedDataOrFetch(::cacheInstalledApps, forceRefresh) {
             packageManager.getInstalledApplications(0).mapNotNull {
                 runCatching {
                     packageManager.getPackageInfo(it.packageName, 0).toInstalledApp(packageManager)

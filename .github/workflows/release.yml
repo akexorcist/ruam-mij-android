@@ -41,7 +41,7 @@ jobs:
         versionName: ${{ github.event.inputs.version }}
     - name: Build Release APK
       env:
-        SIGNING_KEY_STORE_PATH: ${{ secrets.SIGNING_KEY_STORE_PATH }}
+        SIGNING_KEY_STORE_PATH: "${GITHUB_WORKSPACE}/${{ secrets.SIGNING_KEY_STORE_PATH }}"
         SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
         SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}

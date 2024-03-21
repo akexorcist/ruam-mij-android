@@ -42,7 +42,8 @@
 * Kritsadin Rayanakorn
 * Tipatai Puthanukunkit
 * Dheerapat Tookkane
-* Kajornsak Peerapathananont
+* Kajornsak Peerapath~~a~~nanont
+* Nayuki
 
 ## ฟีเจอร์ที่ยังไม่ได้ทำ (สำหรับผู้ที่สนใจเข้ามาร่วมพัฒนาด้วย)
 * เพิ่มเมนู FAQ ในหน้า About App

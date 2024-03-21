@@ -42,7 +42,7 @@
 * Kritsadin Rayanakorn
 * Tipatai Puthanukunkit
 * Dheerapat Tookkane
-* Kajornsak Peerapath~~a~~nanont
+* Kajornsak Peerapathananont
 * Nayuki
 
 ## ฟีเจอร์ที่ยังไม่ได้ทำ (สำหรับผู้ที่สนใจเข้ามาร่วมพัฒนาด้วย)

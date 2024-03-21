@@ -297,7 +297,7 @@ private fun DisplayOptionBottomSheet(
     sortBy: SortBy,
     showSystemApp: Boolean,
     hideVerifiedInstaller: Boolean,
-    installers: List<String?>?,
+    installers: List<Installer>?,
     currentSelectedInstallers: List<String?>,
     onDisplayOptionApplyClick: (DisplayOption) -> Unit,
     onDismissRequest: () -> Unit
@@ -305,12 +305,12 @@ private fun DisplayOptionBottomSheet(
     var currentSortBy by remember { mutableStateOf(sortBy) }
     var currentShowSystemApp by remember { mutableStateOf(showSystemApp) }
     var currentHideVerifiedInstaller by remember { mutableStateOf(hideVerifiedInstaller) }
-    var currentInstallers: List<Pair<String?, Boolean>> by remember {
+    var currentInstallers: List<Pair<Installer, Boolean>> by remember {
         mutableStateOf(installers
             ?.map { installer ->
                 val selected = when (currentSelectedInstallers.isEmpty()) {
                     true -> true
-                    false -> currentSelectedInstallers.contains(installer)
+                    false -> currentSelectedInstallers.contains(installer.packageName)
                 }
                 installer to selected
             }
@@ -353,7 +353,7 @@ private fun DisplayOptionBottomSheet(
                         hideVerifiedInstaller = currentHideVerifiedInstaller,
                         installers = currentInstallers
                             .filter { it.second }
-                            .map { it.first },
+                            .map { it.first.packageName },
                     )
                 )
             },
@@ -374,11 +374,11 @@ private fun DisplayOptionContent(
     sortBy: SortBy,
     showSystemApp: Boolean,
     hideVerifiedInstaller: Boolean,
-    installers: List<Pair<String?, Boolean>>,
+    installers: List<Pair<Installer, Boolean>>,
     onSortByClick: (SortBy) -> Unit,
     onShowSystemAppToggled: (Boolean) -> Unit,
     onVerifiedInstallerToggled: (Boolean) -> Unit,
-    onInstallerToggled: (String?, Boolean) -> Unit,
+    onInstallerToggled: (Installer, Boolean) -> Unit,
     onDisplayOptionApplyClick: () -> Unit,
     onResetDisplayOptionClick: () -> Unit,
     onCloseClick: () -> Unit,
@@ -544,8 +544,8 @@ private fun OptionItem(
 
 @Composable
 private fun InstallerFilterGroup(
-    installers: List<Pair<String?, Boolean>>,
-    onInstallerToggled: (String?, Boolean) -> Unit,
+    installers: List<Pair<Installer, Boolean>>,
+    onInstallerToggled: (Installer, Boolean) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         TitleText(text = stringResource(R.string.installed_app_display_option_installer_display))
@@ -553,7 +553,8 @@ private fun InstallerFilterGroup(
         installers.forEachIndexed { index, (installer, selected) ->
             InstallerOptionItem(
                 selected = selected,
-                installer = installer,
+                appName = installer.name,
+                packageName = installer.packageName,
                 onClick = { onInstallerToggled(installer, !selected) },
             )
             if (index != installers.lastIndex) {
@@ -567,13 +568,10 @@ private fun InstallerFilterGroup(
 @Composable
 private fun InstallerOptionItem(
     selected: Boolean,
-    installer: String?,
+    appName: String?,
+    packageName: String?,
     onClick: () -> Unit,
 ) {
-    val filterName = Installer.fromPackageName(installer)?.readableName
-        ?: installer
-        ?: stringResource(id = R.string.app_info_installer_unknown)
-
     FilterChip(
         selected = selected,
         onClick = onClick,
@@ -589,10 +587,11 @@ private fun InstallerOptionItem(
         },
         label = {
             Column(modifier = Modifier.padding(vertical = 4.dp)) {
-                BoldBodyText(text = filterName)
-
-                if (installer != null) {
-                    BodyText(text = installer)
+                if (appName != null) {
+                    BoldBodyText(text = appName)
+                }
+                if (packageName != null) {
+                    BodyText(text = packageName)
                 }
             }
         },
@@ -619,7 +618,11 @@ private fun InstalledAppContentPreview() {
             appVersion = "1.0.0 (1234)",
             systemApp = false,
             installedAt = System.currentTimeMillis(),
-            installer = "com.android.vending",
+            installer = Installer(
+                name = "Google Play",
+                packageName = "com.android.vending",
+                verificationStatus = InstallerVerificationStatus.VERIFIED,
+            ),
         ),
         InstalledApp(
             name = "Accessibility Service",
@@ -628,7 +631,11 @@ private fun InstalledAppContentPreview() {
             appVersion = "1.0.0.1234567890123456789012345678901234567890 (1234)",
             systemApp = true,
             installedAt = System.currentTimeMillis(),
-            installer = null,
+            installer = Installer(
+                name = "OS or ADB",
+                packageName = null,
+                verificationStatus = InstallerVerificationStatus.VERIFIED,
+            ),
         ),
     )
     val lazyListState = rememberLazyListState()
@@ -701,6 +708,13 @@ private fun EmptyInstalledAppScreenPreview() {
 @Preview
 @Composable
 private fun DisplayOptionContentPreview() {
+    val installers = listOf(
+        Installer(name = "OS or ADB", packageName = null, verificationStatus = InstallerVerificationStatus.VERIFIED),
+        Installer(name = "App 1", packageName = "com.akexorcist.appstore1", verificationStatus = InstallerVerificationStatus.VERIFIED),
+        Installer(name = "App 2", packageName = "com.akexorcist.appstore2", verificationStatus = InstallerVerificationStatus.VERIFIED),
+        Installer(name = null, packageName = "com.akexorcist.appstore3", verificationStatus = InstallerVerificationStatus.VERIFIED),
+        Installer(name = null, packageName = "com.akexorcist.appstore4", verificationStatus = InstallerVerificationStatus.VERIFIED),
+    )
     RuamMijTheme {
         Box(
             modifier = Modifier
@@ -711,21 +725,9 @@ private fun DisplayOptionContentPreview() {
                 sortBy = SortBy.Name,
                 showSystemApp = true,
                 hideVerifiedInstaller = true,
-                installers = listOf(
-                    null to false,
-                    "com.akexorcist.appstore1" to true,
-                    "com.akexorcist.appstore2" to false,
-                    "com.akexorcist.appstore3" to true,
-                    "com.akexorcist.appstore4" to false,
-                    "com.akexorcist.appstore5" to true,
-                    "com.akexorcist.appstore6" to false,
-                    "com.akexorcist.appstore7" to true,
-                    "com.akexorcist.appstore8" to false,
-                    "com.akexorcist.appstore9" to true,
-                    "com.akexorcist.appstore10" to false,
-                    "com.akexorcist.appstore11" to true,
-                    "com.akexorcist.appstore12" to false,
-                ),
+                installers = installers.mapIndexed { index, installer ->
+                    installer to (index % 2 == 0)
+                },
                 onSortByClick = {},
                 onShowSystemAppToggled = {},
                 onVerifiedInstallerToggled = {},

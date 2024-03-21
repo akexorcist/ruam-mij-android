@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Ruam Mij</string>
     <string name="app_description">A collection (Ruam) of information to help you avoid scammers (Mij)</string>
+
     <string name="overview_title">Device Privacy Overview</string>
     <string name="overview_subtitle">Overall privacy details for device at risk of being controlled by unsafe apps</string>
     <string name="overview_loading_title">Scanning all apps</string>
@@ -66,12 +67,15 @@
     <string name="installed_app_empty">No apps found with this setting. Try changing the display options to something else</string>
 
     <string name="about_app_menu_frequently_asked_questions">Frequently Asked Questions</string>
+    <string name="about_app_menu_language">Language</string>
     <string name="about_app_menu_privacy_policy">Privacy Policy</string>
     <string name="about_app_menu_open_source_licenses">Open Source Licenses</string>
     <string name="about_app_menu_source_code">Source Code</string>
     <string name="about_app_menu_contributor">Contributor</string>
     <string name="about_app_menu_contributor_more">Space for others in the future</string>
     <string name="about_app_version">Version %1$s</string>
+    <string name="about_app_language_english" translatable="false">English</string>
+    <string name="about_app_language_thai" translatable="false">ไทย</string>
 
     <string name="button_recheck_overview">Refresh</string>
     <string name="button_display_option">Display options</string>
@@ -82,26 +86,7 @@
     <string name="app_info_installed_at">Installed on</string>
     <string name="app_info_installed_at_unknown">Unknown time</string>
     <string name="app_info_installed_by">Installed by</string>
-    <string name="app_info_installer_unknown">Preload or ADB</string>
-    <string name="app_info_installer_google_play" translatable="false">Google Play</string>
-    <string name="app_info_installer_amazon_appstore" translatable="false">Amazon Appstore</string>
-    <string name="app_info_installer_app_market" translatable="false">App Market</string>
-    <string name="app_info_installer_vivo_v_appstore" translatable="false">vivo V-Appstore</string>
-    <string name="app_info_installer_vivo_system_launcher" translatable="false">vivo System Launcher</string>
-    <string name="app_info_installer_facebook" translatable="false">Facebook</string>
-    <string name="app_info_installer_galaxy_store" translatable="false">Samsung Galaxy Store</string>
-    <string name="app_info_installer_samsung_omc_agent" translatable="false">Samsung OMC Agent</string>
-    <string name="app_info_installer_samsung_smart_switch" translatable="false">Samsung Smart Switch</string>
-    <string name="app_info_installer_samsung_cloud" translatable="false">Samsung Cloud</string>
-    <string name="app_info_installer_huawei_app_gallery" translatable="false">HUAWEI AppGallery</string>
-    <string name="app_info_installer_huawei_system_services" translatable="false">HUAWEI System Services</string>
-    <string name="app_info_installer_huawei_hms_services_framework" translatable="false">HUAWEI HMS Services Framework</string>
-    <string name="app_info_installer_huawei_software_update" translatable="false">HUAWEI Software Update</string>
-    <string name="app_info_installer_xiaomi_market" translatable="false">Xiaomi Market</string>
-    <string name="app_info_installer_xiaomi_get_apps" translatable="false">Xiaomi GetApps</string>
-    <string name="app_info_installer_xiaomi_analytics" translatable="false">Xiaomi Analytics</string>
-    <string name="app_info_installer_apk_pure" translatable="false">APKPure</string>
-    <string name="app_info_installer_color_os_my_files" translatable="false">ColorOS My Files</string>
+    <string name="app_info_installer_unknown">OS or ADB</string>
     <string name="app_info_installer_sideload" translatable="false">Sideload</string>
     <string name="app_info_open_settings">Open app settings</string>
 

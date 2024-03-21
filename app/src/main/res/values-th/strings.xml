@@ -66,6 +66,7 @@
     <string name="installed_app_empty">ไม่พบแอปจากการตั้งค่านี้ ลองเปลี่ยนค่าในการแสดงผลเป็นแบบอื่นแทน</string>
 
     <string name="about_app_menu_frequently_asked_questions">คำถามที่พบบ่อย (FAQ)</string>
+    <string name="about_app_menu_language">ภาษา</string>
     <string name="about_app_menu_privacy_policy">นโยบายความเป็นส่วนตัว</string>
     <string name="about_app_menu_open_source_licenses">Open Source Licenses</string>
     <string name="about_app_menu_source_code">Source Code</string>

@@ -56,6 +56,7 @@ import com.akexorcist.ruammij.ui.component.HeadlineText
 import com.akexorcist.ruammij.ui.component.LanguageDropdownButton
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
 @Composable
 fun AboutAppRoute() {
@@ -81,6 +82,9 @@ fun AboutAppRoute() {
         onContributorClick = {
             showContributor = true
         },
+        onOpenSourceLicenseClick = {
+            activity.startActivity(Intent(activity, OssLicensesMenuActivity::class.java))
+        },
         onSourceCodeClick = {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/akexorcist/ruam-mij-android"))
             activity.startActivity(intent)
@@ -92,6 +96,7 @@ fun AboutAppRoute() {
 private fun AboutAppScreen(
     onFaqClick: () -> Unit,
     onPrivacyPolicyClick: () -> Unit,
+    onOpenSourceLicenseClick: () -> Unit,
     onSourceCodeClick: () -> Unit,
     onContributorClick: () -> Unit,
 ) {
@@ -127,6 +132,12 @@ private fun AboutAppScreen(
             label = stringResource(R.string.about_app_menu_contributor),
             icon = painterResource(R.drawable.ic_about_app_contributor),
             onClick = onContributorClick,
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        MenuItem(
+            label = stringResource(R.string.about_app_menu_open_source_licenses),
+            icon = painterResource(R.drawable.ic_about_app_source_code),
+            onClick = onOpenSourceLicenseClick,
         )
         Spacer(modifier = Modifier.height(16.dp))
         MenuItem(
@@ -403,6 +414,7 @@ private fun AboutAppScreenPreview() {
                 onFaqClick = {},
                 onPrivacyPolicyClick = {},
                 onSourceCodeClick = {},
+                onOpenSourceLicenseClick = {},
                 onContributorClick = {},
             )
         }

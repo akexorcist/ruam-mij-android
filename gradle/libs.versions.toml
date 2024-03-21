@@ -13,6 +13,7 @@ koin = "3.5.3"
 desugar = "2.0.4"
 accompanist = "0.34.0"
 splashScreen = "1.0.1"
+oss = "17.0.1"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -37,6 +38,7 @@ koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-comp
 desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
 accompanist-drawable-painter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreen" }
+play-oss-licenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "oss" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

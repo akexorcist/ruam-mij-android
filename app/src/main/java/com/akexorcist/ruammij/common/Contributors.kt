@@ -11,5 +11,6 @@ object Contributors {
         "Dheerapat Tookkane",
         "Kajornsak Peerapathananont",
         "Suttichan Paenchan",
+        "Parkorn Soonthornchai",
     )
 }

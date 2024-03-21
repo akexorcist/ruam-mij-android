@@ -20,6 +20,8 @@ jobs:
       run: ./gradlew assembleDebug testDebugUnitTest
   build-release-app:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v4
     - name: set up JDK 17

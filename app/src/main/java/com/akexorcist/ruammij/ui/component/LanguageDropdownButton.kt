@@ -18,7 +18,10 @@ import com.akexorcist.ruammij.R
 @Composable
 fun LanguageDropdownButton() {
     var expanded by remember { mutableStateOf(false) }
-    val selectedLanguage = AppCompatDelegate.getApplicationLocales().toLanguageTags()
+    val selectedLanguage = withoutEmptyLocale(
+        AppCompatDelegate.getApplicationLocales().toLanguageTags(),
+        "th",
+    )
 
     Row(
         modifier = Modifier
@@ -75,5 +78,12 @@ fun LanguageDropdownButton() {
                 )
             }
         }
+    }
+}
+
+fun withoutEmptyLocale(appLocale: String, defaultLocale: String): String {
+    return when (appLocale.isEmpty()) {
+        true -> defaultLocale
+        false -> appLocale
     }
 }

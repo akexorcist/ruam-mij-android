@@ -28,6 +28,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: 'gradle'
+    - name: Prepare Keystore
+      run: |
+        mkdir "${GITHUB_WORKSPACE}"/keystore
+        echo "${{secrets.ENCRYPTED_KEYSTORE}}" > keystore/keystore.asc
+        gpg -d --passphrase "${{secrets.KEYSTORE_PASSPHRASE}}" --batch keystore/keystore.asc > ${{ secrets.SIGNING_KEY_STORE_PATH }}
     - name: Bump version
       uses: chkfung/android-version-actions@v1.2.2
       with:

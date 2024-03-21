@@ -43,6 +43,8 @@ object Installers {
         "com.xiaomi.discover" to InstallerVerificationStatus.VERIFIED,
         "com.aura.oobe.deutsche" to InstallerVerificationStatus.VERIFIED,
         "com.sonyericsson.updatecenter" to InstallerVerificationStatus.VERIFIED,
+        "com.bbk.account" to InstallerVerificationStatus.VERIFIED,
+        "com.vivo.magazine" to InstallerVerificationStatus.VERIFIED,
 
         "com.apkpure.aegon" to InstallerVerificationStatus.UNVERIFIED,
         "com.qooapp.qoohelper" to InstallerVerificationStatus.UNVERIFIED,
@@ -52,6 +54,7 @@ object Installers {
         "com.miui.packageinstaller" to InstallerVerificationStatus.SIDE_LOAD,
         "com.android.chrome" to InstallerVerificationStatus.SIDE_LOAD,
         "com.htetznaing.zfile" to InstallerVerificationStatus.SIDE_LOAD,
+        "com.google.android.packageinstaller" to InstallerVerificationStatus.SIDE_LOAD,
     )
 }
 

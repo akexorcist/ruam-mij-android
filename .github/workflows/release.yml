@@ -32,7 +32,8 @@ jobs:
       run: |
         mkdir "${GITHUB_WORKSPACE}"/keystore
         echo "${{secrets.ENCRYPTED_KEYSTORE}}" > keystore/keystore.asc
-        gpg -d --passphrase "${{secrets.KEYSTORE_PASSPHRASE}}" --batch keystore/keystore.asc > ${{ secrets.SIGNING_KEY_STORE_PATH }}
+        gpg -d --passphrase "${{secrets.KEYSTORE_PASSPHRASE}}" --batch keystore/keystore.asc > app/release.keystore
+
     - name: Bump version
       uses: chkfung/android-version-actions@v1.2.2
       with:
@@ -41,7 +42,7 @@ jobs:
         versionName: ${{ github.event.inputs.version }}
     - name: Build Release APK
       env:
-        SIGNING_KEY_STORE_PATH: ${{ secrets.SIGNING_KEY_STORE_PATH }}
+        SIGNING_KEY_STORE_PATH: "app/release.keystore"
         SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
         SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}

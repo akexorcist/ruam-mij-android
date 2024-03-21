@@ -24,6 +24,17 @@ android {
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+            val signingKeyFile: String? = System.getenv("SIGNING_KEY_FILE")
+            if (signingKeyFile != null) {
+                signingConfig = signingConfigs.create("release") {
+                    storeFile = file(signingKeyFile)
+                    storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+                    keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+                    keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+                }
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
     compileOptions {

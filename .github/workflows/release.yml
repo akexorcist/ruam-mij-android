@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: 'gradle'
+    - name: Build with Gradle
+      run: ./gradlew assembleDebug testDebugUnitTest
+  build-release-app:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: 'gradle'
+    - name: Bump version
+      uses: chkfung/android-version-actions@v1.2.2
+      with:
+        gradlePath: app/build.gradle.kts
+        versionCode: ${{ github.run_number }}
+        versionName: ${{ github.event.inputs.version }}
+    - name: Build Release APK
+      env:
+        SIGNING_KEY_STORE_PATH: ${{ secrets.SIGNING_KEY_STORE_PATH }}
+        SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+        SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+        SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+      run: ./gradlew assembleRelease
+    - name: Create a release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ github.event.inputs.version }}
+        files: |
+          app/build/outputs/apk/debug/app-debug.apk
+    - name: Bump version code
+      uses: peter-evans/create-pull-request@v6
+      with:
+        commit-message: "bump: ${{ github.event.inputs.version }}"
+        title: "bump: ${{ github.event.inputs.version }}"
+        body: "Bump versionName of the app"
+        branch: bump/${{ github.event.inputs.version }}
+        base: main

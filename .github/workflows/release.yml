@@ -62,3 +62,6 @@ jobs:
         body: "Bump versionName of the app"
         branch: bump/${{ github.event.inputs.version }}
         base: main
+        add-paths: |
+          *.gradle.kts
+          

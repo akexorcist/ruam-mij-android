@@ -44,6 +44,8 @@ object Installers {
         "com.aura.oobe.deutsche" to InstallerVerificationStatus.VERIFIED,
         "com.sonyericsson.updatecenter" to InstallerVerificationStatus.VERIFIED,
         "com.asus.dm" to InstallerVerificationStatus.VERIFIED,
+        "com.bbk.account" to InstallerVerificationStatus.VERIFIED,
+        "com.vivo.magazine" to InstallerVerificationStatus.VERIFIED,
 
         "com.apkpure.aegon" to InstallerVerificationStatus.UNVERIFIED,
         "com.qooapp.qoohelper" to InstallerVerificationStatus.UNVERIFIED,

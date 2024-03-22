@@ -43,8 +43,10 @@
 * Tipatai Puthanukunkit
 * Dheerapat Tookkane
 * Kajornsak Peerapathananont
+* Parkorn Soonthornchai
 * Suttichan Paenchan
 * Parkorn Soonthornchai
+* Tanawat Wangsaeng
 
 ## ฟีเจอร์ที่ยังไม่ได้ทำ (สำหรับผู้ที่สนใจเข้ามาร่วมพัฒนาด้วย)
 * เพิ่มเมนู FAQ ในหน้า About App

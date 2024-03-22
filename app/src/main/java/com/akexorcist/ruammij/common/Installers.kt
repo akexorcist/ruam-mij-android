@@ -54,7 +54,6 @@ object Installers {
         "com.miui.packageinstaller" to InstallerVerificationStatus.SIDE_LOAD,
         "com.android.chrome" to InstallerVerificationStatus.SIDE_LOAD,
         "com.htetznaing.zfile" to InstallerVerificationStatus.SIDE_LOAD,
-        "com.google.android.packageinstaller" to InstallerVerificationStatus.SIDE_LOAD,
     )
 }
 

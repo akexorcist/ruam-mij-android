@@ -13,5 +13,6 @@ object Contributors {
         "Parkorn Soonthornchai",
         "Suttichan Paenchan",
         "Parkorn Soonthornchai",
+        "Tanawat Wangsaeng",
     )
 }

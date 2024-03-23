@@ -13,6 +13,7 @@ koin = "3.5.3"
 desugar = "2.0.4"
 accompanist = "0.34.0"
 splashScreen = "1.0.1"
+ksp = "1.9.23-1.0.19"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -41,4 +42,4 @@ androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.re
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+devToolsKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

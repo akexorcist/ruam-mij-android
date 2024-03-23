@@ -67,7 +67,7 @@ class DefaultDeviceRepository(
 
     override suspend fun getInstalledApps(forceRefresh: Boolean): List<InstalledApp> =
         getCachedDataOrFetch(::cacheInstalledApps, forceRefresh) {
-            val safePackageNameList = getSafeApps().map { it.packageName }
+            val safePackageNameList = getSafeApps(forceRefresh).map { it.packageName }
             val installedAppInfoList: Map<String, PackageInfo> = packageManager.getInstalledApplications(0)
                 .mapNotNull {
                     runCatching { packageManager.getPackageInfo(it.packageName, 0) }.getOrNull()

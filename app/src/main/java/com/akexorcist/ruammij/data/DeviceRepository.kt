@@ -12,7 +12,8 @@ import android.view.accessibility.AccessibilityManager
 import com.akexorcist.ruammij.common.CoroutineDispatcherProvider
 import com.akexorcist.ruammij.common.Installer
 import com.akexorcist.ruammij.common.InstallerVerificationStatus
-import com.akexorcist.ruammij.common.Installers
+import com.akexorcist.ruammij.data.database.SafeApp
+import com.akexorcist.ruammij.data.database.SafeAppDao
 import com.akexorcist.ruammij.ui.overview.MediaProjectionApp
 import com.akexorcist.ruammij.ui.overview.MediaProjectionState
 import com.akexorcist.ruammij.utility.getInstaller
@@ -21,10 +22,14 @@ import com.akexorcist.ruammij.utility.getOwnerPackageName
 import com.akexorcist.ruammij.utility.toInstalledApp
 import com.akexorcist.ruammij.utility.toInstaller
 import kotlinx.coroutines.withContext
-import kotlin.reflect.*
+import kotlin.reflect.KMutableProperty0
 
 interface DeviceRepository {
     suspend fun getInstalledApps(forceRefresh: Boolean = false): List<InstalledApp>
+
+    suspend fun getSafeApps(forceRefresh: Boolean = false): List<SafeApp>
+
+    suspend fun markAsSafe(packageName: String)
 
     suspend fun getInstalledApp(
         forceRefresh: Boolean = false,
@@ -47,6 +52,7 @@ interface DeviceRepository {
 class DefaultDeviceRepository(
     private val context: Context,
     private val dispatcherProvider: CoroutineDispatcherProvider,
+    private val safeAppDao: SafeAppDao,
 ) : DeviceRepository {
     private val packageManager: PackageManager
         get() = context.packageManager
@@ -61,6 +67,7 @@ class DefaultDeviceRepository(
 
     override suspend fun getInstalledApps(forceRefresh: Boolean): List<InstalledApp> =
         getCachedDataOrFetch(::cacheInstalledApps, forceRefresh) {
+            val safePackageNameList = getSafeApps(forceRefresh).map { it.packageName }
             val installedAppInfoList: Map<String, PackageInfo> = packageManager.getInstalledApplications(0)
                 .mapNotNull {
                     runCatching { packageManager.getPackageInfo(it.packageName, 0) }.getOrNull()
@@ -92,7 +99,11 @@ class DefaultDeviceRepository(
                         packageName = installerPackageName,
                         verificationStatus = when (installerPackageName == null) {
                             true -> InstallerVerificationStatus.VERIFIED
-                            false -> InstallerVerificationStatus.UNVERIFIED
+                            false -> if (safePackageNameList.contains(installerPackageName)) {
+                                InstallerVerificationStatus.VERIFIED
+                            } else {
+                                InstallerVerificationStatus.UNVERIFIED
+                            }
                         },
                     )
                 value.toInstalledApp(packageManager, installer)
@@ -113,6 +124,15 @@ class DefaultDeviceRepository(
             val installer = packageInfo.getInstaller(packageManager)
             packageInfo.toInstalledApp(packageManager, installer)
         }.getOrNull()
+    }
+
+    private var cacheSafeApps: List<SafeApp>? = null
+
+    override suspend fun getSafeApps(forceRefresh: Boolean): List<SafeApp> =
+        getCachedDataOrFetch(::cacheSafeApps, forceRefresh) { safeAppDao.getAll() }
+
+    override suspend fun markAsSafe(packageName: String) = withContext(dispatcherProvider.io()) {
+        safeAppDao.insert(SafeApp(packageName = packageName))
     }
 
     private var cacheEnabledAccessibilityApps: List<InstalledApp>? = null

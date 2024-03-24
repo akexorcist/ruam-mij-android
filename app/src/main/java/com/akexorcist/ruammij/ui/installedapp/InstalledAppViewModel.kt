@@ -81,6 +81,15 @@ class InstalledAppViewModel(
             }
         }
     }
+
+    fun markAsSafe(packageName: String) = viewModelScope.launch() {
+        deviceRepository.markAsSafe(packageName)
+        loadInstalledApps(
+            preferredInstaller = null,
+            preferredShowSystemApp = null,
+            forceRefresh = true,
+        )
+    }
 }
 
 sealed class InstalledAppUiState(

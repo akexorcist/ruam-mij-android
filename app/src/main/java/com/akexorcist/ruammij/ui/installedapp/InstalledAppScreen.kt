@@ -130,6 +130,7 @@ fun InstalledAppRoute(
                 data = Uri.parse("package:$packageName")
             })
         },
+        onMarkAsSafeClick = viewModel::markAsSafe,
         onRecheckClick = {
             viewModel.loadInstalledApps(
                 preferredInstaller = null,
@@ -147,6 +148,7 @@ private fun InstalledAppScreen(
     uiState: InstalledAppUiState,
     isCustomDisplayOption: Boolean,
     onOpenAppInSettingClick: (String) -> Unit,
+    onMarkAsSafeClick: (String) -> Unit,
     onRecheckClick: () -> Unit,
     onDisplayOptionClick: () -> Unit,
 ) {
@@ -166,6 +168,7 @@ private fun InstalledAppScreen(
                     installedApps = uiState.displayInstalledApps,
                     isCustomDisplayOption = isCustomDisplayOption,
                     onOpenAppInSettingClick = onOpenAppInSettingClick,
+                    onMarkAsSafeClick = onMarkAsSafeClick,
                     onRecheckClick = onRecheckClick,
                     onDisplayOptionClick = onDisplayOptionClick,
                 )
@@ -180,6 +183,7 @@ private fun InstalledAppContent(
     installedApps: List<InstalledApp>,
     isCustomDisplayOption: Boolean,
     onOpenAppInSettingClick: (String) -> Unit,
+    onMarkAsSafeClick: (String) -> Unit,
     onRecheckClick: () -> Unit,
     onDisplayOptionClick: () -> Unit,
 ) {
@@ -216,6 +220,7 @@ private fun InstalledAppContent(
                 lazyListState = lazyListState,
                 installedApps = installedApps,
                 onOpenAppInSettingClick = onOpenAppInSettingClick,
+                onMarkAsSafeClick = onMarkAsSafeClick
             )
         } else {
             Spacer(modifier = Modifier.height(16.dp))
@@ -240,6 +245,7 @@ private fun AppContent(
     lazyListState: LazyListState,
     installedApps: List<InstalledApp>,
     onOpenAppInSettingClick: (String) -> Unit,
+    onMarkAsSafeClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -254,6 +260,7 @@ private fun AppContent(
                 AppInfoContent(
                     app = installedApp,
                     onOpenInSettingClick = { onOpenAppInSettingClick(installedApp.packageName) },
+                    onMarkAsSafeClick = { onMarkAsSafeClick(installedApp.packageName) }
                 )
                 if (index != installedApps.lastIndex) {
                     Spacer(modifier = Modifier.height(8.dp))
@@ -653,6 +660,7 @@ private fun InstalledAppContentPreview() {
                 ),
                 isCustomDisplayOption = true,
                 onOpenAppInSettingClick = {},
+                onMarkAsSafeClick = {},
                 onRecheckClick = {},
                 onDisplayOptionClick = {},
             )
@@ -673,6 +681,7 @@ private fun LoadingAppContentPreview() {
                 uiState = InstalledAppUiState.Loading(DisplayOption.default),
                 isCustomDisplayOption = false,
                 onOpenAppInSettingClick = {},
+                onMarkAsSafeClick = {},
                 onRecheckClick = {},
                 onDisplayOptionClick = {},
             )
@@ -698,6 +707,7 @@ private fun EmptyInstalledAppScreenPreview() {
                 ),
                 isCustomDisplayOption = false,
                 onOpenAppInSettingClick = {},
+                onMarkAsSafeClick = {},
                 onRecheckClick = {},
                 onDisplayOptionClick = {},
             )

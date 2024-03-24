@@ -89,6 +89,9 @@
     <string name="app_info_installer_unknown">OS or ADB</string>
     <string name="app_info_installer_sideload" translatable="false">Sideload</string>
     <string name="app_info_open_settings">Open app settings</string>
+    <string name="app_info_button_mark_as_safe">Mark as safe</string>
+    <string name="app_info_button_app_info">App info</string>
+
 
     <string name="state_enabled">Enabled</string>
     <string name="state_unsupported">Unsupported</string>

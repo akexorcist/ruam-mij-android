@@ -13,7 +13,7 @@ class RuamMijApplication : Application() {
         startKoin {
             androidLogger(Level.ERROR)
             androidContext(applicationContext)
-            modules(AppModule.modules)
+            modules(AppModule.modules, AppModule.databaseModule)
         }
     }
 }

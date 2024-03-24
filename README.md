@@ -45,6 +45,7 @@
 * Kajornsak Peerapathananont
 * Suttichan Paenchan
 * Parkorn Soonthornchai
+* Teerapong Chantakard
 
 ## ฟีเจอร์ที่ยังไม่ได้ทำ (สำหรับผู้ที่สนใจเข้ามาร่วมพัฒนาด้วย)
 * เพิ่มเมนู FAQ ในหน้า About App

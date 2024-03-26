@@ -84,6 +84,9 @@ fun AboutAppRoute() {
         },
         onOpenSourceLicenseClick = {
             activity.startActivity(Intent(activity, OssLicensesMenuActivity::class.java))
+            OssLicensesMenuActivity.setActivityTitle(
+                activity.getString(R.string.about_app_menu_open_source_licenses)
+            )
         },
         onSourceCodeClick = {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/akexorcist/ruam-mij-android"))

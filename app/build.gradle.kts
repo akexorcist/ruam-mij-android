@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.ossLicenses)
 }
 
 android {
@@ -82,6 +83,7 @@ dependencies {
     implementation(libs.koin.androidx.compose.navigation)
     implementation(libs.accompanist.drawable.painter)
     implementation(libs.androidx.splashscreen)
+    implementation(libs.play.oss.licenses)
 
     coreLibraryDesugaring(libs.desugar)
 }

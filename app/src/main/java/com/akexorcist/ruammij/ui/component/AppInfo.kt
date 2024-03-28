@@ -29,6 +29,7 @@ import com.akexorcist.ruammij.common.Installer
 import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.data.InstalledApp
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.utility.DarkLightPreviews
 import com.akexorcist.ruammij.utility.toReadableDatetime
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
@@ -62,7 +63,7 @@ fun AppInfoContent(
                         text = app.name,
                         color = MaterialTheme.colorScheme.primary,
                     )
-                    BodyText(text = app.packageName)
+                    BodyText(text = app.packageName, color = MaterialTheme.colorScheme.onBackground)
                 }
                 Spacer(modifier = Modifier.width(4.dp))
                 FilledTonalIconButton(
@@ -126,12 +127,12 @@ private fun AdditionalAppInfo(
     value: String,
     verticalAlignment: Alignment.Vertical = Alignment.Top,
     valueContent: @Composable () -> Unit = {
-        BodyText(text = value)
+        BodyText(text = value, color = MaterialTheme.colorScheme.onBackground)
     }
 ) {
     Row(verticalAlignment = verticalAlignment) {
         Box(modifier = Modifier.width(80.dp)) {
-            BoldBodyText(text = label)
+            BoldBodyText(text = label, color = MaterialTheme.colorScheme.onBackground)
         }
         Spacer(modifier = Modifier.width(4.dp))
         valueContent()
@@ -167,7 +168,7 @@ private fun AppInfoContentPreview() {
     }
 }
 
-@Preview
+@DarkLightPreviews
 @Composable
 private fun SystemAppInfoContentPreview() {
     RuamMijTheme {

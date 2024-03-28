@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.akexorcist.ruammij.R
-import com.akexorcist.ruammij.common.*
+import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.ui.theme.MaterialAdditionColorScheme
 
 @Composable
@@ -72,10 +72,10 @@ private fun VerifiedInstaller(
         Spacer(modifier = Modifier.width(4.dp))
         Column {
             if (name != null) {
-                LabelText(text = name)
+                LabelText(text = name, color = MaterialTheme.colorScheme.onBackground)
             }
             if (packageName != null) {
-                LabelText(text = packageName)
+                LabelText(text = packageName, color = MaterialTheme.colorScheme.onBackground)
             }
         }
     }

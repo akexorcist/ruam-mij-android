@@ -36,8 +36,6 @@ import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -52,16 +50,17 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.akexorcist.ruammij.R
-import com.akexorcist.ruammij.common.*
+import com.akexorcist.ruammij.common.Installer
+import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.data.InstalledApp
 import com.akexorcist.ruammij.ui.component.AppInfoContent
 import com.akexorcist.ruammij.ui.component.BodyText
@@ -69,10 +68,12 @@ import com.akexorcist.ruammij.ui.component.BoldBodyText
 import com.akexorcist.ruammij.ui.component.DescriptionText
 import com.akexorcist.ruammij.ui.component.HeadlineText
 import com.akexorcist.ruammij.ui.component.LoadingContent
+import com.akexorcist.ruammij.ui.component.OptionItemChip
 import com.akexorcist.ruammij.ui.component.OutlinedButtonWithIcon
 import com.akexorcist.ruammij.ui.component.TitleText
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.utility.DarkLightPreviews
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -84,9 +85,6 @@ fun InstalledAppRoute(
 ) {
     val uiState by viewModel.installedAppUiState.collectAsStateWithLifecycle()
     val activity = LocalContext.current as Activity
-    var showDisplayOption by remember { mutableStateOf(false) }
-    val lazyListState: LazyListState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         viewModel.loadInstalledApps(
@@ -95,40 +93,10 @@ fun InstalledAppRoute(
         )
     }
 
-    if (showDisplayOption) {
-        DisplayOptionBottomSheet(
-            sortBy = uiState.displayOption.sortBy,
-            showSystemApp = uiState.displayOption.showSystemApp,
-            hideVerifiedInstaller = uiState.displayOption.hideVerifiedInstaller,
-            currentSelectedInstallers = uiState.displayOption.installers,
-            installers = (uiState as? InstalledAppUiState.InstalledAppLoaded)?.installers,
-            onDisplayOptionApplyClick = { option ->
-                viewModel.updateDisplayOption(option)
-                showDisplayOption = false
-                coroutineScope.launch { lazyListState.animateScrollToItem(0) }
-            },
-            onDismissRequest = { showDisplayOption = false },
-        )
-    }
-
     InstalledAppScreen(
-        lazyListState = lazyListState,
         uiState = uiState,
-        isCustomDisplayOption = run {
-            val displayOption = uiState.displayOption
-            val default = DisplayOption.default
-            val isAllInstallersSelected =
-                displayOption.installers.size != ((uiState as? InstalledAppUiState.InstalledAppLoaded)?.installers?.size
-                    ?: 0)
-            (displayOption.showSystemApp != default.showSystemApp ||
-                    displayOption.hideVerifiedInstaller != default.hideVerifiedInstaller ||
-                    displayOption.sortBy != default.sortBy) ||
-                    (displayOption.installers.isNotEmpty() && isAllInstallersSelected)
-        },
-        onOpenAppInSettingClick = { packageName ->
-            activity.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                data = Uri.parse("package:$packageName")
-            })
+        onDisplayOptionApplyClick = {
+            viewModel.updateDisplayOption(it)
         },
         onRecheckClick = {
             viewModel.loadInstalledApps(
@@ -137,21 +105,29 @@ fun InstalledAppRoute(
                 forceRefresh = true,
             )
         },
-        onDisplayOptionClick = { showDisplayOption = true },
+        onOpenAppInSettingClick = {
+            activity.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                data = Uri.parse("package:$it")
+            })
+        }
     )
 }
 
 @Composable
 private fun InstalledAppScreen(
-    lazyListState: LazyListState,
     uiState: InstalledAppUiState,
-    isCustomDisplayOption: Boolean,
-    onOpenAppInSettingClick: (String) -> Unit,
+    onDisplayOptionApplyClick: (DisplayOption) -> Unit,
     onRecheckClick: () -> Unit,
-    onDisplayOptionClick: () -> Unit,
+    onOpenAppInSettingClick: (String) -> Unit
 ) {
+    val lazyListState: LazyListState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+
+    var showDisplayOption by remember { mutableStateOf(false) }
+
     Column(modifier = Modifier.fillMaxSize()) {
         Header()
+
         when (uiState) {
             is InstalledAppUiState.Loading -> {
                 LoadingContent(
@@ -161,13 +137,38 @@ private fun InstalledAppScreen(
             }
 
             is InstalledAppUiState.InstalledAppLoaded -> {
+                if (showDisplayOption) {
+                    DisplayOptionBottomSheet(
+                        sortBy = uiState.displayOption.sortBy,
+                        showSystemApp = uiState.displayOption.showSystemApp,
+                        hideVerifiedInstaller = uiState.displayOption.hideVerifiedInstaller,
+                        currentSelectedInstallers = uiState.displayOption.installers,
+                        installers = uiState.installers,
+                        onDisplayOptionApplyClick = { option ->
+                            showDisplayOption = false
+                            coroutineScope.launch { lazyListState.animateScrollToItem(0) }
+                            onDisplayOptionApplyClick(option)
+                        },
+                        onDismissRequest = { showDisplayOption = false },
+                    )
+                }
+
                 InstalledAppContent(
                     lazyListState = lazyListState,
                     installedApps = uiState.displayInstalledApps,
-                    isCustomDisplayOption = isCustomDisplayOption,
+                    isCustomDisplayOption = run {
+                        val displayOption = uiState.displayOption
+                        val default = DisplayOption.default
+                        val isAllInstallersSelected =
+                            displayOption.installers.size != uiState.installers.size
+                        (displayOption.showSystemApp != default.showSystemApp ||
+                                displayOption.hideVerifiedInstaller != default.hideVerifiedInstaller ||
+                                displayOption.sortBy != default.sortBy) ||
+                                (displayOption.installers.isNotEmpty() && isAllInstallersSelected)
+                    },
                     onOpenAppInSettingClick = onOpenAppInSettingClick,
                     onRecheckClick = onRecheckClick,
-                    onDisplayOptionClick = onDisplayOptionClick,
+                    onDisplayOptionClick = { showDisplayOption = true },
                 )
             }
         }
@@ -250,7 +251,9 @@ private fun AppContent(
             state = lazyListState,
         ) {
             item { Spacer(modifier = Modifier.height(16.dp)) }
-            itemsIndexed(items = installedApps, key = { _, item -> item.packageName }) { index, installedApp ->
+            itemsIndexed(
+                items = installedApps,
+                key = { _, item -> item.packageName }) { index, installedApp ->
                 AppInfoContent(
                     app = installedApp,
                     onOpenInSettingClick = { onOpenAppInSettingClick(installedApp.packageName) },
@@ -340,10 +343,11 @@ private fun DisplayOptionBottomSheet(
                         false -> item
                     }
                 }
-                currentHideVerifiedInstaller = when (currentInstallers.any { (_, selected) -> !selected }) {
-                    true -> false
-                    false -> currentHideVerifiedInstaller
-                }
+                currentHideVerifiedInstaller =
+                    when (currentInstallers.any { (_, selected) -> !selected }) {
+                        true -> false
+                        false -> currentHideVerifiedInstaller
+                    }
             },
             onDisplayOptionApplyClick = {
                 onDisplayOptionApplyClick(
@@ -525,20 +529,17 @@ private fun OptionItem(
     },
     onClick: () -> Unit,
 ) {
-    FilterChip(
+    OptionItemChip(
         selected = selected,
         onClick = onClick,
-        leadingIcon = leadingIcon,
-        label = { BodyText(text = label) },
-        colors = FilterChipDefaults.filterChipColors(
-            containerColor = Color.Transparent,
-            labelColor = MaterialTheme.colorScheme.onBackground,
-            iconColor = MaterialTheme.colorScheme.onBackground,
-            selectedContainerColor = MaterialTheme.colorScheme.secondary,
-            selectedLabelColor = MaterialTheme.colorScheme.onSecondary,
-            selectedLeadingIconColor = MaterialTheme.colorScheme.onSecondary,
-            selectedTrailingIconColor = MaterialTheme.colorScheme.onSecondary,
-        ),
+        label = {
+            if (selected) {
+                BoldBodyText(text = label)
+            } else {
+                BodyText(text = label)
+            }
+        },
+        leadingIcon = leadingIcon
     )
 }
 
@@ -572,19 +573,9 @@ private fun InstallerOptionItem(
     packageName: String?,
     onClick: () -> Unit,
 ) {
-    FilterChip(
+    OptionItemChip(
         selected = selected,
         onClick = onClick,
-        leadingIcon = {
-            if (selected) {
-                Icon(
-                    modifier = Modifier.size(18.dp),
-                    painter = rememberVectorPainter(Icons.Outlined.Check),
-                    contentDescription = stringResource(R.string.description_checked),
-                    tint = MaterialTheme.colorScheme.onSecondary,
-                )
-            }
-        },
         label = {
             Column(modifier = Modifier.padding(vertical = 4.dp)) {
                 if (appName != null) {
@@ -595,21 +586,20 @@ private fun InstallerOptionItem(
                 }
             }
         },
-        colors = FilterChipDefaults.filterChipColors(
-            containerColor = Color.Transparent,
-            labelColor = MaterialTheme.colorScheme.onBackground,
-            iconColor = MaterialTheme.colorScheme.onBackground,
-            selectedContainerColor = MaterialTheme.colorScheme.secondary,
-            selectedLabelColor = MaterialTheme.colorScheme.onSecondary,
-            selectedLeadingIconColor = MaterialTheme.colorScheme.onSecondary,
-            selectedTrailingIconColor = MaterialTheme.colorScheme.onSecondary,
-        ),
+        leadingIcon = {
+            if (selected) {
+                Icon(
+                    modifier = Modifier.size(18.dp),
+                    painter = rememberVectorPainter(Icons.Outlined.Check),
+                    contentDescription = stringResource(R.string.description_checked),
+                    tint = MaterialTheme.colorScheme.onSecondary,
+                )
+            }
+        }
     )
 }
 
-@Preview
-@Composable
-private fun InstalledAppContentPreview() {
+private class InstalledAppUiStateProvider : PreviewParameterProvider<InstalledAppUiState> {
     val apps = listOf(
         InstalledApp(
             name = "Accessibility Service",
@@ -638,82 +628,72 @@ private fun InstalledAppContentPreview() {
             ),
         ),
     )
-    val lazyListState = rememberLazyListState()
-    RuamMijTheme {
-        Box(
-            modifier = Modifier.background(MaterialTheme.colorScheme.background),
-        ) {
-            InstalledAppScreen(
-                lazyListState = lazyListState,
-                uiState = InstalledAppUiState.InstalledAppLoaded(
-                    displayOption = DisplayOption.default,
-                    installedApps = apps,
-                    displayInstalledApps = apps,
-                    installers = listOf(),
-                ),
-                isCustomDisplayOption = true,
-                onOpenAppInSettingClick = {},
-                onRecheckClick = {},
-                onDisplayOptionClick = {},
+    override val values: Sequence<InstalledAppUiState>
+        get() = sequenceOf(
+            InstalledAppUiState.Loading(DisplayOption.default),
+            InstalledAppUiState.InstalledAppLoaded(
+                displayOption = DisplayOption.default,
+                installedApps = apps,
+                displayInstalledApps = apps,
+                installers = emptyList(),
+            ),
+            InstalledAppUiState.InstalledAppLoaded(
+                displayOption = DisplayOption.default,
+                installedApps = emptyList(),
+                displayInstalledApps = emptyList(),
+                installers = emptyList(),
             )
-        }
-    }
+        )
 }
 
-@Preview
+@DarkLightPreviews
 @Composable
-private fun LoadingAppContentPreview() {
-    val lazyListState = rememberLazyListState()
+private fun InstalledAppPreview(@PreviewParameter(InstalledAppUiStateProvider::class) uiState: InstalledAppUiState) {
     RuamMijTheme {
         Box(
-            modifier = Modifier.background(MaterialTheme.colorScheme.background),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background),
         ) {
             InstalledAppScreen(
-                lazyListState = lazyListState,
-                uiState = InstalledAppUiState.Loading(DisplayOption.default),
-                isCustomDisplayOption = false,
-                onOpenAppInSettingClick = {},
-                onRecheckClick = {},
-                onDisplayOptionClick = {},
+                uiState = uiState,
+                onDisplayOptionApplyClick = {},
+                onRecheckClick = { },
+                onOpenAppInSettingClick = {}
             )
         }
     }
 }
 
-@Preview
-@Composable
-private fun EmptyInstalledAppScreenPreview() {
-    val lazyListState = rememberLazyListState()
-    RuamMijTheme {
-        Box(
-            modifier = Modifier.background(MaterialTheme.colorScheme.background),
-        ) {
-            InstalledAppScreen(
-                lazyListState = lazyListState,
-                uiState = InstalledAppUiState.InstalledAppLoaded(
-                    displayOption = DisplayOption.default,
-                    installedApps = listOf(),
-                    displayInstalledApps = listOf(),
-                    installers = listOf(),
-                ),
-                isCustomDisplayOption = false,
-                onOpenAppInSettingClick = {},
-                onRecheckClick = {},
-                onDisplayOptionClick = {},
-            )
-        }
-    }
-}
-
-@Preview
+@DarkLightPreviews
 @Composable
 private fun DisplayOptionContentPreview() {
     val installers = listOf(
-        Installer(name = "OS or ADB", packageName = null, verificationStatus = InstallerVerificationStatus.VERIFIED),
-        Installer(name = "App 1", packageName = "com.akexorcist.appstore1", verificationStatus = InstallerVerificationStatus.VERIFIED),
-        Installer(name = "App 2", packageName = "com.akexorcist.appstore2", verificationStatus = InstallerVerificationStatus.VERIFIED),
-        Installer(name = null, packageName = "com.akexorcist.appstore3", verificationStatus = InstallerVerificationStatus.VERIFIED),
-        Installer(name = null, packageName = "com.akexorcist.appstore4", verificationStatus = InstallerVerificationStatus.VERIFIED),
+        Installer(
+            name = "OS or ADB",
+            packageName = null,
+            verificationStatus = InstallerVerificationStatus.VERIFIED
+        ),
+        Installer(
+            name = "App 1",
+            packageName = "com.akexorcist.appstore1",
+            verificationStatus = InstallerVerificationStatus.VERIFIED
+        ),
+        Installer(
+            name = "App 2",
+            packageName = "com.akexorcist.appstore2",
+            verificationStatus = InstallerVerificationStatus.VERIFIED
+        ),
+        Installer(
+            name = null,
+            packageName = "com.akexorcist.appstore3",
+            verificationStatus = InstallerVerificationStatus.VERIFIED
+        ),
+        Installer(
+            name = null,
+            packageName = "com.akexorcist.appstore4",
+            verificationStatus = InstallerVerificationStatus.VERIFIED
+        ),
     )
     RuamMijTheme {
         Box(

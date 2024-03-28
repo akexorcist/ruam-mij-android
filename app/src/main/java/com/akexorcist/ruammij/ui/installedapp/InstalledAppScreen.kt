@@ -74,14 +74,14 @@ import com.akexorcist.ruammij.ui.component.TitleText
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.DarkLightPreviews
+import com.akexorcist.ruammij.utility.koinActivityViewModel
 import kotlinx.coroutines.launch
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun InstalledAppRoute(
     preferredInstaller: String?,
     preferredShowSystemApp: Boolean?,
-    viewModel: InstalledAppViewModel = koinViewModel(),
+    viewModel: InstalledAppViewModel = koinActivityViewModel(),
 ) {
     val uiState by viewModel.installedAppUiState.collectAsStateWithLifecycle()
     val activity = LocalContext.current as Activity
@@ -231,7 +231,10 @@ private fun Header() {
         Spacer(modifier = Modifier.height(24.dp))
         HeadlineText(text = stringResource(R.string.installed_app_title))
         Spacer(modifier = Modifier.height(4.dp))
-        DescriptionText(text = stringResource(R.string.installed_app_description))
+        DescriptionText(
+            text = stringResource(R.string.installed_app_description),
+            color = MaterialTheme.colorScheme.onBackground,
+        )
         Spacer(modifier = Modifier.height(8.dp))
     }
 }
@@ -291,7 +294,7 @@ private fun EmptyAppItem(
             tint = MaterialTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.width(8.dp))
-        BodyText(text = text)
+        BodyText(text = text, color = MaterialTheme.colorScheme.onBackground)
     }
 }
 

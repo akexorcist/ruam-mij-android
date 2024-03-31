@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.Button
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -99,12 +100,12 @@ fun AppInfoContent(
             Spacer(modifier = Modifier.height(4.dp))
             Row {
                 if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
-                    Button(onClick = onMarkAsSafeClick) {
+                    FilledTonalButton(onClick = onMarkAsSafeClick) {
                         Text(text = stringResource(R.string.app_info_button_mark_as_safe))
                     }
                     Spacer(modifier = Modifier.width(8.dp))
                 }
-                Button(
+                FilledTonalButton(
                     contentPadding = Buttons.ContentPadding,
                     onClick = onOpenInSettingClick,
                 ) {

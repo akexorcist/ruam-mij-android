@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.devToolsKsp)
     alias(libs.plugins.ossLicenses)
 }
 
@@ -25,6 +26,17 @@ android {
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+            val signingKeyFile: String? = System.getenv("SIGNING_KEY_STORE_PATH")
+            if (signingKeyFile != null) {
+                signingConfig = signingConfigs.create("release") {
+                    storeFile = file("${signingKeyFile}")
+                    storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+                    keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+                    keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+                }
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
     compileOptions {
@@ -72,6 +84,9 @@ dependencies {
     implementation(libs.koin.androidx.compose.navigation)
     implementation(libs.accompanist.drawable.painter)
     implementation(libs.androidx.splashscreen)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.play.oss.licenses)
 
     coreLibraryDesugaring(libs.desugar)

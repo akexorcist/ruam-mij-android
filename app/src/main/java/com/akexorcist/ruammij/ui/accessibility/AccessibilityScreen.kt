@@ -68,6 +68,7 @@ fun AccessibilityRoute(
                 data = Uri.parse("package:$packageName")
             })
         },
+        onMarkAsSafeClick = {},
         onRecheckClick = { viewModel.loadAccessibilityApps(forceRefresh = true) },
     )
 }
@@ -76,6 +77,7 @@ fun AccessibilityRoute(
 private fun AccessibilityScreen(
     uiState: AccessibilityUiState,
     onAppOpenInSettingClick: (String) -> Unit,
+    onMarkAsSafeClick: (String) -> Unit,
     onRecheckClick: () -> Unit,
 ) {
     Column(
@@ -95,6 +97,7 @@ private fun AccessibilityScreen(
                     activeAccessibilityApps = uiState.active,
                     inactiveAccessibilityApps = uiState.inactive,
                     onAppOpenInSettingClick = onAppOpenInSettingClick,
+                    onMarkAsSafeClick = onMarkAsSafeClick,
                     onRecheckClick = onRecheckClick,
                 )
             }
@@ -119,6 +122,7 @@ private fun AccessibilityContent(
     inactiveAccessibilityApps: List<InstalledApp>,
     onRecheckClick: () -> Unit,
     onAppOpenInSettingClick: (String) -> Unit,
+    onMarkAsSafeClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -132,11 +136,14 @@ private fun AccessibilityContent(
         RunningAccessibilityServiceApps(
             apps = activeAccessibilityApps,
             onAppOpenInSettingClick = onAppOpenInSettingClick,
+            onMarkAsSafeClick = onMarkAsSafeClick,
+
         )
         Spacer(modifier = Modifier.height(16.dp))
         InactiveAccessibilityServiceApps(
             apps = inactiveAccessibilityApps,
             onAppOpenInSettingClick = onAppOpenInSettingClick,
+            onMarkAsSafeClick = onMarkAsSafeClick,
         )
         Spacer(modifier = Modifier.height(16.dp))
     }
@@ -157,6 +164,7 @@ private fun Header() {
 private fun RunningAccessibilityServiceApps(
     apps: List<InstalledApp>,
     onAppOpenInSettingClick: (String) -> Unit,
+    onMarkAsSafeClick: (String) -> Unit,
 ) {
     SectionCard(
         modifier = Modifier.fillMaxWidth(),
@@ -172,7 +180,8 @@ private fun RunningAccessibilityServiceApps(
                 apps.forEachIndexed { index, app ->
                     AppInfoContent(
                         app = app,
-                        onOpenInSettingClick = { onAppOpenInSettingClick(app.packageName) }
+                        onOpenInSettingClick = { onAppOpenInSettingClick(app.packageName) },
+                        onMarkAsSafeClick = { onMarkAsSafeClick(app.packageName) }
                     )
                     if (index != apps.lastIndex) {
                         Spacer(modifier = Modifier.height(8.dp))
@@ -191,6 +200,7 @@ private fun RunningAccessibilityServiceApps(
 private fun InactiveAccessibilityServiceApps(
     apps: List<InstalledApp>,
     onAppOpenInSettingClick: (String) -> Unit,
+    onMarkAsSafeClick: (String) -> Unit,
 ) {
     SectionCard(
         modifier = Modifier.fillMaxWidth(),
@@ -206,6 +216,7 @@ private fun InactiveAccessibilityServiceApps(
                     AppInfoContent(
                         app = app,
                         onOpenInSettingClick = { onAppOpenInSettingClick(app.packageName) },
+                        onMarkAsSafeClick = { onMarkAsSafeClick(app.packageName) }
                     )
                     if (index != apps.lastIndex) {
                         Spacer(modifier = Modifier.height(8.dp))
@@ -266,6 +277,7 @@ private fun AccessibilityContentPreview() {
                 activeAccessibilityApps = emptyList(),
                 inactiveAccessibilityApps = emptyList(),
                 onAppOpenInSettingClick = {},
+                onMarkAsSafeClick = {},
                 onRecheckClick = {},
             )
         }
@@ -306,6 +318,7 @@ private fun RunningAccessibilityServiceAppsPreview() {
                 ),
             ),
             onAppOpenInSettingClick = {},
+            onMarkAsSafeClick = {}
         )
     }
 }
@@ -317,6 +330,7 @@ private fun EmptyRunningAccessibilityServiceAppsPreview() {
         RunningAccessibilityServiceApps(
             apps = emptyList(),
             onAppOpenInSettingClick = {},
+            onMarkAsSafeClick = {},
         )
     }
 }
@@ -355,6 +369,7 @@ private fun InactiveAccessibilityServiceAppsPreview() {
                 ),
             ),
             onAppOpenInSettingClick = {},
+            onMarkAsSafeClick = {},
         )
     }
 }
@@ -366,6 +381,7 @@ private fun EmptyInactiveAccessibilityServiceAppsPreview() {
         InactiveAccessibilityServiceApps(
             apps = emptyList(),
             onAppOpenInSettingClick = {},
+            onMarkAsSafeClick = {},
         )
     }
 }

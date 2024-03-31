@@ -43,6 +43,7 @@ object Installers {
         "com.xiaomi.discover" to InstallerVerificationStatus.VERIFIED,
         "com.aura.oobe.deutsche" to InstallerVerificationStatus.VERIFIED,
         "com.sonyericsson.updatecenter" to InstallerVerificationStatus.VERIFIED,
+        "com.asus.dm" to InstallerVerificationStatus.VERIFIED,
 
         "com.apkpure.aegon" to InstallerVerificationStatus.UNVERIFIED,
         "com.qooapp.qoohelper" to InstallerVerificationStatus.UNVERIFIED,

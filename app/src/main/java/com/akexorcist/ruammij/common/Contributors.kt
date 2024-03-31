@@ -10,5 +10,8 @@ object Contributors {
         "Tipatai Puthanukunkit",
         "Dheerapat Tookkane",
         "Kajornsak Peerapathananont",
+        "Suttichan Paenchan",
+        "Parkorn Soonthornchai",
+        "Teerapong Chantakard",
     )
 }

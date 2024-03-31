@@ -49,23 +49,18 @@
 * Kittinun Vantasin
 * Monthira Chayabanjonglerd
 
-## ฟีเจอร์ที่ยังไม่ได้ทำ (สำหรับผู้ที่สนใจเข้ามาร่วมพัฒนาด้วย)
-* เพิ่มเมนู FAQ ในหน้า About App
-* เพิ่มเมนู Open Source License ในหน้า About App
-* เก็บประวัติแอปที่เรียกใช้งาน Media Projection เพื่อให้ผู้ใช้ดูย้อนหลังได้
-* รองรับการเปลี่ยนภาษาภายในแอปโดยใช้ Per-app language preferences ใน AppCompat
-* ทำ Snapshot Testing
-* ทำ CI/CD ด้วย GitHub Actions เพื่อ Publish App ผ่านหน้า Releases โดยอัตโนมัติ
+## อยากมีส่วนรวมในการพัฒนาโปรเจคนี้?
+ดูรายละเอียดได้ที่ [Contributing](CONTRIBUTING.md)
 
-## คำแนะนำสำหรับการ build debug apk จาก source code โดยตรง (สำหรับทดสอบ app แบบ nightly กรณีทีมงานอัพเดท source code ล่าสุดแต่ยังไม่ปล่อย release )
-ตรวจสอบให้แน่ใจว่าตั้งค่า environment variable `ANDROID_HOME` ให้ชี้ไปยัง Android SDK ที่ถูกต้อง
+## คำแนะนำสำหรับการ Build Debug APK จาก Source Code โดยตรง (สำหรับทดสอบแบบ Nightly ในกรณีที่โค้ดมีการอัปเดตแต่ยังไม่ Release)
+ตรวจสอบให้แน่ใจว่าตั้งค่า Environment Variable `ANDROID_HOME` ให้ชี้ไปยัง Android SDK ที่ถูกต้อง
 และควรตั้งค่า `JAVA_HOME` ให้ชี้ไปยัง JDK ที่ต้องการใช้งานด้วย
 
 ```bash
 echo $ANDROID_HOME
 echo $JAVA_HOME
 ```
-หลังจาก run command ข้างต้น หากเห็น path ชี้ไปยัง SDK และ JDK ที่ต้องการแล้ว ให้ run command ด้านล่างต่อไปนี้เพื่อ build debug apk สำหรับทดสอบ
+หลังจาก Run Command ข้างต้น หากเห็น Path ชี้ไปยัง SDK และ JDK ที่ต้องการแล้ว ให้ Run Command ด้านล่างต่อไปนี้เพื่อ Build Debug APK สำหรับทดสอบ
 
 ```bash
 git clone https://github.com/akexorcist/ruam-mij-android.git

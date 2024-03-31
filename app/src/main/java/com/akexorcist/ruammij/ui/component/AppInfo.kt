@@ -204,3 +204,33 @@ private fun SystemAppInfoContentPreview() {
         }
     }
 }
+
+@DarkLightPreviews
+@Composable
+private fun AppInfoContentUnVerifiedPreview() {
+    RuamMijTheme {
+        Box(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
+        ) {
+            AppInfoContent(
+                app = InstalledApp(
+                    name = "Privacy Checker",
+                    packageName = "com.akexorcist.ruammij",
+                    appVersion = "1.0.0",
+                    installedAt = System.currentTimeMillis(),
+                    installer = Installer(
+                        name = "Google Play",
+                        packageName = "com.android.vending",
+                        verificationStatus = InstallerVerificationStatus.UNVERIFIED,
+                    ),
+                    icon = null,
+                    systemApp = true,
+                ),
+                onOpenInSettingClick = {},
+                onMarkAsSafeClick = {}
+            )
+        }
+    }
+}

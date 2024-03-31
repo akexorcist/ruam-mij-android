@@ -13,6 +13,8 @@ koin = "3.5.3"
 desugar = "2.0.4"
 accompanist = "0.34.0"
 splashScreen = "1.0.1"
+room = "2.6.1"
+ksp = "1.9.23-1.0.19"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -37,8 +39,10 @@ koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-comp
 desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
 accompanist-drawable-painter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreen" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+devToolsKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

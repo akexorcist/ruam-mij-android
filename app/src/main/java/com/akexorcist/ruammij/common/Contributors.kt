@@ -13,5 +13,7 @@ object Contributors {
         "Suttichan Paenchan",
         "Parkorn Soonthornchai",
         "Teerapong Chantakard",
+        "Kittinun Vantasin",
+        "Monthira Chayabanjonglerd",
     )
 }

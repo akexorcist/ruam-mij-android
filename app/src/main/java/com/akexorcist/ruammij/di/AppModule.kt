@@ -15,10 +15,14 @@ import org.koin.dsl.module
 object AppModule {
     val modules = module {
         factory<CoroutineDispatcherProvider> { DefaultCoroutineDispatcherProvider() }
-        single<DeviceRepository> { DefaultDeviceRepository(androidContext(), get()) }
+        single<DeviceRepository> { DefaultDeviceRepository(androidContext(), get(), get()) }
         viewModelOf(::OverviewViewModel)
         viewModelOf(::AccessibilityViewModel)
         viewModelOf(::InstalledAppViewModel)
         viewModelOf(::SharedEventViewModel)
+    }
+    val databaseModule = module {
+        single { provideDataBase(get()) }
+        single { provideSafeAppDao(get()) }
     }
 }

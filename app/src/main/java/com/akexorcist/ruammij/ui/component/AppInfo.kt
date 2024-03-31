@@ -14,13 +14,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
-import androidx.compose.material3.FilledTonalIconButton
-import androidx.compose.material3.Icon
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,6 +27,7 @@ import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.common.Installer
 import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.data.InstalledApp
+import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.DarkLightPreviews
 import com.akexorcist.ruammij.utility.toReadableDatetime
@@ -37,6 +37,7 @@ import com.google.accompanist.drawablepainter.rememberDrawablePainter
 fun AppInfoContent(
     app: InstalledApp,
     onOpenInSettingClick: () -> Unit,
+    onMarkAsSafeClick: () -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -66,17 +67,6 @@ fun AppInfoContent(
                     BodyText(text = app.packageName, color = MaterialTheme.colorScheme.onBackground)
                 }
                 Spacer(modifier = Modifier.width(4.dp))
-                FilledTonalIconButton(
-                    onClick = onOpenInSettingClick,
-                    modifier = Modifier.size(32.dp),
-                ) {
-                    Icon(
-                        modifier = Modifier.size(18.dp),
-                        painter = painterResource(R.drawable.ic_open_in_settings),
-                        contentDescription = stringResource(R.string.button_open_in_setting_description),
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
-                    )
-                }
             }
             if (app.systemApp) {
                 Spacer(modifier = Modifier.height(6.dp))
@@ -106,6 +96,21 @@ fun AppInfoContent(
                     )
                 }
             )
+            Spacer(modifier = Modifier.height(4.dp))
+            Row {
+                if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
+                    Button(onClick = onMarkAsSafeClick) {
+                        Text(text = stringResource(R.string.app_info_button_mark_as_safe))
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
+                Button(
+                    contentPadding = Buttons.ContentPadding,
+                    onClick = onOpenInSettingClick,
+                ) {
+                    Text(text = stringResource(R.string.app_info_button_app_info))
+                }
+            }
         }
     }
 }
@@ -163,6 +168,7 @@ private fun AppInfoContentPreview() {
                     systemApp = false,
                 ),
                 onOpenInSettingClick = {},
+                onMarkAsSafeClick = {}
             )
         }
     }
@@ -192,6 +198,7 @@ private fun SystemAppInfoContentPreview() {
                     systemApp = true,
                 ),
                 onOpenInSettingClick = {},
+                onMarkAsSafeClick = {}
             )
         }
     }

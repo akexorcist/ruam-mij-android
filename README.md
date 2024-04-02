@@ -48,6 +48,7 @@
 * Teerapong Chantakard
 * Kittinun Vantasin
 * Monthira Chayabanjonglerd
+* Wathin Sonnukij
 
 ## อยากมีส่วนรวมในการพัฒนาโปรเจคนี้?
 ดูรายละเอียดได้ที่ [Contributing](CONTRIBUTING.md)

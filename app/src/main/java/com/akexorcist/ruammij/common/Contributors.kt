@@ -15,5 +15,6 @@ object Contributors {
         "Teerapong Chantakard",
         "Kittinun Vantasin",
         "Monthira Chayabanjonglerd",
+        "Wathin Sonnukij",
     )
 }

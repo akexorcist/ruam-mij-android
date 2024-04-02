@@ -97,21 +97,27 @@ fun AppInfoContent(
                     )
                 }
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             Row {
-                if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
-                    FilledTonalButton(onClick = onMarkAsSafeClick) {
-                        Text(text = stringResource(R.string.app_info_button_mark_as_safe))
-                    }
-                    Spacer(modifier = Modifier.width(8.dp))
-                }
                 FilledTonalButton(
+                    modifier = Modifier.height(32.dp),
                     contentPadding = Buttons.ContentPadding,
                     onClick = onOpenInSettingClick,
                 ) {
                     Text(text = stringResource(R.string.app_info_button_app_info))
                 }
+                if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
+                    Spacer(modifier = Modifier.width(8.dp))
+                    FilledTonalButton(
+                        modifier = Modifier.height(32.dp),
+                        contentPadding = Buttons.ContentPadding,
+                        onClick = onMarkAsSafeClick,
+                    ) {
+                        Text(text = stringResource(R.string.app_info_button_mark_as_safe))
+                    }
+                }
             }
+            Spacer(modifier = Modifier.height(4.dp))
         }
     }
 }

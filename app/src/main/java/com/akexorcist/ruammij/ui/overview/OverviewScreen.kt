@@ -72,17 +72,18 @@ import com.akexorcist.ruammij.utility.koinActivityViewModel
 import com.akexorcist.ruammij.utility.toReadableDatetime
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import org.koin.androidx.compose.koinViewModel
-import org.koin.androidx.compose.navigation.koinNavViewModel
 
 @Composable
 fun OverviewRoute(
     navController: NavController,
-    viewModel: OverviewViewModel = koinNavViewModel(),
+    viewModel: OverviewViewModel = koinViewModel(),
     sharedEventViewModel: SharedEventViewModel = koinActivityViewModel(),
 ) {
     val activity = LocalContext.current as Activity
     val uiState by viewModel.overviewUiState.collectAsStateWithLifecycle()
-    val mediaProjectionDetectionEvent by sharedEventViewModel.mediaProjectionEvent.collectAsStateWithLifecycle(initialValue = null)
+    val mediaProjectionDetectionEvent by sharedEventViewModel.mediaProjectionEvent.collectAsStateWithLifecycle(
+        initialValue = null
+    )
 
     LaunchedEffect(Unit) { viewModel.checkDevicePrivacy() }
 
@@ -367,7 +368,13 @@ private fun UnverifiedInstalledAppItem(
             if (packageName != null) {
                 BoldBodyText(text = packageName)
             }
-            BodyText(text = pluralStringResource(R.plurals.installed_app_installer_amount, appCount, appCount))
+            BodyText(
+                text = pluralStringResource(
+                    R.plurals.installed_app_installer_amount,
+                    appCount,
+                    appCount
+                )
+            )
         }
         Icon(
             modifier = Modifier.size(24.dp),

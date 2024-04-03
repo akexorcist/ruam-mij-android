@@ -1,12 +1,11 @@
 package com.akexorcist.ruammij
 
-import com.akexorcist.ruammij.di.AppModule.databaseModule
-import com.akexorcist.ruammij.di.AppModule.modules
+import com.akexorcist.ruammij.di.AppModule.allModules
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.test.AutoCloseKoinTest
-import org.koin.test.verify.verify
+import org.koin.test.verify.verifyAll
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
@@ -14,12 +13,7 @@ import org.robolectric.RobolectricTestRunner
 class ModuleCheckTest : AutoCloseKoinTest() {
 
     @Test
-    fun checkKoinBaseModule() {
-        modules.verify()
-    }
-
-    @Test
-    fun checkDatabaseModule() {
-        databaseModule.verify()
+    fun checkKoinModules() {
+        allModules.verifyAll()
     }
 }

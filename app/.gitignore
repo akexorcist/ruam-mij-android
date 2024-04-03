@@ -1,2 +1,2 @@
 build/*
-!build/outputs/roborazzi/
+!build/outputs/roborazzi/*

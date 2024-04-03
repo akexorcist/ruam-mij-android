@@ -81,7 +81,9 @@ fun OverviewRoute(
 ) {
     val activity = LocalContext.current as Activity
     val uiState by viewModel.overviewUiState.collectAsStateWithLifecycle()
-    val mediaProjectionDetectionEvent by sharedEventViewModel.mediaProjectionEvent.collectAsStateWithLifecycle(initialValue = null)
+    val mediaProjectionDetectionEvent by sharedEventViewModel.mediaProjectionEvent.collectAsStateWithLifecycle(
+        initialValue = null
+    )
 
     LaunchedEffect(Unit) { viewModel.checkDevicePrivacy() }
 
@@ -366,7 +368,13 @@ private fun UnverifiedInstalledAppItem(
             if (packageName != null) {
                 BoldBodyText(text = packageName)
             }
-            BodyText(text = pluralStringResource(R.plurals.installed_app_installer_amount, appCount, appCount))
+            BodyText(
+                text = pluralStringResource(
+                    R.plurals.installed_app_installer_amount,
+                    appCount,
+                    appCount
+                )
+            )
         }
         Icon(
             modifier = Modifier.size(24.dp),

@@ -6,12 +6,16 @@ import com.akexorcist.ruammij.data.database.RuamMijDatabase
 import com.akexorcist.ruammij.data.database.SafeAppDao
 import org.koin.dsl.module
 
-fun provideDataBase(application: Application): RuamMijDatabase =
+internal val databaseModule = module {
+    single { provideDataBase(get()) }
+    single { provideSafeAppDao(get()) }
+}
+
+private fun provideDataBase(application: Application): RuamMijDatabase =
     Room.databaseBuilder(
         application,
         RuamMijDatabase::class.java,
         "ruammij"
-    ).
-    fallbackToDestructiveMigration().build()
+    ).fallbackToDestructiveMigration().build()
 
-fun provideSafeAppDao(database: RuamMijDatabase): SafeAppDao = database.getSafeAppDao()
+private fun provideSafeAppDao(database: RuamMijDatabase): SafeAppDao = database.getSafeAppDao()

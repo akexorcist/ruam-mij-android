@@ -1,18 +1,17 @@
 package com.akexorcist.ruammij
 
-import android.content.pm.PackageManager
 import android.hardware.display.DisplayManager
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.akexorcist.ruammij.data.InstalledApp
 import com.akexorcist.ruammij.ui.RuamMijApp
 import com.akexorcist.ruammij.ui.rememberAppState
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.getOwnerPackageName
-import com.akexorcist.ruammij.utility.toInstalledApp
+import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.annotation.KoinExperimentalAPI
 
 class MainActivity : AppCompatActivity() {
     private val sharedEventViewModel: SharedEventViewModel by viewModel()
@@ -21,13 +20,16 @@ class MainActivity : AppCompatActivity() {
         getSystemService(DisplayManager::class.java)
     }
 
+    @OptIn(KoinExperimentalAPI::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContent {
-            RuamMijTheme {
-                val appState = rememberAppState()
-                RuamMijApp(appState = appState)
+            KoinAndroidContext {
+                RuamMijTheme {
+                    val appState = rememberAppState()
+                    RuamMijApp(appState = appState)
+                }
             }
         }
         displayManager.registerDisplayListener(displayListener, null)

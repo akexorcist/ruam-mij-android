@@ -13,7 +13,7 @@ import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 object AppModule {
-    val modules = module {
+    private val modules = module {
         factory<CoroutineDispatcherProvider> { DefaultCoroutineDispatcherProvider() }
         single<DeviceRepository> { DefaultDeviceRepository(androidContext(), get(), get()) }
         viewModelOf(::OverviewViewModel)
@@ -21,8 +21,6 @@ object AppModule {
         viewModelOf(::InstalledAppViewModel)
         viewModelOf(::SharedEventViewModel)
     }
-    val databaseModule = module {
-        single { provideDataBase(get()) }
-        single { provideSafeAppDao(get()) }
-    }
+
+    val allModules = modules + databaseModule
 }

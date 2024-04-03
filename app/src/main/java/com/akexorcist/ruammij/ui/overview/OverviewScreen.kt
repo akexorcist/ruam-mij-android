@@ -72,11 +72,12 @@ import com.akexorcist.ruammij.utility.koinActivityViewModel
 import com.akexorcist.ruammij.utility.toReadableDatetime
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import org.koin.androidx.compose.koinViewModel
+import org.koin.androidx.compose.navigation.koinNavViewModel
 
 @Composable
 fun OverviewRoute(
     navController: NavController,
-    viewModel: OverviewViewModel = koinViewModel(),
+    viewModel: OverviewViewModel = koinNavViewModel(),
     sharedEventViewModel: SharedEventViewModel = koinActivityViewModel(),
 ) {
     val activity = LocalContext.current as Activity

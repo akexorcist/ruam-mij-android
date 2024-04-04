@@ -10,8 +10,13 @@ on:
       - 'image/**'
 
 jobs:
-  build-and-test:
+  snapshot-testing-and-report:
+
+    permissions:
+      pull-requests: write
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 

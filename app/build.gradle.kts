@@ -66,6 +66,13 @@ android {
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
+            all {
+                it.useJUnit {
+                    if (project.hasProperty("snapshot")) {
+                        includeCategories("com.akexorcist.ruammij.utils.SnapshotTests")
+                    }
+                }
+            }
         }
     }
 }

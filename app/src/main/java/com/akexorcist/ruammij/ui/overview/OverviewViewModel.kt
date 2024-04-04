@@ -62,10 +62,10 @@ class OverviewViewModel(
                     forceRefresh = false,
                     packageName = event.packageName,
                 ) ?: return@launch
-                uiState.mediaProjectionApps.map { app ->
-                    when (app.app.packageName == event.packageName) {
-                        true -> app.copy(state = MediaProjectionState.DEACTIVATED)
-                        false -> app
+                uiState.mediaProjectionApps.map { mediaProjectionApp ->
+                    when (mediaProjectionApp.app.packageName == event.packageName) {
+                        true -> mediaProjectionApp.copy(state = MediaProjectionState.DEACTIVATED)
+                        false -> mediaProjectionApp
                     }
                 } + MediaProjectionApp(
                     app = app,

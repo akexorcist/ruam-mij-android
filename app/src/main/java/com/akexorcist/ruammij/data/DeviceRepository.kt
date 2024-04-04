@@ -19,6 +19,7 @@ import com.akexorcist.ruammij.ui.overview.MediaProjectionState
 import com.akexorcist.ruammij.utility.getInstaller
 import com.akexorcist.ruammij.utility.getInstallerPackageName
 import com.akexorcist.ruammij.utility.getOwnerPackageName
+import com.akexorcist.ruammij.utility.getShaSignature
 import com.akexorcist.ruammij.utility.toInstalledApp
 import com.akexorcist.ruammij.utility.toInstaller
 import kotlinx.coroutines.withContext
@@ -105,6 +106,7 @@ class DefaultDeviceRepository(
                                 InstallerVerificationStatus.UNVERIFIED
                             }
                         },
+                        sha256 = packageManager.getShaSignature(installerPackageName),
                     )
                 value.toInstalledApp(packageManager, installer)
             }

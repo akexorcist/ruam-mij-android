@@ -73,10 +73,10 @@ jobs:
           files=$(find . -type f -name "*_compare.png" | grep "roborazzi/" | grep -E "^[a-zA-Z0-9_./-]+$")
           delimiter="$(openssl rand -hex 8)"
           {
-            echo "reports<<${ delimiter }"
+            echo "reports<<${delimiter}"
           
-          # Create markdown table header
-          echo "Snapshot diff report"
+            # Create markdown table header
+            echo "### Snapshot Testing Diff Report"
             echo "| File name | Image |"
             echo "|-------|-------|"
           } >> "$GITHUB_OUTPUT"

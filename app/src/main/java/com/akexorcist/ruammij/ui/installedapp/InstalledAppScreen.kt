@@ -639,7 +639,9 @@ private class InstalledAppUiStateProvider : PreviewParameterProvider<InstalledAp
                 name = "Google Play",
                 packageName = "com.android.vending",
                 verificationStatus = InstallerVerificationStatus.VERIFIED,
+                sha256 = "12:34:56:78:90",
             ),
+            sha256 = "12:34:56:78:90",
         ),
         InstalledApp(
             name = "Accessibility Service",
@@ -652,7 +654,9 @@ private class InstalledAppUiStateProvider : PreviewParameterProvider<InstalledAp
                 name = "OS or ADB",
                 packageName = null,
                 verificationStatus = InstallerVerificationStatus.VERIFIED,
+                sha256 = "12:34:56:78:90",
             ),
+            sha256 = "12:34:56:78:90",
         ),
     )
 
@@ -701,27 +705,32 @@ private fun DisplayOptionContentPreview() {
         Installer(
             name = "OS or ADB",
             packageName = null,
-            verificationStatus = InstallerVerificationStatus.VERIFIED
+            verificationStatus = InstallerVerificationStatus.VERIFIED,
+            sha256 = "12:34:56:78:90",
         ),
         Installer(
             name = "App 1",
             packageName = "com.akexorcist.appstore1",
-            verificationStatus = InstallerVerificationStatus.VERIFIED
+            verificationStatus = InstallerVerificationStatus.VERIFIED,
+            sha256 = "12:34:56:78:90",
         ),
         Installer(
             name = "App 2",
             packageName = "com.akexorcist.appstore2",
-            verificationStatus = InstallerVerificationStatus.VERIFIED
+            verificationStatus = InstallerVerificationStatus.VERIFIED,
+            sha256 = "12:34:56:78:90",
         ),
         Installer(
             name = null,
             packageName = "com.akexorcist.appstore3",
-            verificationStatus = InstallerVerificationStatus.VERIFIED
+            verificationStatus = InstallerVerificationStatus.VERIFIED,
+            sha256 = "12:34:56:78:90",
         ),
         Installer(
             name = null,
             packageName = "com.akexorcist.appstore4",
-            verificationStatus = InstallerVerificationStatus.VERIFIED
+            verificationStatus = InstallerVerificationStatus.VERIFIED,
+            sha256 = "12:34:56:78:90",
         ),
     )
     RuamMijTheme {

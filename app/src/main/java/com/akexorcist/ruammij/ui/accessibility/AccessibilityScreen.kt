@@ -138,7 +138,7 @@ private fun AccessibilityContent(
             onAppOpenInSettingClick = onAppOpenInSettingClick,
             onMarkAsSafeClick = onMarkAsSafeClick,
 
-        )
+            )
         Spacer(modifier = Modifier.height(16.dp))
         InactiveAccessibilityServiceApps(
             apps = inactiveAccessibilityApps,
@@ -301,7 +301,9 @@ private fun RunningAccessibilityServiceAppsPreview() {
                         name = "Google Play",
                         packageName = "com.android.vending",
                         verificationStatus = InstallerVerificationStatus.VERIFIED,
+                        sha256 = "12:34:56:78:90",
                     ),
+                    sha256 = "12:34:56:78:90",
                 ),
                 InstalledApp(
                     name = "Accessibility Service",
@@ -314,7 +316,9 @@ private fun RunningAccessibilityServiceAppsPreview() {
                         name = "OS and ADB",
                         packageName = null,
                         verificationStatus = InstallerVerificationStatus.VERIFIED,
+                        sha256 = "12:34:56:78:90",
                     ),
+                    sha256 = "12:34:56:78:90",
                 ),
             ),
             onAppOpenInSettingClick = {},
@@ -352,7 +356,9 @@ private fun InactiveAccessibilityServiceAppsPreview() {
                         name = "Google Play",
                         packageName = "com.android.vending",
                         verificationStatus = InstallerVerificationStatus.VERIFIED,
+                        sha256 = "12:34:56:78:90",
                     ),
+                    sha256 = "12:34:56:78:90",
                 ),
                 InstalledApp(
                     name = "Accessibility Service",
@@ -365,7 +371,9 @@ private fun InactiveAccessibilityServiceAppsPreview() {
                         name = "OS and ADB",
                         packageName = null,
                         verificationStatus = InstallerVerificationStatus.VERIFIED,
+                        sha256 = "12:34:56:78:90",
                     ),
+                    sha256 = "12:34:56:78:90",
                 ),
             ),
             onAppOpenInSettingClick = {},

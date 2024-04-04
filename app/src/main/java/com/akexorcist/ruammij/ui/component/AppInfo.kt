@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
-import androidx.compose.material3.Button
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -164,9 +163,11 @@ private fun AppInfoContentPreview() {
                         name = "Google Play",
                         packageName = "com.android.vending",
                         verificationStatus = InstallerVerificationStatus.VERIFIED,
+                        sha256 = "12:34:56:78:90",
                     ),
                     icon = null,
                     systemApp = false,
+                    sha256 = "12:34:56:78:90",
                 ),
                 onOpenInSettingClick = {},
                 onMarkAsSafeClick = {}
@@ -194,9 +195,11 @@ private fun SystemAppInfoContentPreview() {
                         name = "Google Play",
                         packageName = "com.android.vending",
                         verificationStatus = InstallerVerificationStatus.VERIFIED,
+                        sha256 = "12:34:56:78:90",
                     ),
                     icon = null,
                     systemApp = true,
+                    sha256 = "12:34:56:78:90",
                 ),
                 onOpenInSettingClick = {},
                 onMarkAsSafeClick = {}
@@ -224,9 +227,11 @@ private fun AppInfoContentUnVerifiedPreview() {
                         name = "Google Play",
                         packageName = "com.android.vending",
                         verificationStatus = InstallerVerificationStatus.UNVERIFIED,
+                        sha256 = "12:34:56:78:90",
                     ),
                     icon = null,
                     systemApp = true,
+                    sha256 = "12:34:56:78:90",
                 ),
                 onOpenInSettingClick = {},
                 onMarkAsSafeClick = {}

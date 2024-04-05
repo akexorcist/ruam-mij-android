@@ -73,6 +73,26 @@ jobs:
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
 
+      - id: push-screenshot-diff
+        shell: bash
+        if: steps.check-if-there-are-valid-files.outputs.exist_valid_files == 'true'
+        env:
+          BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
+        run: |
+          # Find all the files ending with _compare.png
+          files_to_add=$(find . -type f -name "*_compare.png")
+          
+          # Check for invalid file names and add only valid ones
+          for file in $files_to_add; do
+            if [[ "$file" =~ ^[a-zA-Z0-9_./-]+$ ]]; then
+              git add "$file"
+            fi
+          done
+          git config --global user.name ScreenshotBot
+          git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m "Add screenshot diff"
+          git push origin HEAD:"$BRANCH_NAME"
+
       - name: Generate diff reports
         id: generate-diff-reports
         if: steps.check-compare-files.outputs.exist_valid_files == 'true'
@@ -87,18 +107,17 @@ jobs:
             echo "reports<<${delimiter}"
           
             # Create markdown table header
-            echo "### Snapshot Testing Diff Report"
-            echo "| File name | Main | Current Branch"
-            echo "|-------|-------|-------|"
+            echo "Snapshot Testing Diff Report"
+            echo "| File name | Image |"
+            echo "|-------|-------|"
           } >> "$GITHUB_OUTPUT"
           
           # Iterate over the files and create table rows
-          for i in "${!files[@]}"; do
-            file="${files[$i]}"
+          for file in $files; do
             # Get the file name and insert newlines every 20 characters
-            fileName="${file%_*}.png"
-            mainUrlPart="main/${fileName//#/%23}"
-            echo "| [$fileName](https://github.com/${{ github.repository }}/blob/$mainUrlPart) | ![](https://github.com/${{ github.repository }}/blob/$mainUrlPart?raw=true) | ![](https://github.com/${{ github.repository }}/blob/$mainUrlPart?raw=true)" >> "$GITHUB_OUTPUT"
+            fileName=$(basename "$file" | sed -r 's/(.{20})/\1<br>/g')
+            urlPart="${BRANCH_NAME//#/%23}/${file//#/%23}"
+            echo "| [$fileName](https://github.com/${{ github.repository }}/blob/$urlPart) | ![](https://github.com/${{ github.repository }}/blob/$urlPart?raw=true) |" >> "$GITHUB_OUTPUT"
           done
           echo "${delimiter}" >> "$GITHUB_OUTPUT"
 

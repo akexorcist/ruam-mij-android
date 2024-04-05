@@ -75,7 +75,7 @@ jobs:
 
       - id: push-screenshot-diff
         shell: bash
-        if: steps.check-if-there-are-valid-files.outputs.exist_valid_files == 'true'
+        if: steps.check-compare-files.outputs.exist_valid_files == 'true'
         env:
           BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
         run: |
@@ -88,9 +88,7 @@ jobs:
               git add "$file"
             fi
           done
-          git config --global user.name ScreenshotBot
-          git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git commit -m "Add screenshot diff"
+          git commit -m "Add screenshot diff" --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
           git push origin HEAD:"$BRANCH_NAME"
 
       - name: Generate diff reports

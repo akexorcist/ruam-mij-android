@@ -120,7 +120,6 @@ private fun OverviewScreen(
 ) {
     Column(
         modifier = Modifier
-            .background(color = Color.Red)
             .fillMaxSize()
             .padding(horizontal = 16.dp)
             .verticalScroll(state = rememberScrollState()),

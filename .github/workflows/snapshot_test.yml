@@ -92,8 +92,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git commit -m "Add screenshot diff"
-          git pull --rebase origin HEAD:"$BRANCH_NAME"
-          git push origin HEAD:"$BRANCH_NAME"
+          git push
 
       - name: Generate diff reports
         id: generate-diff-reports

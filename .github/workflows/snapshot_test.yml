@@ -2,8 +2,7 @@ name: SnapshotTest
 
 on:
   workflow_dispatch:
-  pull_request_target:
-    types: [ opened, synchronize, reopened ]
+  pull_request:
     branches-ignore:
       - 'bump/**'
     paths-ignore:
@@ -114,5 +113,3 @@ jobs:
           issue-number: ${{ github.event.number }}
           body: ${{ steps.generate-diff-reports.outputs.reports }}
           edit-mode: replace
-
-

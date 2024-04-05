@@ -85,7 +85,7 @@ jobs:
           # Check for invalid file names and add only valid ones
           for file in $files_to_add; do
             if [[ "$file" =~ ^[a-zA-Z0-9_./-]+$ ]]; then
-              git add "$file"
+              git add "$file" -f
             fi
           done
           git commit -m "Add screenshot diff" --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
@@ -105,7 +105,7 @@ jobs:
             echo "reports<<${delimiter}"
           
             # Create markdown table header
-            echo "Snapshot Testing Diff Report"
+            echo "### Snapshot Testing Diff Report"
             echo "| File name | Image |"
             echo "|-------|-------|"
           } >> "$GITHUB_OUTPUT"

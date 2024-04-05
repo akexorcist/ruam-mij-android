@@ -37,7 +37,7 @@ jobs:
         run: ./gradlew verifyRoborazziDebug -Psnapshot
 
       - name: Remove _compare files if verifyRoborazziDebug is success
-        id: remove-screenshot-diff
+        id: remove-compare-file
         shell: bash
         if: steps.verifyRoborazziDebug.outcome == 'success'
         run: |
@@ -81,14 +81,14 @@ jobs:
       - name: Extract branch name
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract_branch
+        id: extract-branch
 
       - name: Push screenshot Diff
         id: push-screenshot-diff
         shell: bash
         if: steps.check-compare-files.outputs.exist_valid_files == 'true'
         env:
-          BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
+          BRANCH_NAME: ${{ steps.extract-branch.outputs.branch }}
         run: |
           # Find all the files ending with _compare.png
           files_to_add=$(find . -type f -name "*_compare.png")
@@ -109,7 +109,7 @@ jobs:
         shell: bash
         if: steps.check-compare-files.outputs.exist_valid_files == 'false'
         env:
-          BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
+          BRANCH_NAME: ${{ steps.extract-branch.outputs.branch }}
         run: |
           # Find all the files ending with _compare.png that are previously tracked
           files_to_remove=$(git ls-files "*_compare.png")

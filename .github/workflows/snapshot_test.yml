@@ -37,7 +37,7 @@ jobs:
         run: ./gradlew verifyRoborazziDebug -Psnapshot
 
       - name: Remove _compare files if verifyRoborazziDebug is success
-        id: push-screenshot-diff
+        id: remove-screenshot-diff
         shell: bash
         if: steps.verifyRoborazziDebug.outcome == 'success'
         run: |

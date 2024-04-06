@@ -42,6 +42,20 @@ jobs:
         if: steps.verifyRoborazziDebug.outcome == 'success'
         run: |
           find . -name "*_compare.png" -exec rm {} \;
+          
+          # Find all the files ending with _compare.png that are previously tracked
+          files_to_remove=$(git ls-files "*_compare.png")
+          # Check for invalid file names and remove them
+          for file in $files_to_add; do
+            if [[ "$file" =~ ^[a-zA-Z0-9_./-]+$ ]]; then
+              git rm "$file" -f
+            fi
+          done
+          
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git commit -m "Remove screenshot diff"
+          git push origin HEAD:"$BRANCH_NAME"
 
       - name: Upload Test Diff
         uses: actions/upload-artifact@v3.1.2
@@ -104,27 +118,6 @@ jobs:
           git commit -m "Add screenshot diff"
           git push origin HEAD:"$BRANCH_NAME"
 
-      - name: Remove screenshot Diff
-        id: remove-screenshot-diff
-        shell: bash
-        if: steps.check-compare-files.outputs.exist_valid_files == 'false'
-        env:
-          BRANCH_NAME: ${{ steps.extract-branch.outputs.branch }}
-        run: |
-          # Find all the files ending with _compare.png that are previously tracked
-          files_to_remove=$(git ls-files "*_compare.png")
-          # Check for invalid file names and remove them
-          for file in $files_to_add; do
-            if [[ "$file" =~ ^[a-zA-Z0-9_./-]+$ ]]; then
-              git rm "$file" -f
-            fi
-          done
-          
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
-          git commit -m "Remove screenshot diff"
-          git push origin HEAD:"$BRANCH_NAME"
-
       - name: Generate diff reports
         id: generate-diff-reports
         if: steps.check-compare-files.outputs.exist_valid_files == 'true'
@@ -152,6 +145,21 @@ jobs:
             echo "| [$fileName](https://github.com/${{ github.repository }}/blob/$urlPart) | ![](https://github.com/${{ github.repository }}/blob/$urlPart?raw=true) |" >> "$GITHUB_OUTPUT"
           done
           echo "${delimiter}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate confirm reports
+        id: generate-confirm-reports
+        if: steps.check-compare-files.outputs.exist_valid_files == 'false'
+        env:
+          BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
+        shell: bash
+        run: |
+          delimiter="$(openssl rand -hex 8)"
+          {
+            echo "reports<<${delimiter}"
+          
+            echo "### Snapshot Testing Diff Report"
+            echo "Nothing changes!"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Find comment
         uses: peter-evans/find-comment@v3

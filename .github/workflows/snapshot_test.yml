@@ -165,15 +165,15 @@ jobs:
         shell: bash
         run: |
           # Find all the files ending with .png in roborazzi folder
-          files=$(find . -type f -name "*.png" | grep "roborazzi/" | grep -E "^[a-zA-Z0-9_./-]+$")
+          files=$(find . -type f -name "*.png" | grep "outputs/roborazzi/" | grep -E "^[a-zA-Z0-9_./-]+$")
           delimiter="$(openssl rand -hex 8)"
           {
             echo "reports<<${delimiter}"
           
             # Create markdown table header
             echo "### Snapshot Testing Diff Report"
-            echo "| File | Image | Result |"
-            echo "|------|-------|--------|"
+            echo "| File | Result |"
+            echo "|------|--------|"
           } >> "$GITHUB_OUTPUT"
           
           # Iterate over the files and create table rows
@@ -181,7 +181,7 @@ jobs:
             # Get the file name and insert newlines every 20 characters
             fileName=$(basename "$file" | sed -r 's/(.{20})/\1<br>/g')
             urlPart="${BRANCH_NAME//#/%23}/${file//#/%23}"
-            echo "| [$fileName](https://github.com/${{ github.repository }}/blob/$urlPart) | ![](https://github.com/${{ github.repository }}/blob/$urlPart?raw=true) | ✅ |" >> "$GITHUB_OUTPUT"
+            echo "| [$fileName](https://github.com/${{ github.repository }}/blob/$urlPart) | ✅ |" >> "$GITHUB_OUTPUT"
           done
           echo "${delimiter}" >> "$GITHUB_OUTPUT"
 

@@ -86,27 +86,10 @@ jobs:
             **/build/test-results
           retention-days: 30
 
-      - name: Check _compare files
-        id: check-compare-files
-        shell: bash
-        run: |
-          # Find all the files ending with _compare.png
-          mapfile -t files_to_add < <(find . -type f -name "*_compare.png")
-          
-          # Check for invalid file names and add only valid ones
-          exist_valid_files="false"
-          for file in "${files_to_add[@]}"; do
-            if [[ $file =~ ^[a-zA-Z0-9_./-]+$ ]]; then
-              exist_valid_files="true"
-              break
-            fi
-          done
-          echo "exist_valid_files=$exist_valid_files" >> "$GITHUB_OUTPUT"
-
       - name: Push screenshot Diff
         id: push-screenshot-diff
         shell: bash
-        if: steps.check-compare-files.outputs.exist_valid_files == 'true'
+        if: steps.verifyRoborazziDebug.outcome == 'failure'
         env:
           BRANCH_NAME: ${{ steps.extract-branch.outputs.branch }}
         run: |
@@ -131,7 +114,7 @@ jobs:
 
       - name: Generate diff reports
         id: generate-diff-reports
-        if: steps.check-compare-files.outputs.exist_valid_files == 'true'
+        if: steps.verifyRoborazziDebug.outcome == 'failure'
         env:
           BRANCH_NAME: ${{ steps.extract-branch.outputs.branch }}
         shell: bash
@@ -159,7 +142,7 @@ jobs:
 
       - name: Generate confirm reports
         id: generate-confirm-reports
-        if: steps.check-compare-files.outputs.exist_valid_files == 'false'
+        if: steps.verifyRoborazziDebug.outcome == 'success'
         env:
           BRANCH_NAME: ${{ steps.extract-branch.outputs.branch }}
         shell: bash

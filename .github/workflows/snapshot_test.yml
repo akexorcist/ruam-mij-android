@@ -36,6 +36,11 @@ jobs:
         continue-on-error: true
         run: ./gradlew verifyRoborazziDebug -Psnapshot
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract-branch
+
       - name: Remove _compare files if verifyRoborazziDebug is success
         id: remove-compare-file
         shell: bash
@@ -91,11 +96,6 @@ jobs:
             fi
           done
           echo "exist_valid_files=$exist_valid_files" >> "$GITHUB_OUTPUT"
-
-      - name: Extract branch name
-        shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract-branch
 
       - name: Push screenshot Diff
         id: push-screenshot-diff

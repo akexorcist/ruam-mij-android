@@ -62,7 +62,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git commit -m "Remove screenshot diff"
-          git push origin HEAD:"$BRANCH_NAME"
+          git push
 
       - name: Upload Test Diff
         uses: actions/upload-artifact@v3.1.2
@@ -160,7 +160,7 @@ jobs:
             echo "reports<<${delimiter}"
           
             echo "### Snapshot Testing Diff Report"
-            echo "Nothing changes!"
+            echo "Congratulations, no diff found!"
           } >> "$GITHUB_OUTPUT"
 
       - name: Find comment

@@ -45,6 +45,8 @@ jobs:
         id: remove-compare-file
         shell: bash
         if: steps.verifyRoborazziDebug.outcome == 'success'
+        env:
+          BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
         run: |
           files_to_remove=$(git ls-files "*_compare.png")
           find . -name "*_compare.png" -exec rm {} \;

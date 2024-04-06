@@ -4,7 +4,7 @@ import android.R
 import androidx.test.core.app.ActivityScenario.launch
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import com.akexorcist.ruammij.utils.ScreenshotTests
+import com.akexorcist.ruammij.utils.SnapshotTests
 import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Test
 import org.junit.experimental.categories.Category
@@ -17,7 +17,7 @@ import org.robolectric.annotation.GraphicsMode
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = "en-xlarge-long-hdpi")
-@Category(ScreenshotTests::class)
+@Category(SnapshotTests::class)
 class MainActivityTest : KoinTest {
 
     @Test

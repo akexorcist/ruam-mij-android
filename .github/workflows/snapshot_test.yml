@@ -59,7 +59,7 @@ jobs:
             fi
           done
           
-          if [ ${#files_to_remove[@]} -eq 0 ]; then
+          if [[ -z ${files_to_remove[@]} ]]; then
             echo "No files to remove"
           else
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -120,7 +120,7 @@ jobs:
             fi
           done
           
-          if [ ${#files_to_add[@]} -eq 0 ]; then
+          if [[ -z ${files_to_add[@]} ]]; then
             echo "No files to add"
           else
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

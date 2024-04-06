@@ -41,12 +41,12 @@ jobs:
         shell: bash
         if: steps.verifyRoborazziDebug.outcome == 'success'
         run: |
+          files_to_remove=$(git ls-files "*_compare.png")
           find . -name "*_compare.png" -exec rm {} \;
           
           # Find all the files ending with _compare.png that are previously tracked
-          files_to_remove=$(git ls-files "*_compare.png")
           # Check for invalid file names and remove them
-          for file in $files_to_add; do
+          for file in $files_to_remove; do
             if [[ "$file" =~ ^[a-zA-Z0-9_./-]+$ ]]; then
               git rm "$file" -f
             fi

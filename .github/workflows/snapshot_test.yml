@@ -59,10 +59,14 @@ jobs:
             fi
           done
           
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
-          git commit -m "Remove screenshot diff"
-          git push
+          if [ ${#files_to_remove[@]} -eq 0 ]; then
+            echo "No files to remove"
+          else
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config user.name "github-actions[bot]"
+            git commit -m "Remove screenshot diff"
+            git push
+          fi
 
       - name: Upload Test Diff
         uses: actions/upload-artifact@v3.1.2
@@ -115,6 +119,7 @@ jobs:
               git add "$file" -f
             fi
           done
+          
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git commit -m "Add screenshot diff"

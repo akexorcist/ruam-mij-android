@@ -49,12 +49,12 @@ jobs:
           BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
         run: |
           files_to_remove=$(git ls-files "*_compare.png")
-          find . -name "*_compare.png" -exec rm {} \;
           
           # Find all the files ending with _compare.png that are previously tracked
           # Check for invalid file names and remove them
           for file in $files_to_remove; do
             if [[ "$file" =~ ^[a-zA-Z0-9_./-]+$ ]]; then
+              rm "$file"
               git rm "$file" -f
             fi
           done
@@ -120,10 +120,14 @@ jobs:
             fi
           done
           
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
-          git commit -m "Add screenshot diff"
-          git push origin HEAD:"$BRANCH_NAME"
+          if [ ${#files_to_add[@]} -eq 0 ]; then
+            echo "No files to add"
+          else
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config user.name "github-actions[bot]"
+            git commit -m "Add screenshot diff"
+            git push origin HEAD:"$BRANCH_NAME"
+          fi
 
       - name: Generate diff reports
         id: generate-diff-reports

@@ -155,18 +155,31 @@ jobs:
           BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
         shell: bash
         run: |
+          # Find all the files ending with _compare.png in roborazzi folder
+          files=$(find . -type f -name "*.png" | grep "roborazzi/" | grep -E "^[a-zA-Z0-9_./-]+$")
           delimiter="$(openssl rand -hex 8)"
           {
             echo "reports<<${delimiter}"
           
+            # Create markdown table header
             echo "### Snapshot Testing Diff Report"
-            echo "Congratulations, no diff found!"
+            echo "| File name | Image |"
+            echo "|-------|-------|"
           } >> "$GITHUB_OUTPUT"
+          
+          # Iterate over the files and create table rows
+          for file in $files; do
+            # Get the file name and insert newlines every 20 characters
+            fileName=$(basename "$file" | sed -r 's/(.{20})/\1<br>/g')
+            urlPart="${BRANCH_NAME//#/%23}/${file//#/%23}"
+            echo "| [$fileName](https://github.com/${{ github.repository }}/blob/$urlPart) | Verified |" >> "$GITHUB_OUTPUT"
+          done
+          echo "${delimiter}" >> "$GITHUB_OUTPUT"
 
       - name: Find comment
         uses: peter-evans/find-comment@v3
         id: find-comment
-        if: steps.generate-diff-reports.outputs.reports != ''
+        if: steps.generate-diff-reports.outputs.reports != '' || steps.generate-confirm-reports.outputs.reports != ''
         with:
           issue-number: ${{ github.event.number }}
           comment-author: 'github-actions[bot]'
@@ -178,5 +191,5 @@ jobs:
         with:
           comment-id: ${{ steps.find-comment.outputs.comment-id }}
           issue-number: ${{ github.event.number }}
-          body: ${{ steps.generate-diff-reports.outputs.reports }}
+          body: ${{ steps.generate-diff-reports.outputs.reports != '' &&  steps.generate-diff-reports.outputs.reports || steps.generate-confirm-reports.outputs.reports }}
           edit-mode: replace

@@ -11,7 +11,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
-import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.test.KoinTest
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
@@ -19,7 +18,7 @@ import org.robolectric.annotation.GraphicsMode
 
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @RunWith(RobolectricTestRunner::class)
-@Config(qualifiers = "en-xlarge-long-hdpi")
+@Config(qualifiers = "en-w489dp-h1400dp-hdpi")
 @Category(SnapshotTests::class)
 class MainActivityTest : KoinTest {
 
@@ -29,11 +28,9 @@ class MainActivityTest : KoinTest {
     @Test
     fun overview_en() {
         composeTestRule.setContent {
-            KoinAndroidContext {
-                RuamMijTheme {
-                    val appState = rememberAppState()
-                    RuamMijApp(appState = appState)
-                }
+            RuamMijTheme {
+                val appState = rememberAppState()
+                RuamMijApp(appState = appState)
             }
         }
 
@@ -45,11 +42,9 @@ class MainActivityTest : KoinTest {
     @Test
     fun overview_dark_en() {
         composeTestRule.setContent {
-            KoinAndroidContext {
-                RuamMijTheme(darkTheme = true) {
-                    val appState = rememberAppState()
-                    RuamMijApp(appState = appState)
-                }
+            RuamMijTheme(darkTheme = true) {
+                val appState = rememberAppState()
+                RuamMijApp(appState = appState)
             }
         }
 
@@ -61,11 +56,9 @@ class MainActivityTest : KoinTest {
     @Config(qualifiers = "+th")
     fun overview_dark_th() {
         composeTestRule.setContent {
-            KoinAndroidContext {
-                RuamMijTheme(darkTheme = true) {
-                    val appState = rememberAppState()
-                    RuamMijApp(appState = appState)
-                }
+            RuamMijTheme(darkTheme = true) {
+                val appState = rememberAppState()
+                RuamMijApp(appState = appState)
             }
         }
 
@@ -77,11 +70,9 @@ class MainActivityTest : KoinTest {
     @Config(qualifiers = "+th")
     fun overview_th() {
         composeTestRule.setContent {
-            KoinAndroidContext {
-                RuamMijTheme {
-                    val appState = rememberAppState()
-                    RuamMijApp(appState = appState)
-                }
+            RuamMijTheme {
+                val appState = rememberAppState()
+                RuamMijApp(appState = appState)
             }
         }
 

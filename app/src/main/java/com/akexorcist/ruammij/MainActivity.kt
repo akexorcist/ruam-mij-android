@@ -9,7 +9,6 @@ import com.akexorcist.ruammij.ui.RuamMijApp
 import com.akexorcist.ruammij.ui.rememberAppState
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.getOwnerPackageName
-import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -25,11 +24,9 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContent {
-            KoinAndroidContext {
-                RuamMijTheme {
-                    val appState = rememberAppState()
-                    RuamMijApp(appState = appState)
-                }
+            RuamMijTheme {
+                val appState = rememberAppState()
+                RuamMijApp(appState = appState)
             }
         }
         displayManager.registerDisplayListener(displayListener, null)

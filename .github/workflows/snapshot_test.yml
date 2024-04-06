@@ -46,7 +46,7 @@ jobs:
         shell: bash
         if: steps.verifyRoborazziDebug.outcome == 'success'
         run: |
-          files_to_remove=$(find . -type f -name "*_compare.png" | grep "roborazzi/")
+          files_to_remove=$(git ls-files "*_compare.png")
           
           # Find all the files ending with _compare.png that are previously tracked
           # Check for invalid file names and remove them

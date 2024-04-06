@@ -37,6 +37,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
@@ -120,6 +121,7 @@ private fun OverviewScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.Red)
             .padding(horizontal = 16.dp)
             .verticalScroll(state = rememberScrollState()),
     ) {

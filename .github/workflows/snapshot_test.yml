@@ -133,7 +133,7 @@ jobs:
         id: generate-diff-reports
         if: steps.check-compare-files.outputs.exist_valid_files == 'true'
         env:
-          BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
+          BRANCH_NAME: ${{ steps.extract-branch.outputs.branch }}
         shell: bash
         run: |
           # Find all the files ending with _compare.png in roborazzi folder
@@ -161,7 +161,7 @@ jobs:
         id: generate-confirm-reports
         if: steps.check-compare-files.outputs.exist_valid_files == 'false'
         env:
-          BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
+          BRANCH_NAME: ${{ steps.extract-branch.outputs.branch }}
         shell: bash
         run: |
           # Find all the files ending with .png in roborazzi folder

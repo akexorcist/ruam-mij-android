@@ -1,3 +1,3 @@
 package com.akexorcist.ruammij.utils
 
-interface SnapshotTests
+interface ScreenshotTests

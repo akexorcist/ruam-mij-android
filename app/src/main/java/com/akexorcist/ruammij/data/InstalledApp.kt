@@ -11,4 +11,5 @@ data class InstalledApp(
     val systemApp: Boolean,
     val installedAt: Long?,
     val installer: Installer,
+    val sha256: String,
 )

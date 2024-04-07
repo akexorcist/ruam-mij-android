@@ -7,7 +7,11 @@ import android.os.Build
 import com.akexorcist.ruammij.common.Installer
 import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.common.Installers
+import com.akexorcist.ruammij.common.ReferenceInstallerStatus
 import com.akexorcist.ruammij.data.InstalledApp
+import java.security.MessageDigest
+
+private const val ALGORITHM_SHA_512 = "SHA-256"
 
 fun PackageInfo.toInstalledApp(
     packageManager: PackageManager,
@@ -21,6 +25,7 @@ fun PackageInfo.toInstalledApp(
         systemApp = applicationInfo.flags and 1 != 0,
         installedAt = firstInstallTime,
         installer = installer,
+        sha256 = packageManager.getShaSignature(packageName),
     )
 }
 
@@ -55,10 +60,25 @@ fun PackageInfo?.toInstaller(
     packageManager: PackageManager,
 ): Installer {
     return this?.let { info ->
+        val systemApp = applicationInfo.flags and 1 != 0
+        val sha256 = packageManager.getShaSignature(info.packageName)
         Installer(
             name = info.applicationInfo.loadLabel(packageManager).toString(),
             packageName = packageName,
-            verificationStatus = Installers.apps[info.packageName] ?: InstallerVerificationStatus.UNVERIFIED
+            verificationStatus = Installers.apps[info.packageName]?.let { status ->
+                when (status) {
+                    is ReferenceInstallerStatus.Verified -> when {
+                        systemApp -> InstallerVerificationStatus.VERIFIED
+                        status.sha256 == null -> InstallerVerificationStatus.VERIFIED
+                        sha256 == status.sha256 -> InstallerVerificationStatus.VERIFIED
+                        else -> InstallerVerificationStatus.UNVERIFIED
+                    }
+
+                    is ReferenceInstallerStatus.SideLoad -> InstallerVerificationStatus.SIDE_LOAD
+                    is ReferenceInstallerStatus.Unverified -> InstallerVerificationStatus.UNVERIFIED
+                }
+            } ?: InstallerVerificationStatus.UNVERIFIED,
+            sha256 = sha256,
         )
     } ?: Installer(
         name = when (packageName == null) {
@@ -70,5 +90,49 @@ fun PackageInfo?.toInstaller(
             true -> InstallerVerificationStatus.VERIFIED
             false -> InstallerVerificationStatus.UNVERIFIED
         },
+        sha256 = packageManager.getShaSignature(packageName),
     )
+}
+
+fun PackageManager.getShaSignature(packageName: String?): String {
+    packageName ?: return ""
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        runCatching {
+            this.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
+        }.getOrNull()?.let { info ->
+            info.signingInfo?.apkContentsSigners?.firstNotNullOf { signature ->
+                runCatching { MessageDigest.getInstance(ALGORITHM_SHA_512) }
+                    .getOrNull()
+                    ?.let { signature to it }
+            }?.let { (signature, messageDigest) ->
+                messageDigest.update(signature.toByteArray())
+                messageDigest.digest()
+            }?.let { digest ->
+                digest
+                    .fold("") { acc, value -> acc + "%02x".format(value).uppercase() }
+                    .chunked(2)
+                    .joinToString(separator = ":")
+            }
+        }
+    } else {
+        runCatching {
+            @Suppress("DEPRECATION")
+            this.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+        }.getOrNull()?.let { info ->
+            @Suppress("DEPRECATION")
+            info.signatures?.firstNotNullOf { signature ->
+                runCatching { MessageDigest.getInstance(ALGORITHM_SHA_512) }
+                    .getOrNull()
+                    ?.let { signature to it }
+            }?.let { (signature, messageDigest) ->
+                messageDigest.update(signature.toByteArray())
+                messageDigest.digest()
+            }?.let { digest ->
+                digest
+                    .fold("") { acc, value -> acc + "%02x".format(value).uppercase() }
+                    .chunked(2)
+                    .joinToString(separator = ":")
+            }
+        }
+    } ?: ""
 }

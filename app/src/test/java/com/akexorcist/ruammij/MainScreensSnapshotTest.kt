@@ -19,12 +19,6 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
-data class TestParameterSuite(
-    val screenRes: Int,
-    val isDarkTheme: Boolean
-)
-
-@OptIn(InternalRoborazziApi::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @RunWith(ParameterizedRobolectricTestRunner::class)
 @Config(qualifiers = "en-w489dp-h1400dp-hdpi")

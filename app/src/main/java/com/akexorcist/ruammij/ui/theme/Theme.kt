@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import org.koin.androidx.compose.KoinAndroidContext
 
 private val DarkColorScheme = darkColorScheme(
     primary = Colors.DarkPrimary200,
@@ -148,13 +147,11 @@ fun RuamMijTheme(
             LocalAdditionColorScheme provides additionColorScheme
         )
     ) {
-        KoinAndroidContext {
-            MaterialTheme(
-                colorScheme = colorScheme,
-                typography = Typography,
-                content = content
-            )
-        }
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
     }
 }
 

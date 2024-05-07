@@ -16,5 +16,6 @@ object Contributors {
         "Kittinun Vantasin",
         "Monthira Chayabanjonglerd",
         "Wathin Sonnukij",
+        "Auttapon Bunlue",
     )
 }

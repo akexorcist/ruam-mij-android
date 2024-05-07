@@ -49,6 +49,7 @@
 * Kittinun Vantasin
 * Monthira Chayabanjonglerd
 * Wathin Sonnukij
+* Auttapon Bunlue
 
 ## อยากมีส่วนรวมในการพัฒนาโปรเจคนี้?
 ดูรายละเอียดได้ที่ [Contributing](CONTRIBUTING.md)

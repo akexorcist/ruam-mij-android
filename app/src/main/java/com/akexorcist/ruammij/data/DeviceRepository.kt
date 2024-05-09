@@ -199,19 +199,19 @@ class DefaultDeviceRepository(
         }
 
     override suspend fun isUsbDebuggingEnabled(): Boolean = withContext(dispatcherProvider.io()) {
-        Settings.Secure.getInt(context.contentResolver, Settings.Global.ADB_ENABLED, 0) == 1
+        Settings.Global.getInt(context.contentResolver, Settings.Global.ADB_ENABLED, 0) == 1
     }
 
     override suspend fun isWirelessDebuggingEnabled(): Boolean? = withContext(dispatcherProvider.io()) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            Settings.Secure.getInt(context.contentResolver, "adb_wifi_enabled", 0) == 1
+            Settings.Global.getInt(context.contentResolver, "adb_wifi_enabled", 0) == 1
         } else {
             null
         }
     }
 
     override suspend fun isDeveloperOptionsEnabled(): Boolean = withContext(dispatcherProvider.io()) {
-        Settings.Secure.getInt(context.contentResolver, Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) == 1
+        Settings.Global.getInt(context.contentResolver, Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) == 1
     }
 
     private suspend inline fun <reified T> getCachedDataOrFetch(

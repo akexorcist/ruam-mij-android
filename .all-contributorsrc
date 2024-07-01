@@ -25,6 +25,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "kajornsakp",
+      "name": "Kajornsak Peerapathananont",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10228783?v=4",
+      "profile": "http://kajornsakp.dev",
+      "contributions": [
+        "code",
+        "infra"
+      ]
     }
   ]
 }

@@ -94,6 +94,7 @@ cd ruam-mij-android
       <td align="center" valign="top" width="14.28%"><a href="http://kajornsakp.dev"><img src="https://avatars.githubusercontent.com/u/10228783?v=4?s=100" width="100px;" alt="Kajornsak Peerapathananont"/><br /><sub><b>Kajornsak Peerapathananont</b></sub></a><br /><a href="#code-kajornsakp" title="Code">💻</a> <a href="#infra-kajornsakp" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://farzai.com"><img src="https://avatars.githubusercontent.com/u/4928451?v=4?s=100" width="100px;" alt="parsilver"/><br /><sub><b>parsilver</b></sub></a><br /><a href="#code-parsilver" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/popeyee27"><img src="https://avatars.githubusercontent.com/u/8433930?v=4?s=100" width="100px;" alt="Suttichan Paenchan"/><br /><sub><b>Suttichan Paenchan</b></sub></a><br /><a href="#code-popeyee27" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://nayuki.cyou"><img src="https://avatars.githubusercontent.com/u/69802296?v=4?s=100" width="100px;" alt="Nayuki"/><br /><sub><b>Nayuki</b></sub></a><br /><a href="#code-Kuuuuuuuu" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

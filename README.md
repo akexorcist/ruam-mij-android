@@ -86,6 +86,13 @@ cd ruam-mij-android
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Judrummer"><img src="https://avatars.githubusercontent.com/u/12605075?v=4?s=100" width="100px;" alt="Tipatai Puthanukunkit"/><br /><sub><b>Tipatai Puthanukunkit</b></sub></a><br /><a href="#code-Judrummer" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->

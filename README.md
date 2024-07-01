@@ -89,7 +89,7 @@ cd ruam-mij-android
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="http://kajornsakp.dev"><img src="https://avatars.githubusercontent.com/u/10228783?v=4?s=100" width="100px;" alt="Kajornsak Peerapathananont"/><br /><sub><b>Kajornsak Peerapathananont</b></sub></a><br /><a href="#code-kajornsakp" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://kajornsakp.dev"><img src="https://avatars.githubusercontent.com/u/10228783?v=4?s=100" width="100px;" alt="Kajornsak Peerapathananont"/><br /><sub><b>Kajornsak Peerapathananont</b></sub></a><br /><a href="#code-kajornsakp" title="Code">💻</a> <a href="#infra-kajornsakp" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
     </tr>
   </tbody>
 </table>

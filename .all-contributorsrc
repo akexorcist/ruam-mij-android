@@ -1,4 +1,21 @@
 {
   "projectName": "ruam-mij-android",
-  "projectOwner": "akexorcist"
+  "projectOwner": "akexorcist",
+  "files": [
+    "README.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "siriwatknp",
+      "name": "Siriwat K",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18292247?v=4",
+      "profile": "https://siriwatk.dev",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ]
 }

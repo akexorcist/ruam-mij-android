@@ -99,6 +99,7 @@ cd ruam-mij-android
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://www.mikkipastel.com"><img src="https://avatars.githubusercontent.com/u/17794661?v=4?s=100" width="100px;" alt="Monthira Chayabanjonglerd"/><br /><sub><b>Monthira Chayabanjonglerd</b></sub></a><br /><a href="#code-mikkipastel" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/iamwee"><img src="https://avatars.githubusercontent.com/u/10849396?v=4?s=100" width="100px;" alt="Wathin Sonnukij"/><br /><sub><b>Wathin Sonnukij</b></sub></a><br /><a href="#code-iamwee" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

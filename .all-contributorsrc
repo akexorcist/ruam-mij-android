@@ -9,6 +9,24 @@
   "contributorsPerLine": 7,
   "contributors": [
     {
+      "login": "dheerapat",
+      "name": "dheerapat",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61280196?v=4",
+      "profile": "https://github.com/dheerapat",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Judrummer",
+      "name": "Tipatai Puthanukunkit",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12605075?v=4",
+      "profile": "https://github.com/Judrummer",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
       "login": "kajornsakp",
       "name": "Kajornsak Peerapathananont",
       "avatar_url": "https://avatars.githubusercontent.com/u/10228783?v=4",

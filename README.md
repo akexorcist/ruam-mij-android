@@ -1,4 +1,7 @@
 # รวมมิจ
+
+[![All Contributors](https://img.shields.io/github/all-contributors/akexorcist/ruam-mij-android?color=ee8449&style=flat-square)](#contributors)
+
 ## รวมสารพัดข้อมูลเพื่อช่วยให้คุณพ้นภัยจากมิจฉาชีพ
 
 ![cover.png](image%2Fcover.png)
@@ -77,3 +80,14 @@ cd ruam-mij-android
 
 ## License
 ดูได้ที่ [LICENSE](LICENSE)
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->

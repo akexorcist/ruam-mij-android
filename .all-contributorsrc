@@ -1,4 +1,21 @@
 {
   "projectName": "ruam-mij-android",
-  "projectOwner": "akexorcist"
+  "projectOwner": "akexorcist",
+  "files": [
+    "README.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "dheerapat",
+      "name": "dheerapat",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61280196?v=4",
+      "profile": "https://github.com/dheerapat",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ]
 }

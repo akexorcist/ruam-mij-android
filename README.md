@@ -99,6 +99,7 @@ cd ruam-mij-android
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://www.mikkipastel.com"><img src="https://avatars.githubusercontent.com/u/17794661?v=4?s=100" width="100px;" alt="Monthira Chayabanjonglerd"/><br /><sub><b>Monthira Chayabanjonglerd</b></sub></a><br /><a href="#code-mikkipastel" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/kittinunf"><img src="https://avatars.githubusercontent.com/u/4669517?v=4?s=100" width="100px;" alt="Kittinun Vantasin"/><br /><sub><b>Kittinun Vantasin</b></sub></a><br /><a href="#code-kittinunf" title="Code">💻</a> <a href="#infra-kittinunf" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
     </tr>
   </tbody>
 </table>

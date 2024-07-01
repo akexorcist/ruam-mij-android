@@ -89,8 +89,9 @@ cd ruam-mij-android
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Judrummer"><img src="https://avatars.githubusercontent.com/u/12605075?v=4?s=100" width="100px;" alt="Tipatai Puthanukunkit"/><br /><sub><b>Tipatai Puthanukunkit</b></sub></a><br /><a href="#code-Judrummer" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/dheerapat"><img src="https://avatars.githubusercontent.com/u/61280196?v=4?s=100" width="100px;" alt="dheerapat"/><br /><sub><b>dheerapat</b></sub></a><br /><a href="#doc-dheerapat" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Judrummer"><img src="https://avatars.githubusercontent.com/u/12605075?v=4?s=100" width="100px;" alt="Tipatai Puthanukunkit"/><br /><sub><b>Tipatai Puthanukunkit</b></sub></a><br /><a href="#code-Judrummer" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://farzai.com"><img src="https://avatars.githubusercontent.com/u/4928451?v=4?s=100" width="100px;" alt="parsilver"/><br /><sub><b>parsilver</b></sub></a><br /><a href="#code-parsilver" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

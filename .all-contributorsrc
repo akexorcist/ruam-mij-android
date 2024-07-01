@@ -90,6 +90,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "kittinunf",
+      "name": "Kittinun Vantasin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4669517?v=4",
+      "profile": "https://github.com/kittinunf",
+      "contributions": [
+        "code",
+        "infra"
+      ]
     }
   ]
 }

@@ -160,7 +160,7 @@ private fun AboutAppScreen(
 @Composable
 private fun Header() {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         HeadlineText(
             text = stringResource(R.string.app_name),
         )

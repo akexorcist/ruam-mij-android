@@ -49,6 +49,8 @@
         <item quantity="one">พบ %1$d แอปที่ติดตั้งจากผู้ติดตั้งรายนี้</item>
         <item quantity="other">พบ %1$d แอปที่ติดตั้งจากผู้ติดตั้งรายนี้</item>
     </plurals>
+    <string name="installed_app_info_title">ข้อมูลแอปพลิเคชัน</string>
+
     <string name="installed_app_display_option_title">ตั้งค่าการแสดงผล</string>
     <string name="installed_app_display_option_description">ตัวเลือกเพื่อช่วยในการแสดงผลรายชื่อแอป</string>
     <string name="installed_app_display_option_common_display">อื่น ๆ</string>
@@ -87,6 +89,8 @@
     <string name="app_info_open_settings">เปิดการตั้งค่าของแอป</string>
     <string name="app_info_button_mark_as_safe">ยืนยันว่าปลอดภัย</string>
     <string name="app_info_button_app_info">ดูข้อมูล</string>
+    <string name="app_info_permissions">สิทธ์ของแอป</string>
+    <string name="app_info_services">บริการระบบ</string>
 
     <string name="state_enabled">เปิดอยู่</string>
     <string name="state_unsupported">ไม่รองรับ</string>

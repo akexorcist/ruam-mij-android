@@ -180,6 +180,7 @@ private fun RunningAccessibilityServiceApps(
                 apps.forEachIndexed { index, app ->
                     AppInfoContent(
                         app = app,
+                        onAppInfoClick = {},
                         onOpenInSettingClick = { onAppOpenInSettingClick(app.packageName) },
                         onMarkAsSafeClick = { onMarkAsSafeClick(app.packageName) }
                     )
@@ -215,6 +216,7 @@ private fun InactiveAccessibilityServiceApps(
                 apps.forEachIndexed { index, app ->
                     AppInfoContent(
                         app = app,
+                        onAppInfoClick = {},
                         onOpenInSettingClick = { onAppOpenInSettingClick(app.packageName) },
                         onMarkAsSafeClick = { onMarkAsSafeClick(app.packageName) }
                     )

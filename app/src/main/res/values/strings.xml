@@ -50,6 +50,8 @@
         <item quantity="one">Found %1$d app installed by this installer</item>
         <item quantity="other">Found %1$d apps installed by this installer</item>
     </plurals>
+    <string name="installed_app_info_title">App Info</string>
+
     <string name="installed_app_display_option_title">Display options</string>
     <string name="installed_app_display_option_description">Options to display the apps list</string>
     <string name="installed_app_display_option_common_display">Others</string>
@@ -91,7 +93,8 @@
     <string name="app_info_open_settings">Open app settings</string>
     <string name="app_info_button_mark_as_safe">Mark as safe</string>
     <string name="app_info_button_app_info">App info</string>
-
+    <string name="app_info_permissions">Permissions</string>
+    <string name="app_info_services">Services</string>
 
     <string name="state_enabled">Enabled</string>
     <string name="state_unsupported">Unsupported</string>

@@ -77,10 +77,12 @@ fun LabelText(
 @Composable
 fun BoldLabelText(
     text: String,
+    color: Color = Color.Unspecified,
     textAlign: TextAlign? = null,
 ) {
     Text(
         text = text,
+        color = color,
         fontSize = MaterialTheme.typography.labelSmall.fontSize,
         fontStyle = MaterialTheme.typography.labelSmall.fontStyle,
         lineHeight = MaterialTheme.typography.labelSmall.lineHeight,

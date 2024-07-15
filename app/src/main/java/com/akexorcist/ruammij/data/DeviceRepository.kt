@@ -66,12 +66,14 @@ class DefaultDeviceRepository(
 
     private var cacheInstalledApps: List<InstalledApp>? = null
 
+    private val requiredPackageInfoFlags = PackageManager.GET_PERMISSIONS or PackageManager.GET_SERVICES or PackageManager.GET_META_DATA
+
     override suspend fun getInstalledApps(forceRefresh: Boolean): List<InstalledApp> =
         getCachedDataOrFetch(::cacheInstalledApps, forceRefresh) {
             val safePackageNameList = getSafeApps(forceRefresh).map { it.packageName }
             val installedAppInfoList: Map<String, PackageInfo> = packageManager.getInstalledApplications(0)
                 .mapNotNull {
-                    runCatching { packageManager.getPackageInfo(it.packageName, 0) }.getOrNull()
+                    runCatching { packageManager.getPackageInfo(it.packageName, requiredPackageInfoFlags) }.getOrNull()
                 }
                 .associateBy { it.packageName }
 
@@ -122,7 +124,10 @@ class DefaultDeviceRepository(
             null
         }
         return app ?: runCatching {
-            val packageInfo = packageManager.getPackageInfo(packageName, 0)
+            val packageInfo = packageManager.getPackageInfo(
+                packageName,
+                requiredPackageInfoFlags
+            )
             val installer = packageInfo.getInstaller(packageManager)
             packageInfo.toInstalledApp(packageManager, installer)
         }.getOrNull()
@@ -146,7 +151,7 @@ class DefaultDeviceRepository(
                 .mapNotNull { info ->
                     runCatching {
                         info.resolveInfo.serviceInfo.packageName.let {
-                            packageManager.getPackageInfo(it, 0)
+                            packageManager.getPackageInfo(it, requiredPackageInfoFlags)
                         }
                     }.getOrNull()
                         ?.let { packageInfo ->
@@ -160,7 +165,7 @@ class DefaultDeviceRepository(
 
     override suspend fun getAccessibilitySupportApps(forceRefresh: Boolean): List<InstalledApp> =
         getCachedDataOrFetch(::cacheAccessibilitySupportApps, forceRefresh) {
-            packageManager.getInstalledPackages(PackageManager.GET_SERVICES)
+            packageManager.getInstalledPackages(PackageManager.GET_SERVICES or requiredPackageInfoFlags)
                 .filter { packageInfo ->
                     packageInfo.services
                         ?.any { serviceInfo -> serviceInfo.permission == Manifest.permission.BIND_ACCESSIBILITY_SERVICE }
@@ -183,7 +188,7 @@ class DefaultDeviceRepository(
                 }
             }.mapNotNull { (displayId, packageName) ->
                 runCatching {
-                    val packageInfo = packageManager.getPackageInfo(packageName, 0)
+                    val packageInfo = packageManager.getPackageInfo(packageName, requiredPackageInfoFlags)
                     val installer = packageInfo.getInstaller(packageManager)
                     packageInfo.toInstalledApp(packageManager, installer)
                 }.getOrNull()

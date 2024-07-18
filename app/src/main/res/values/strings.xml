@@ -94,7 +94,6 @@
     <string name="app_info_button_mark_as_safe">Mark as safe</string>
     <string name="app_info_button_app_info">App info</string>
     <string name="app_info_permissions">Permissions</string>
-    <string name="app_info_services">Services</string>
 
     <string name="state_enabled">Enabled</string>
     <string name="state_unsupported">Unsupported</string>

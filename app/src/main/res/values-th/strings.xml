@@ -90,7 +90,6 @@
     <string name="app_info_button_mark_as_safe">ยืนยันว่าปลอดภัย</string>
     <string name="app_info_button_app_info">ดูข้อมูล</string>
     <string name="app_info_permissions">สิทธ์ของแอป</string>
-    <string name="app_info_services">บริการระบบ</string>
 
     <string name="state_enabled">เปิดอยู่</string>
     <string name="state_unsupported">ไม่รองรับ</string>

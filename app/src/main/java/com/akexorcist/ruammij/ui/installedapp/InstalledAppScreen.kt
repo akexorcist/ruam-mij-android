@@ -70,7 +70,7 @@ import com.akexorcist.ruammij.ui.component.AppInfoContent
 import com.akexorcist.ruammij.ui.component.BodyText
 import com.akexorcist.ruammij.ui.component.BoldBodyText
 import com.akexorcist.ruammij.ui.component.DescriptionText
-import com.akexorcist.ruammij.ui.component.DisplayAppInfoBottomSheet
+import com.akexorcist.ruammij.ui.component.AppInfoBottomSheet
 import com.akexorcist.ruammij.ui.component.HeadlineText
 import com.akexorcist.ruammij.ui.component.LoadingContent
 import com.akexorcist.ruammij.ui.component.OptionItemChip
@@ -146,7 +146,7 @@ private fun InstalledAppScreen(
 
             is InstalledAppUiState.InstalledAppLoaded -> {
                 showAppInfoState?.let {
-                    DisplayAppInfoBottomSheet(
+                    AppInfoBottomSheet(
                         app = it,
                         onDismissRequest = { showAppInfoState = null },
                     )

@@ -20,6 +20,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -33,6 +36,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -49,7 +54,7 @@ import com.akexorcist.ruammij.utility.toReadableDatetime
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
 @Composable
-fun DisplayAppInfoBottomSheet(
+fun AppInfoBottomSheet(
     app: InstalledApp,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     onDismissRequest: () -> Unit,
@@ -226,11 +231,24 @@ private fun AdditionalInfoItem(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
+            Row {
+                BoldBodyText(
+                    text = info.label,
+                    modifier = Modifier.weight(1f),
+                    color = MaterialTheme.colorScheme.onBackground
+                )
 
-            BoldBodyText(
-                text = info.label,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+                Spacer(modifier = Modifier.width(16.dp))
+
+                val icon =
+                    if (isExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
+                Image(
+                    modifier = Modifier.size(24.dp),
+                    painter = rememberVectorPainter(image = icon),
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
+                    contentDescription = ""
+                )
+            }
 
             AnimatedVisibility(visible = isExpanded && info.description.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(4.dp))
@@ -248,7 +266,7 @@ private fun AdditionalInfoItem(
 @Composable
 private fun DisplayAppInfoBottomSheetPreview() {
     RuamMijTheme {
-        DisplayAppInfoBottomSheet(
+        AppInfoBottomSheet(
             app = InstalledApp(
                 name = "App Name",
                 packageName = "com.akexorcist.ruammij",

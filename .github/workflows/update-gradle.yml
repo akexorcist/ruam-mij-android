@@ -1,0 +1,26 @@
+name: Update Gradle wrapper
+
+on:
+  schedule:
+    - cron: 0 0 1 * *
+  workflow_dispatch:
+
+# TODO: @nullcube - August 9th 2024, finish before the end of weekends -
+#   Since we are using the least privileged permissions, we need to specify the
+#   required permissions for the job.
+permissions: read-all
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    # TODO: @nullcube - August 9th 2024, finish before the end of weekends -
+    #   Investigate the actual required permissions of
+    #   gradle-update/update-gradle-wrapper-action@v1
+    #   as documentation guide doesn't include them.
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Update Gradle wrapper
+        uses: gradle-update/update-gradle-wrapper-action@v1

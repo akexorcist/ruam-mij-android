@@ -118,6 +118,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "validcube",
+      "name": "Pun Butrach",
+      "avatar_url": "https://avatars.githubusercontent.com/u/93124920?v=4",
+      "profile": "https://github.com/validcube",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }

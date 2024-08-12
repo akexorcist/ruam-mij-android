@@ -2,7 +2,7 @@ package com.akexorcist.ruammij.data
 
 import android.graphics.drawable.Drawable
 
-data class AdditionalInfo(
+data class PermissionInfo(
     val name: String,
     val label: String,
     val description: String,

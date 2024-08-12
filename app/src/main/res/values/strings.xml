@@ -93,7 +93,8 @@
     <string name="app_info_open_settings">Open app settings</string>
     <string name="app_info_button_mark_as_safe">Mark as safe</string>
     <string name="app_info_button_app_info">App info</string>
-    <string name="app_info_permissions">Permissions</string>
+    <string name="app_info_general_section_title">General Information</string>
+    <string name="app_info_permissions_section_title">Permissions</string>
 
     <string name="state_enabled">Enabled</string>
     <string name="state_unsupported">Unsupported</string>

@@ -41,6 +41,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -148,6 +149,8 @@ private fun InstalledAppScreen(
                 showAppInfoState?.let {
                     AppInfoBottomSheet(
                         app = it,
+                        onOpenInSettingClick = { onOpenAppInSettingClick(it.packageName) },
+                        onMarkAsSafeClick = { onMarkAsSafeClick(it.packageName) },
                         onDismissRequest = { showAppInfoState = null },
                     )
                 }
@@ -182,8 +185,6 @@ private fun InstalledAppScreen(
                                 (displayOption.installers.isNotEmpty() && isAllInstallersSelected)
                     },
                     onAppInfoClick = { showAppInfoState = it },
-                    onOpenAppInSettingClick = onOpenAppInSettingClick,
-                    onMarkAsSafeClick = onMarkAsSafeClick,
                     onRecheckClick = onRecheckClick,
                     onDisplayOptionClick = { showDisplayOption = true },
                 )
@@ -198,8 +199,6 @@ private fun InstalledAppContent(
     installedApps: List<InstalledApp>,
     isCustomDisplayOption: Boolean,
     onAppInfoClick: (InstalledApp) -> Unit,
-    onOpenAppInSettingClick: (String) -> Unit,
-    onMarkAsSafeClick: (String) -> Unit,
     onRecheckClick: () -> Unit,
     onDisplayOptionClick: () -> Unit,
 ) {
@@ -236,8 +235,6 @@ private fun InstalledAppContent(
                 lazyListState = lazyListState,
                 installedApps = installedApps,
                 onAppInfoClick = onAppInfoClick,
-                onOpenAppInSettingClick = onOpenAppInSettingClick,
-                onMarkAsSafeClick = onMarkAsSafeClick
             )
         } else {
             Spacer(modifier = Modifier.height(16.dp))
@@ -265,8 +262,6 @@ private fun AppContent(
     lazyListState: LazyListState,
     installedApps: List<InstalledApp>,
     onAppInfoClick: (InstalledApp) -> Unit,
-    onOpenAppInSettingClick: (String) -> Unit,
-    onMarkAsSafeClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -284,8 +279,6 @@ private fun AppContent(
                 AppInfoContent(
                     app = installedApp,
                     onAppInfoClick = { onAppInfoClick(installedApp) },
-                    onOpenInSettingClick = { onOpenAppInSettingClick(installedApp.packageName) },
-                    onMarkAsSafeClick = { onMarkAsSafeClick(installedApp.packageName) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }

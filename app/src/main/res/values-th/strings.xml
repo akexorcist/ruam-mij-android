@@ -89,7 +89,8 @@
     <string name="app_info_open_settings">เปิดการตั้งค่าของแอป</string>
     <string name="app_info_button_mark_as_safe">ยืนยันว่าปลอดภัย</string>
     <string name="app_info_button_app_info">ดูข้อมูล</string>
-    <string name="app_info_permissions">สิทธ์ของแอป</string>
+    <string name="app_info_general_section_title">ข้อมูลทั่วไป</string>
+    <string name="app_info_permissions_section_title">สิทธิ์ที่ขอจากแอปนี้</string>
 
     <string name="state_enabled">เปิดอยู่</string>
     <string name="state_unsupported">ไม่รองรับ</string>

@@ -8,7 +8,7 @@ import com.akexorcist.ruammij.common.Installer
 import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.common.Installers
 import com.akexorcist.ruammij.common.ReferenceInstallerStatus
-import com.akexorcist.ruammij.data.AdditionalInfo
+import com.akexorcist.ruammij.data.PermissionInfo
 import com.akexorcist.ruammij.data.InstalledApp
 import java.security.MessageDigest
 
@@ -140,7 +140,7 @@ fun PackageManager.getShaSignature(packageName: String?): String {
     } ?: ""
 }
 
-fun PackageManager.getPermissions(permissions: Array<String>?): List<AdditionalInfo> {
+fun PackageManager.getPermissions(permissions: Array<String>?): List<PermissionInfo> {
     permissions ?: return emptyList()
 
     return permissions
@@ -149,7 +149,7 @@ fun PackageManager.getPermissions(permissions: Array<String>?): List<AdditionalI
         }
         .filter { ANDROID_PERMISSION_PREFIX.any { prefix -> it.name.startsWith(prefix) } }
         .map { permission ->
-            AdditionalInfo(
+            PermissionInfo(
                 name = permission.name,
                 label = permission.loadLabel(this).toString()
                     .replaceFirstChar { it.uppercase() },

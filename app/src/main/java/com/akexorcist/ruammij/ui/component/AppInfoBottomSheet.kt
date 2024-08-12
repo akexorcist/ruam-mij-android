@@ -6,6 +6,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,11 +24,15 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
-import androidx.compose.material3.SheetValue.Expanded
+import androidx.compose.material3.SheetValue.PartiallyExpanded
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -46,8 +51,9 @@ import androidx.core.content.res.ResourcesCompat
 import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.common.Installer
 import com.akexorcist.ruammij.common.InstallerVerificationStatus
-import com.akexorcist.ruammij.data.AdditionalInfo
 import com.akexorcist.ruammij.data.InstalledApp
+import com.akexorcist.ruammij.data.PermissionInfo
+import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.DarkLightPreviews
 import com.akexorcist.ruammij.utility.toReadableDatetime
@@ -56,7 +62,9 @@ import com.google.accompanist.drawablepainter.rememberDrawablePainter
 @Composable
 fun AppInfoBottomSheet(
     app: InstalledApp,
-    sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+    sheetState: SheetState = rememberModalBottomSheetState(),
+    onOpenInSettingClick: () -> Unit,
+    onMarkAsSafeClick: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {
     ModalBottomSheet(
@@ -64,44 +72,62 @@ fun AppInfoBottomSheet(
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
         onDismissRequest = onDismissRequest,
     ) {
-        DisplayAppInfoContent(app = app)
+        DisplayAppInfoContent(
+            app = app,
+            onOpenInSettingClick = onOpenInSettingClick,
+            onMarkAsSafeClick = onMarkAsSafeClick,
+            onCloseButtonClick = onDismissRequest
+        )
     }
 }
 
 @Composable
 private fun DisplayAppInfoContent(
     app: InstalledApp,
+    onOpenInSettingClick: () -> Unit,
+    onMarkAsSafeClick: () -> Unit,
+    onCloseButtonClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding()
+        modifier = Modifier.navigationBarsPadding(),
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-                .verticalScroll(state = rememberScrollState()),
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 64.dp)
+                .verticalScroll(state = rememberScrollState())
         ) {
+            Column {
+                HeaderSection(app = app)
 
-            HeadlineText(text = stringResource(R.string.installed_app_info_title))
+                Spacer(modifier = Modifier.height(8.dp))
 
-            AppInfoHeaderItem(app = app)
+                GeneralInformationSection(app = app)
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-            CommonAdditionalInfoSection(app = app)
+                PermissionSection(
+                    title = stringResource(R.string.app_info_permissions_section_title),
+                    permissions = app.permissions
+                )
 
-            AdditionalInfoSection(
-                title = stringResource(R.string.app_info_permissions),
-                items = app.permissions
-            )
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
+
+        BottomSection(
+            modifier = Modifier.align(Alignment.BottomCenter),
+            app = app,
+            onOpenInSettingClick = onOpenInSettingClick,
+            onMarkAsSafeClick = onMarkAsSafeClick,
+            onCloseButtonClick = onCloseButtonClick
+        )
     }
 }
 
 @Composable
-private fun AppInfoHeaderItem(
+private fun HeaderSection(
     app: InstalledApp,
 ) {
     Row(
@@ -122,7 +148,7 @@ private fun AppInfoHeaderItem(
         Spacer(modifier = Modifier.width(8.dp))
 
         Column(modifier = Modifier.fillMaxWidth()) {
-            TitleText(text = app.name)
+            HeadlineText(text = app.name)
 
             BodyText(
                 text = app.packageName,
@@ -139,7 +165,7 @@ private fun AppInfoHeaderItem(
 }
 
 @Composable
-private fun CommonAdditionalInfoSection(
+private fun GeneralInformationSection(
     app: InstalledApp,
 ) {
     Box(
@@ -155,16 +181,27 @@ private fun CommonAdditionalInfoSection(
                 .fillMaxWidth()
                 .padding(16.dp),
         ) {
+            BoldBodyText(
+                text = stringResource(R.string.app_info_general_section_title),
+                color = MaterialTheme.colorScheme.primary
+            )
+
+            Spacer(modifier = Modifier.height(4.dp))
+
             AdditionalAppInfo(
                 label = stringResource(R.string.app_info_version),
                 value = app.appVersion,
             )
+
             Spacer(modifier = Modifier.height(4.dp))
+
             AdditionalAppInfo(
                 label = stringResource(R.string.app_info_installed_at),
                 value = app.installedAt.toReadableDatetime(),
             )
+
             Spacer(modifier = Modifier.height(4.dp))
+
             AdditionalAppInfo(
                 label = stringResource(R.string.app_info_installed_by),
                 value = app.installer.packageName ?: "",
@@ -182,17 +219,11 @@ private fun CommonAdditionalInfoSection(
 }
 
 @Composable
-private fun AdditionalInfoSection(
+private fun PermissionSection(
     title: String,
-    items: List<AdditionalInfo>
+    permissions: List<PermissionInfo>
 ) {
-    if (items.isNotEmpty()) {
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TitleText(text = title)
-
-        Spacer(modifier = Modifier.height(4.dp))
-
+    if (permissions.isNotEmpty()) {
         Box(
             modifier = Modifier
                 .border(
@@ -203,12 +234,22 @@ private fun AdditionalInfoSection(
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(16.dp),
             ) {
-                items.forEach { permission ->
-                    AdditionalInfoItem(
+                BoldBodyText(text = title, color = MaterialTheme.colorScheme.primary)
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                permissions.forEachIndexed { index, permission ->
+                    Spacer(modifier = Modifier.height(8.dp))
+                    PermissionItem(
                         info = permission
                     )
+
+                    if (index != permissions.lastIndex) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
                 }
             }
         }
@@ -216,8 +257,8 @@ private fun AdditionalInfoSection(
 }
 
 @Composable
-private fun AdditionalInfoItem(
-    info: AdditionalInfo,
+private fun PermissionItem(
+    info: PermissionInfo,
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
@@ -227,9 +268,7 @@ private fun AdditionalInfoItem(
             .clickable { isExpanded = !isExpanded }
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+            modifier = Modifier.fillMaxWidth()
         ) {
             Row {
                 BoldBodyText(
@@ -262,6 +301,64 @@ private fun AdditionalInfoItem(
     }
 }
 
+@Composable
+private fun BottomSection(
+    modifier: Modifier = Modifier,
+    app: InstalledApp,
+    onOpenInSettingClick: () -> Unit,
+    onMarkAsSafeClick: () -> Unit,
+    onCloseButtonClick: () -> Unit,
+) {
+    Box(modifier = modifier) {
+        Column {
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.outline,
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                FilledTonalButton(
+                    modifier = Modifier.height(32.dp),
+                    contentPadding = Buttons.ContentPadding,
+                    onClick = onOpenInSettingClick,
+                ) {
+                    Text(text = stringResource(R.string.app_info_button_app_info))
+                }
+
+                if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
+                    Spacer(modifier = Modifier.width(8.dp))
+                    FilledTonalButton(
+                        modifier = Modifier.height(32.dp),
+                        contentPadding = Buttons.ContentPadding,
+                        onClick = onMarkAsSafeClick,
+                    ) {
+                        Text(text = stringResource(R.string.app_info_button_mark_as_safe))
+                    }
+                }
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Button(
+                    modifier = Modifier.height(32.dp),
+                    contentPadding = Buttons.ContentPadding,
+                    onClick = onCloseButtonClick,
+                ) {
+                    BoldBodyText(text = stringResource(R.string.installed_app_display_option_close))
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
+}
+
 @DarkLightPreviews
 @Composable
 private fun DisplayAppInfoBottomSheetPreview() {
@@ -281,17 +378,17 @@ private fun DisplayAppInfoBottomSheetPreview() {
                 installer = Installer(
                     name = "Installer Name",
                     packageName = "com.akexorcist.installer",
-                    verificationStatus = InstallerVerificationStatus.VERIFIED,
+                    verificationStatus = InstallerVerificationStatus.UNVERIFIED,
                     sha256 = "12:34:56:78:90",
                 ),
                 sha256 = "12:34:56:78:90",
                 permissions = listOf(
-                    AdditionalInfo(
+                    PermissionInfo(
                         name = "",
                         label = "Permission 1",
                         description = "Description 1"
                     ),
-                    AdditionalInfo(
+                    PermissionInfo(
                         name = "",
                         label = "Permission 2",
                         description = "Description 2"
@@ -299,12 +396,14 @@ private fun DisplayAppInfoBottomSheetPreview() {
                 ),
             ),
             sheetState = SheetState(
-                skipPartiallyExpanded = true,
+                skipPartiallyExpanded = false,
                 density = LocalDensity.current,
-                initialValue = Expanded,
+                initialValue = PartiallyExpanded,
                 skipHiddenState = true,
             ),
-            onDismissRequest = { }
+            onOpenInSettingClick = {},
+            onMarkAsSafeClick = {},
+            onDismissRequest = {}
         )
     }
 }

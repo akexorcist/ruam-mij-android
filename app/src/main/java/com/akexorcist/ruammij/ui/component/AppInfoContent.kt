@@ -2,29 +2,17 @@ package com.akexorcist.ruammij.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Badge
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,7 +23,6 @@ import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.common.Installer
 import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.data.InstalledApp
-import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.DarkLightPreviews
 import com.akexorcist.ruammij.utility.toReadableDatetime
@@ -45,8 +32,6 @@ import com.google.accompanist.drawablepainter.rememberDrawablePainter
 fun AppInfoContent(
     app: InstalledApp,
     onAppInfoClick: () -> Unit,
-    onOpenInSettingClick: () -> Unit,
-    onMarkAsSafeClick: () -> Unit,
 ) {
     SectionCard(
         modifier = Modifier
@@ -101,26 +86,6 @@ fun AppInfoContent(
                         )
                     }
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                Row {
-                    FilledTonalButton(
-                        modifier = Modifier.height(32.dp),
-                        contentPadding = Buttons.ContentPadding,
-                        onClick = onOpenInSettingClick,
-                    ) {
-                        Text(text = stringResource(R.string.app_info_button_app_info))
-                    }
-                    if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
-                        Spacer(modifier = Modifier.width(8.dp))
-                        FilledTonalButton(
-                            modifier = Modifier.height(32.dp),
-                            contentPadding = Buttons.ContentPadding,
-                            onClick = onMarkAsSafeClick,
-                        ) {
-                            Text(text = stringResource(R.string.app_info_button_mark_as_safe))
-                        }
-                    }
-                }
                 Spacer(modifier = Modifier.height(4.dp))
             }
         }
@@ -153,8 +118,6 @@ private fun AppInfoContentPreview() {
                     sha256 = "12:34:56:78:90",
                 ),
                 onAppInfoClick = {},
-                onOpenInSettingClick = {},
-                onMarkAsSafeClick = {}
             )
         }
     }
@@ -186,8 +149,6 @@ private fun SystemAppInfoContentPreview() {
                     sha256 = "12:34:56:78:90",
                 ),
                 onAppInfoClick = {},
-                onOpenInSettingClick = {},
-                onMarkAsSafeClick = {}
             )
         }
     }
@@ -219,8 +180,6 @@ private fun AppInfoContentUnVerifiedPreview() {
                     sha256 = "12:34:56:78:90",
                 ),
                 onAppInfoClick = {},
-                onOpenInSettingClick = {},
-                onMarkAsSafeClick = {}
             )
         }
     }

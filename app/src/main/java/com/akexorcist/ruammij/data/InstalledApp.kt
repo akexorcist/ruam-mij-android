@@ -12,5 +12,5 @@ data class InstalledApp(
     val installedAt: Long?,
     val installer: Installer,
     val sha256: String,
-    val permissions: List<AdditionalInfo> = listOf(),
+    val permissions: List<PermissionInfo> = listOf(),
 )

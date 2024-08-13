@@ -105,10 +105,10 @@ private fun UnverifiedInstaller(
         Spacer(modifier = Modifier.width(4.dp))
         Column {
             if (name != null) {
-                BoldLabelText(text = name)
+                BoldLabelText(text = name, color = MaterialTheme.colorScheme.onBackground)
             }
             if (packageName != null) {
-                LabelText(text = packageName)
+                LabelText(text = packageName, color = MaterialTheme.colorScheme.onBackground)
             }
         }
     }
@@ -138,10 +138,10 @@ private fun SideloadInstaller(
         Spacer(modifier = Modifier.width(4.dp))
         Column {
             if (name != null) {
-                BoldLabelText(text = name)
+                BoldLabelText(text = name, color = MaterialTheme.colorScheme.onBackground)
             }
             if (packageName != null) {
-                LabelText(text = packageName)
+                LabelText(text = packageName, color = MaterialTheme.colorScheme.onBackground)
             }
         }
     }

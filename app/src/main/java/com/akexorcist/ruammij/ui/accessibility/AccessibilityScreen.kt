@@ -1,9 +1,5 @@
 package com.akexorcist.ruammij.ui.accessibility
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
-import android.provider.Settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -31,7 +27,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -56,19 +51,12 @@ import org.koin.androidx.compose.koinViewModel
 fun AccessibilityRoute(
     viewModel: AccessibilityViewModel = koinViewModel(),
 ) {
-    val activity = LocalContext.current as Activity
     val uiState by viewModel.accessibilityUiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) { viewModel.loadAccessibilityApps() }
 
     AccessibilityScreen(
         uiState = uiState,
-        onAppOpenInSettingClick = { packageName ->
-            activity.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                data = Uri.parse("package:$packageName")
-            })
-        },
-        onMarkAsSafeClick = {},
         onRecheckClick = { viewModel.loadAccessibilityApps(forceRefresh = true) },
     )
 }
@@ -76,8 +64,6 @@ fun AccessibilityRoute(
 @Composable
 private fun AccessibilityScreen(
     uiState: AccessibilityUiState,
-    onAppOpenInSettingClick: (String) -> Unit,
-    onMarkAsSafeClick: (String) -> Unit,
     onRecheckClick: () -> Unit,
 ) {
     Column(
@@ -96,8 +82,6 @@ private fun AccessibilityScreen(
                 AccessibilityContent(
                     activeAccessibilityApps = uiState.active,
                     inactiveAccessibilityApps = uiState.inactive,
-                    onAppOpenInSettingClick = onAppOpenInSettingClick,
-                    onMarkAsSafeClick = onMarkAsSafeClick,
                     onRecheckClick = onRecheckClick,
                 )
             }
@@ -121,8 +105,6 @@ private fun AccessibilityContent(
     activeAccessibilityApps: List<InstalledApp>,
     inactiveAccessibilityApps: List<InstalledApp>,
     onRecheckClick: () -> Unit,
-    onAppOpenInSettingClick: (String) -> Unit,
-    onMarkAsSafeClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -135,15 +117,11 @@ private fun AccessibilityContent(
         Spacer(modifier = Modifier.height(16.dp))
         RunningAccessibilityServiceApps(
             apps = activeAccessibilityApps,
-            onAppOpenInSettingClick = onAppOpenInSettingClick,
-            onMarkAsSafeClick = onMarkAsSafeClick,
 
             )
         Spacer(modifier = Modifier.height(16.dp))
         InactiveAccessibilityServiceApps(
             apps = inactiveAccessibilityApps,
-            onAppOpenInSettingClick = onAppOpenInSettingClick,
-            onMarkAsSafeClick = onMarkAsSafeClick,
         )
         Spacer(modifier = Modifier.height(16.dp))
     }
@@ -163,8 +141,6 @@ private fun Header() {
 @Composable
 private fun RunningAccessibilityServiceApps(
     apps: List<InstalledApp>,
-    onAppOpenInSettingClick: (String) -> Unit,
-    onMarkAsSafeClick: (String) -> Unit,
 ) {
     SectionCard(
         modifier = Modifier.fillMaxWidth(),
@@ -180,8 +156,7 @@ private fun RunningAccessibilityServiceApps(
                 apps.forEachIndexed { index, app ->
                     AppInfoContent(
                         app = app,
-                        onOpenInSettingClick = { onAppOpenInSettingClick(app.packageName) },
-                        onMarkAsSafeClick = { onMarkAsSafeClick(app.packageName) }
+                        onAppInfoClick = {},
                     )
                     if (index != apps.lastIndex) {
                         Spacer(modifier = Modifier.height(8.dp))
@@ -199,8 +174,6 @@ private fun RunningAccessibilityServiceApps(
 @Composable
 private fun InactiveAccessibilityServiceApps(
     apps: List<InstalledApp>,
-    onAppOpenInSettingClick: (String) -> Unit,
-    onMarkAsSafeClick: (String) -> Unit,
 ) {
     SectionCard(
         modifier = Modifier.fillMaxWidth(),
@@ -215,8 +188,7 @@ private fun InactiveAccessibilityServiceApps(
                 apps.forEachIndexed { index, app ->
                     AppInfoContent(
                         app = app,
-                        onOpenInSettingClick = { onAppOpenInSettingClick(app.packageName) },
-                        onMarkAsSafeClick = { onMarkAsSafeClick(app.packageName) }
+                        onAppInfoClick = {},
                     )
                     if (index != apps.lastIndex) {
                         Spacer(modifier = Modifier.height(8.dp))
@@ -276,8 +248,6 @@ private fun AccessibilityContentPreview() {
             AccessibilityContent(
                 activeAccessibilityApps = emptyList(),
                 inactiveAccessibilityApps = emptyList(),
-                onAppOpenInSettingClick = {},
-                onMarkAsSafeClick = {},
                 onRecheckClick = {},
             )
         }
@@ -321,8 +291,6 @@ private fun RunningAccessibilityServiceAppsPreview() {
                     sha256 = "12:34:56:78:90",
                 ),
             ),
-            onAppOpenInSettingClick = {},
-            onMarkAsSafeClick = {}
         )
     }
 }
@@ -333,8 +301,6 @@ private fun EmptyRunningAccessibilityServiceAppsPreview() {
     RuamMijTheme {
         RunningAccessibilityServiceApps(
             apps = emptyList(),
-            onAppOpenInSettingClick = {},
-            onMarkAsSafeClick = {},
         )
     }
 }
@@ -376,8 +342,6 @@ private fun InactiveAccessibilityServiceAppsPreview() {
                     sha256 = "12:34:56:78:90",
                 ),
             ),
-            onAppOpenInSettingClick = {},
-            onMarkAsSafeClick = {},
         )
     }
 }
@@ -388,8 +352,6 @@ private fun EmptyInactiveAccessibilityServiceAppsPreview() {
     RuamMijTheme {
         InactiveAccessibilityServiceApps(
             apps = emptyList(),
-            onAppOpenInSettingClick = {},
-            onMarkAsSafeClick = {},
         )
     }
 }

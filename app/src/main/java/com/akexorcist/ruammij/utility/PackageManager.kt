@@ -8,10 +8,12 @@ import com.akexorcist.ruammij.common.Installer
 import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.common.Installers
 import com.akexorcist.ruammij.common.ReferenceInstallerStatus
+import com.akexorcist.ruammij.data.PermissionInfo
 import com.akexorcist.ruammij.data.InstalledApp
 import java.security.MessageDigest
 
 private const val ALGORITHM_SHA_512 = "SHA-256"
+private val ANDROID_PERMISSION_PREFIX = setOf("android.permission.", "com.google.android.")
 
 fun PackageInfo.toInstalledApp(
     packageManager: PackageManager,
@@ -26,6 +28,7 @@ fun PackageInfo.toInstalledApp(
         installedAt = firstInstallTime,
         installer = installer,
         sha256 = packageManager.getShaSignature(packageName),
+        permissions = packageManager.getPermissions(requestedPermissions),
     )
 }
 
@@ -136,3 +139,22 @@ fun PackageManager.getShaSignature(packageName: String?): String {
         }
     } ?: ""
 }
+
+fun PackageManager.getPermissions(permissions: Array<String>?): List<PermissionInfo> {
+    permissions ?: return emptyList()
+
+    return permissions
+        .mapNotNull {
+            runCatching { getPermissionInfo(it, PackageManager.GET_META_DATA) }.getOrNull()
+        }
+        .filter { ANDROID_PERMISSION_PREFIX.any { prefix -> it.name.startsWith(prefix) } }
+        .map { permission ->
+            PermissionInfo(
+                name = permission.name,
+                label = permission.loadLabel(this).toString()
+                    .replaceFirstChar { it.uppercase() },
+                description = permission.loadDescription(this).toString()
+            )
+        }
+}
+

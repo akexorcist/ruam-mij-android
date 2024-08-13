@@ -26,7 +26,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -41,6 +41,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -70,6 +71,7 @@ import com.akexorcist.ruammij.ui.component.AppInfoContent
 import com.akexorcist.ruammij.ui.component.BodyText
 import com.akexorcist.ruammij.ui.component.BoldBodyText
 import com.akexorcist.ruammij.ui.component.DescriptionText
+import com.akexorcist.ruammij.ui.component.AppInfoBottomSheet
 import com.akexorcist.ruammij.ui.component.HeadlineText
 import com.akexorcist.ruammij.ui.component.LoadingContent
 import com.akexorcist.ruammij.ui.component.OptionItemChip
@@ -129,6 +131,7 @@ private fun InstalledAppScreen(
     val lazyListState: LazyListState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
+    var showAppInfoState by remember { mutableStateOf<InstalledApp?>(null) }
     var showDisplayOption by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -143,6 +146,15 @@ private fun InstalledAppScreen(
             }
 
             is InstalledAppUiState.InstalledAppLoaded -> {
+                showAppInfoState?.let {
+                    AppInfoBottomSheet(
+                        app = it,
+                        onOpenInSettingClick = { onOpenAppInSettingClick(it.packageName) },
+                        onMarkAsSafeClick = { onMarkAsSafeClick(it.packageName) },
+                        onDismissRequest = { showAppInfoState = null },
+                    )
+                }
+
                 if (showDisplayOption) {
                     DisplayOptionBottomSheet(
                         sortBy = uiState.displayOption.sortBy,
@@ -172,8 +184,7 @@ private fun InstalledAppScreen(
                                 displayOption.sortBy != default.sortBy) ||
                                 (displayOption.installers.isNotEmpty() && isAllInstallersSelected)
                     },
-                    onOpenAppInSettingClick = onOpenAppInSettingClick,
-                    onMarkAsSafeClick = onMarkAsSafeClick,
+                    onAppInfoClick = { showAppInfoState = it },
                     onRecheckClick = onRecheckClick,
                     onDisplayOptionClick = { showDisplayOption = true },
                 )
@@ -187,8 +198,7 @@ private fun InstalledAppContent(
     lazyListState: LazyListState,
     installedApps: List<InstalledApp>,
     isCustomDisplayOption: Boolean,
-    onOpenAppInSettingClick: (String) -> Unit,
-    onMarkAsSafeClick: (String) -> Unit,
+    onAppInfoClick: (InstalledApp) -> Unit,
     onRecheckClick: () -> Unit,
     onDisplayOptionClick: () -> Unit,
 ) {
@@ -224,8 +234,7 @@ private fun InstalledAppContent(
             AppContent(
                 lazyListState = lazyListState,
                 installedApps = installedApps,
-                onOpenAppInSettingClick = onOpenAppInSettingClick,
-                onMarkAsSafeClick = onMarkAsSafeClick
+                onAppInfoClick = onAppInfoClick,
             )
         } else {
             Spacer(modifier = Modifier.height(16.dp))
@@ -252,8 +261,7 @@ private fun Header() {
 private fun AppContent(
     lazyListState: LazyListState,
     installedApps: List<InstalledApp>,
-    onOpenAppInSettingClick: (String) -> Unit,
-    onMarkAsSafeClick: (String) -> Unit,
+    onAppInfoClick: (InstalledApp) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -264,19 +272,15 @@ private fun AppContent(
             state = lazyListState,
         ) {
             item { Spacer(modifier = Modifier.height(16.dp)) }
-            itemsIndexed(
+            items(
                 items = installedApps,
-                key = { _, item -> item.packageName }) { index, installedApp ->
+                key = { item -> item.packageName }
+            ) { installedApp ->
                 AppInfoContent(
                     app = installedApp,
-                    onOpenInSettingClick = { onOpenAppInSettingClick(installedApp.packageName) },
-                    onMarkAsSafeClick = { onMarkAsSafeClick(installedApp.packageName) }
+                    onAppInfoClick = { onAppInfoClick(installedApp) },
                 )
-                if (index != installedApps.lastIndex) {
-                    Spacer(modifier = Modifier.height(8.dp))
-                } else {
-                    Spacer(modifier = Modifier.height(16.dp))
-                }
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }

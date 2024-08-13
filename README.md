@@ -104,6 +104,7 @@ cd ruam-mij-android
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/FatCatCode"><img src="https://avatars.githubusercontent.com/u/2326355?v=4?s=100" width="100px;" alt="CatCode"/><br /><sub><b>CatCode</b></sub></a><br /><a href="#code-FatCatCode" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://siriwatk.dev"><img src="https://avatars.githubusercontent.com/u/18292247?v=4?s=100" width="100px;" alt="Siriwat K"/><br /><sub><b>Siriwat K</b></sub></a><br /><a href="#doc-siriwatknp" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/validcube"><img src="https://avatars.githubusercontent.com/u/93124920?v=4?s=100" width="100px;" alt="Pun Butrach"/><br /><sub><b>Pun Butrach</b></sub></a><br /><a href="#code-validcube" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ultimagz"><img src="https://avatars.githubusercontent.com/u/1924593?v=4?s=100" width="100px;" alt="Pitsanu Kittipittayakorn"/><br /><sub><b>Pitsanu Kittipittayakorn</b></sub></a><br /><a href="#code-ultimagz" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

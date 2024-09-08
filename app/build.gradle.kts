@@ -34,7 +34,7 @@ android {
             val signingKeyFile: String? = System.getenv("SIGNING_KEY_STORE_PATH")
             if (signingKeyFile != null) {
                 signingConfig = signingConfigs.create("release") {
-                    storeFile = file("${signingKeyFile}")
+                    storeFile = file("$signingKeyFile")
                     storePassword = System.getenv("SIGNING_STORE_PASSWORD")
                     keyAlias = System.getenv("SIGNING_KEY_ALIAS")
                     keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
@@ -44,12 +44,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
         isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true

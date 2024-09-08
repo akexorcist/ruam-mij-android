@@ -275,8 +275,8 @@ private fun PermissionItem(
 
     val arrowRotation by animateFloatAsState(
         targetValue = when (isExpanded) {
-            true -> 180f
-            false -> 0f
+            true -> 0f
+            false -> 180f
         },
         label = "arrow_rotation",
     )

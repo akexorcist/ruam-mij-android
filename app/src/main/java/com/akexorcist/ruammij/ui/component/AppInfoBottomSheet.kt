@@ -11,12 +11,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,7 +29,6 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
@@ -37,6 +38,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -58,7 +60,9 @@ import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.DarkLightPreviews
 import com.akexorcist.ruammij.utility.toReadableDatetime
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppInfoBottomSheet(
     app: InstalledApp,
@@ -67,7 +71,9 @@ fun AppInfoBottomSheet(
     onMarkAsSafeClick: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
     ModalBottomSheet(
+        windowInsets = WindowInsets(top = 72.dp),
         sheetState = sheetState,
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
         onDismissRequest = onDismissRequest,
@@ -76,7 +82,12 @@ fun AppInfoBottomSheet(
             app = app,
             onOpenInSettingClick = onOpenInSettingClick,
             onMarkAsSafeClick = onMarkAsSafeClick,
-            onCloseButtonClick = onDismissRequest
+            onCloseButtonClick = {
+                coroutineScope.launch {
+                    sheetState.hide()
+                    onDismissRequest()
+                }
+            },
         )
     }
 }
@@ -88,41 +99,35 @@ private fun DisplayAppInfoContent(
     onMarkAsSafeClick: () -> Unit,
     onCloseButtonClick: () -> Unit,
 ) {
-    Box(
-        modifier = Modifier.navigationBarsPadding(),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding()
+            .systemBarsPadding()
+            .padding(horizontal = 16.dp)
+            .verticalScroll(state = rememberScrollState())
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 64.dp)
-                .verticalScroll(state = rememberScrollState())
-        ) {
-            Column {
-                HeaderSection(app = app)
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                GeneralInformationSection(app = app)
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                PermissionSection(
-                    title = stringResource(R.string.app_info_permissions_section_title),
-                    permissions = app.permissions
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-        }
-
-        BottomSection(
-            modifier = Modifier.align(Alignment.BottomCenter),
+        AdditionButtonSection(
             app = app,
             onOpenInSettingClick = onOpenInSettingClick,
             onMarkAsSafeClick = onMarkAsSafeClick,
             onCloseButtonClick = onCloseButtonClick
         )
+
+        HeaderSection(app = app)
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        GeneralInformationSection(app = app)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        PermissionSection(
+            title = stringResource(R.string.app_info_permissions_section_title),
+            permissions = app.permissions
+        )
+
+        Spacer(modifier = Modifier.height(48.dp))
     }
 }
 
@@ -302,59 +307,46 @@ private fun PermissionItem(
 }
 
 @Composable
-private fun BottomSection(
-    modifier: Modifier = Modifier,
+private fun AdditionButtonSection(
     app: InstalledApp,
     onOpenInSettingClick: () -> Unit,
     onMarkAsSafeClick: () -> Unit,
     onCloseButtonClick: () -> Unit,
 ) {
-    Box(modifier = modifier) {
-        Column {
-            HorizontalDivider(
-                thickness = 1.dp,
-                color = MaterialTheme.colorScheme.outline,
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp),
-                horizontalArrangement = Arrangement.End,
+    Column {
+        Spacer(modifier = Modifier.height(8.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
+        ) {
+            FilledTonalButton(
+                modifier = Modifier.height(32.dp),
+                contentPadding = Buttons.ContentPadding,
+                onClick = onOpenInSettingClick,
             ) {
+                Text(text = stringResource(R.string.app_info_button_app_info))
+            }
+
+            if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
+                Spacer(modifier = Modifier.width(8.dp))
                 FilledTonalButton(
                     modifier = Modifier.height(32.dp),
                     contentPadding = Buttons.ContentPadding,
-                    onClick = onOpenInSettingClick,
+                    onClick = onMarkAsSafeClick,
                 ) {
-                    Text(text = stringResource(R.string.app_info_button_app_info))
-                }
-
-                if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
-                    Spacer(modifier = Modifier.width(8.dp))
-                    FilledTonalButton(
-                        modifier = Modifier.height(32.dp),
-                        contentPadding = Buttons.ContentPadding,
-                        onClick = onMarkAsSafeClick,
-                    ) {
-                        Text(text = stringResource(R.string.app_info_button_mark_as_safe))
-                    }
-                }
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Button(
-                    modifier = Modifier.height(32.dp),
-                    contentPadding = Buttons.ContentPadding,
-                    onClick = onCloseButtonClick,
-                ) {
-                    BoldBodyText(text = stringResource(R.string.installed_app_display_option_close))
+                    Text(text = stringResource(R.string.app_info_button_mark_as_safe))
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Button(
+                modifier = Modifier.height(32.dp),
+                contentPadding = Buttons.ContentPadding,
+                onClick = onCloseButtonClick,
+            ) {
+                BoldBodyText(text = stringResource(R.string.installed_app_display_option_close))
+            }
         }
     }
 }

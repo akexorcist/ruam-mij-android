@@ -209,6 +209,7 @@ private fun MenuItem(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ContributorBottomSheet(
     onDismissRequest: () -> Unit,

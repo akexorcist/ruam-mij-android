@@ -3,6 +3,7 @@
 package com.akexorcist.ruammij.ui.component
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -24,7 +25,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,6 +45,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -272,6 +273,14 @@ private fun PermissionItem(
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
+    val arrowRotation by animateFloatAsState(
+        targetValue = when (isExpanded) {
+            true -> 180f
+            false -> 0f
+        },
+        label = "arrow_rotation",
+    )
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -296,13 +305,12 @@ private fun PermissionItem(
                 Spacer(modifier = Modifier.width(16.dp))
 
                 Image(
-                    modifier = Modifier.size(24.dp),
-                    painter = rememberVectorPainter(
-                        image = when (isExpanded) {
-                            true -> Icons.Filled.KeyboardArrowUp
-                            false -> Icons.Filled.KeyboardArrowDown
-                        }
-                    ),
+                    modifier = Modifier
+                        .size(24.dp)
+                        .graphicsLayer {
+                            rotationX = arrowRotation
+                        },
+                    painter = rememberVectorPainter(Icons.Filled.KeyboardArrowUp),
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
                     contentDescription = stringResource(
                         when (isExpanded) {

@@ -17,5 +17,9 @@ object Contributors {
         "Monthira Chayabanjonglerd",
         "Wathin Sonnukij",
         "Auttapon Bunlue",
+        "Pitsanu Kittipittayakorn",
+        "Pun Butrach",
+        "Siriwat Kunaporn",
+        "Nayuki"
     )
 }

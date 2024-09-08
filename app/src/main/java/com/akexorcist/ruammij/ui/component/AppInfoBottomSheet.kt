@@ -43,6 +43,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
@@ -240,9 +241,13 @@ private fun PermissionSection(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(vertical = 16.dp),
             ) {
-                BoldBodyText(text = title, color = MaterialTheme.colorScheme.primary)
+                BoldBodyText(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    text = title,
+                    color = MaterialTheme.colorScheme.primary,
+                )
 
                 Spacer(modifier = Modifier.height(4.dp))
 
@@ -253,7 +258,7 @@ private fun PermissionSection(
                     )
 
                     if (index != permissions.lastIndex) {
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(4.dp))
                     }
                 }
             }
@@ -270,7 +275,13 @@ private fun PermissionItem(
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 8.dp)
+            .clip(shape = RoundedCornerShape(4.dp))
             .clickable { isExpanded = !isExpanded }
+            .padding(
+                horizontal = 8.dp,
+                vertical = 4.dp,
+            )
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -284,13 +295,21 @@ private fun PermissionItem(
 
                 Spacer(modifier = Modifier.width(16.dp))
 
-                val icon =
-                    if (isExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
                 Image(
                     modifier = Modifier.size(24.dp),
-                    painter = rememberVectorPainter(image = icon),
+                    painter = rememberVectorPainter(
+                        image = when (isExpanded) {
+                            true -> Icons.Filled.KeyboardArrowUp
+                            false -> Icons.Filled.KeyboardArrowDown
+                        }
+                    ),
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
-                    contentDescription = ""
+                    contentDescription = stringResource(
+                        when (isExpanded) {
+                            true -> R.string.description_expanded_permission_item
+                            false -> R.string.description_collapsed_permission_item
+                        }
+                    ),
                 )
             }
 

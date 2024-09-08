@@ -104,6 +104,8 @@
     <string name="description_empty">ว่างเปล่า</string>
     <string name="description_see_more">ดูข้อมูล%1$s</string>
     <string name="description_close">ปิด</string>
+    <string name="description_expanded_permission_item">ข้อมูลที่แสดงอยู่</string>
+    <string name="description_collapsed_permission_item">ข้อมูลที่ซ่่อนอยู่</string>
 
     <string name="menu_overview">ภาพรวม</string>
     <string name="menu_accessibility">Accessibility</string>

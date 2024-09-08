@@ -53,7 +53,6 @@ import com.akexorcist.ruammij.ui.component.BodyText
 import com.akexorcist.ruammij.ui.component.BoldBodyText
 import com.akexorcist.ruammij.ui.component.DescriptionText
 import com.akexorcist.ruammij.ui.component.HeadlineText
-import com.akexorcist.ruammij.ui.component.LanguageDropdownButton
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -115,7 +114,7 @@ private fun AboutAppScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        LanguageDropdownButton()
+        LanguageDropdown()
 
         Spacer(modifier = Modifier.height(16.dp))
 

@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.component
+package com.akexorcist.ruammij.ui.aboutapp
 
 import androidx.appcompat.app.*
 import androidx.compose.foundation.*
@@ -11,15 +11,33 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.*
 import androidx.compose.ui.res.*
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import androidx.core.os.*
 import com.akexorcist.ruammij.R
+import com.akexorcist.ruammij.ui.component.BodyText
+import com.akexorcist.ruammij.ui.component.BoldBodyText
+import com.akexorcist.ruammij.ui.theme.RuamMijTheme
+import java.util.Locale
 
 @Composable
-fun LanguageDropdownButton() {
+fun LanguageDropdown() {
     var expanded by remember { mutableStateOf(false) }
-    val selectedLanguage = AppCompatDelegate.getApplicationLocales().toLanguageTags()
+    val selectedLocale = getCurrentLocale()
 
+    LanguageDropdownItem(
+        expanded = expanded,
+        selectedLocale = selectedLocale,
+        onToggle = { expanded = it }
+    )
+}
+
+@Composable
+private fun LanguageDropdownItem(
+    expanded: Boolean,
+    selectedLocale: Locale,
+    onToggle: (Boolean) -> Unit,
+) {
     Row(
         modifier = Modifier
             .border(
@@ -28,7 +46,7 @@ fun LanguageDropdownButton() {
                 shape = RoundedCornerShape(6.dp),
             )
             .clip(shape = RoundedCornerShape(6.dp))
-            .clickable { expanded = true }
+            .clickable { onToggle(true) }
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -39,7 +57,7 @@ fun LanguageDropdownButton() {
         Box {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 BoldBodyText(
-                    text = when (selectedLanguage.contains("th")) {
+                    text = when (selectedLocale.isThai()) {
                         true -> stringResource(R.string.about_app_language_thai)
                         false -> stringResource(R.string.about_app_language_english)
                     }
@@ -57,18 +75,18 @@ fun LanguageDropdownButton() {
 
             DropdownMenu(
                 expanded = expanded,
-                onDismissRequest = { expanded = false },
+                onDismissRequest = { onToggle(false) },
             ) {
                 DropdownMenuItem(
                     onClick = {
-                        expanded = false
+                        onToggle(false)
                         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
                     },
                     text = { BoldBodyText(text = stringResource(R.string.about_app_language_english)) },
                 )
                 DropdownMenuItem(
                     onClick = {
-                        expanded = false
+                        onToggle(false)
                         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("th"))
                     },
                     text = { BoldBodyText(text = stringResource(R.string.about_app_language_thai)) },
@@ -76,4 +94,34 @@ fun LanguageDropdownButton() {
             }
         }
     }
+}
+
+@Preview
+@Composable
+private fun LanguageDropdownButtonPreview() {
+    RuamMijTheme {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background)
+                .padding(16.dp)
+        ) {
+            LanguageDropdownItem(
+                expanded = false,
+                selectedLocale = Locale.US,
+                onToggle = { }
+            )
+        }
+    }
+}
+
+private fun Locale.isThai(): Boolean {
+    return this.toLanguageTag().contains("th")
+}
+
+private fun getCurrentLocale(): Locale {
+    val locales = AppCompatDelegate.getApplicationLocales().takeIf { !it.isEmpty }
+        ?: LocaleListCompat.getDefault()
+    return locales.takeIf { !it.isEmpty }
+        ?.get(0)
+        ?: Locale.US
 }

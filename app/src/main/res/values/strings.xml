@@ -108,6 +108,8 @@
     <string name="description_empty">Empty</string>
     <string name="description_see_more">See more about %1$s</string>
     <string name="description_close">Close</string>
+    <string name="description_expanded_permission_item">Expanded item</string>
+    <string name="description_collapsed_permission_item">Collapsed item</string>
 
     <string name="menu_overview">Overview</string>
     <string name="menu_accessibility">Accessibility</string>

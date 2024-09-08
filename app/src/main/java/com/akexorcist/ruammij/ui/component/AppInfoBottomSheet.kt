@@ -3,6 +3,7 @@
 package com.akexorcist.ruammij.ui.component
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,23 +12,23 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
@@ -37,11 +38,14 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -58,7 +62,9 @@ import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.DarkLightPreviews
 import com.akexorcist.ruammij.utility.toReadableDatetime
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppInfoBottomSheet(
     app: InstalledApp,
@@ -67,7 +73,9 @@ fun AppInfoBottomSheet(
     onMarkAsSafeClick: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
     ModalBottomSheet(
+        windowInsets = WindowInsets(top = 72.dp),
         sheetState = sheetState,
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
         onDismissRequest = onDismissRequest,
@@ -76,7 +84,12 @@ fun AppInfoBottomSheet(
             app = app,
             onOpenInSettingClick = onOpenInSettingClick,
             onMarkAsSafeClick = onMarkAsSafeClick,
-            onCloseButtonClick = onDismissRequest
+            onCloseButtonClick = {
+                coroutineScope.launch {
+                    sheetState.hide()
+                    onDismissRequest()
+                }
+            },
         )
     }
 }
@@ -88,41 +101,35 @@ private fun DisplayAppInfoContent(
     onMarkAsSafeClick: () -> Unit,
     onCloseButtonClick: () -> Unit,
 ) {
-    Box(
-        modifier = Modifier.navigationBarsPadding(),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding()
+            .systemBarsPadding()
+            .padding(horizontal = 16.dp)
+            .verticalScroll(state = rememberScrollState())
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 64.dp)
-                .verticalScroll(state = rememberScrollState())
-        ) {
-            Column {
-                HeaderSection(app = app)
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                GeneralInformationSection(app = app)
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                PermissionSection(
-                    title = stringResource(R.string.app_info_permissions_section_title),
-                    permissions = app.permissions
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-        }
-
-        BottomSection(
-            modifier = Modifier.align(Alignment.BottomCenter),
+        AdditionButtonSection(
             app = app,
             onOpenInSettingClick = onOpenInSettingClick,
             onMarkAsSafeClick = onMarkAsSafeClick,
             onCloseButtonClick = onCloseButtonClick
         )
+
+        HeaderSection(app = app)
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        GeneralInformationSection(app = app)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        PermissionSection(
+            title = stringResource(R.string.app_info_permissions_section_title),
+            permissions = app.permissions
+        )
+
+        Spacer(modifier = Modifier.height(48.dp))
     }
 }
 
@@ -235,9 +242,13 @@ private fun PermissionSection(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(vertical = 16.dp),
             ) {
-                BoldBodyText(text = title, color = MaterialTheme.colorScheme.primary)
+                BoldBodyText(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    text = title,
+                    color = MaterialTheme.colorScheme.primary,
+                )
 
                 Spacer(modifier = Modifier.height(4.dp))
 
@@ -248,7 +259,7 @@ private fun PermissionSection(
                     )
 
                     if (index != permissions.lastIndex) {
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(4.dp))
                     }
                 }
             }
@@ -262,10 +273,24 @@ private fun PermissionItem(
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
+    val arrowRotation by animateFloatAsState(
+        targetValue = when (isExpanded) {
+            true -> 0f
+            false -> 180f
+        },
+        label = "arrow_rotation",
+    )
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 8.dp)
+            .clip(shape = RoundedCornerShape(4.dp))
             .clickable { isExpanded = !isExpanded }
+            .padding(
+                horizontal = 8.dp,
+                vertical = 4.dp,
+            )
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -279,13 +304,20 @@ private fun PermissionItem(
 
                 Spacer(modifier = Modifier.width(16.dp))
 
-                val icon =
-                    if (isExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
                 Image(
-                    modifier = Modifier.size(24.dp),
-                    painter = rememberVectorPainter(image = icon),
+                    modifier = Modifier
+                        .size(24.dp)
+                        .graphicsLayer {
+                            rotationX = arrowRotation
+                        },
+                    painter = rememberVectorPainter(Icons.Filled.KeyboardArrowUp),
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
-                    contentDescription = ""
+                    contentDescription = stringResource(
+                        when (isExpanded) {
+                            true -> R.string.description_expanded_permission_item
+                            false -> R.string.description_collapsed_permission_item
+                        }
+                    ),
                 )
             }
 
@@ -302,59 +334,46 @@ private fun PermissionItem(
 }
 
 @Composable
-private fun BottomSection(
-    modifier: Modifier = Modifier,
+private fun AdditionButtonSection(
     app: InstalledApp,
     onOpenInSettingClick: () -> Unit,
     onMarkAsSafeClick: () -> Unit,
     onCloseButtonClick: () -> Unit,
 ) {
-    Box(modifier = modifier) {
-        Column {
-            HorizontalDivider(
-                thickness = 1.dp,
-                color = MaterialTheme.colorScheme.outline,
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp),
-                horizontalArrangement = Arrangement.End,
+    Column {
+        Spacer(modifier = Modifier.height(8.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
+        ) {
+            FilledTonalButton(
+                modifier = Modifier.height(32.dp),
+                contentPadding = Buttons.ContentPadding,
+                onClick = onOpenInSettingClick,
             ) {
+                Text(text = stringResource(R.string.app_info_button_app_info))
+            }
+
+            if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
+                Spacer(modifier = Modifier.width(8.dp))
                 FilledTonalButton(
                     modifier = Modifier.height(32.dp),
                     contentPadding = Buttons.ContentPadding,
-                    onClick = onOpenInSettingClick,
+                    onClick = onMarkAsSafeClick,
                 ) {
-                    Text(text = stringResource(R.string.app_info_button_app_info))
-                }
-
-                if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
-                    Spacer(modifier = Modifier.width(8.dp))
-                    FilledTonalButton(
-                        modifier = Modifier.height(32.dp),
-                        contentPadding = Buttons.ContentPadding,
-                        onClick = onMarkAsSafeClick,
-                    ) {
-                        Text(text = stringResource(R.string.app_info_button_mark_as_safe))
-                    }
-                }
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Button(
-                    modifier = Modifier.height(32.dp),
-                    contentPadding = Buttons.ContentPadding,
-                    onClick = onCloseButtonClick,
-                ) {
-                    BoldBodyText(text = stringResource(R.string.installed_app_display_option_close))
+                    Text(text = stringResource(R.string.app_info_button_mark_as_safe))
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Button(
+                modifier = Modifier.height(32.dp),
+                contentPadding = Buttons.ContentPadding,
+                onClick = onCloseButtonClick,
+            ) {
+                BoldBodyText(text = stringResource(R.string.installed_app_display_option_close))
+            }
         }
     }
 }

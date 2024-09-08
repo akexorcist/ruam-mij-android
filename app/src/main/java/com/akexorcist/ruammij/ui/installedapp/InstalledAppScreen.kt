@@ -146,31 +146,6 @@ private fun InstalledAppScreen(
             }
 
             is InstalledAppUiState.InstalledAppLoaded -> {
-                showAppInfoState?.let {
-                    AppInfoBottomSheet(
-                        app = it,
-                        onOpenInSettingClick = { onOpenAppInSettingClick(it.packageName) },
-                        onMarkAsSafeClick = { onMarkAsSafeClick(it.packageName) },
-                        onDismissRequest = { showAppInfoState = null },
-                    )
-                }
-
-                if (showDisplayOption) {
-                    DisplayOptionBottomSheet(
-                        sortBy = uiState.displayOption.sortBy,
-                        showSystemApp = uiState.displayOption.showSystemApp,
-                        hideVerifiedInstaller = uiState.displayOption.hideVerifiedInstaller,
-                        currentSelectedInstallers = uiState.displayOption.installers,
-                        installers = uiState.installers,
-                        onDisplayOptionApplyClick = { option ->
-                            showDisplayOption = false
-                            coroutineScope.launch { lazyListState.animateScrollToItem(0) }
-                            onDisplayOptionApplyClick(option)
-                        },
-                        onDismissRequest = { showDisplayOption = false },
-                    )
-                }
-
                 InstalledAppContent(
                     lazyListState = lazyListState,
                     installedApps = uiState.displayInstalledApps,
@@ -189,6 +164,33 @@ private fun InstalledAppScreen(
                     onDisplayOptionClick = { showDisplayOption = true },
                 )
             }
+        }
+    }
+
+    if (uiState is InstalledAppUiState.InstalledAppLoaded) {
+        if (showDisplayOption) {
+            DisplayOptionBottomSheet(
+                sortBy = uiState.displayOption.sortBy,
+                showSystemApp = uiState.displayOption.showSystemApp,
+                hideVerifiedInstaller = uiState.displayOption.hideVerifiedInstaller,
+                currentSelectedInstallers = uiState.displayOption.installers,
+                installers = uiState.installers,
+                onDisplayOptionApplyClick = { option ->
+                    showDisplayOption = false
+                    coroutineScope.launch { lazyListState.animateScrollToItem(0) }
+                    onDisplayOptionApplyClick(option)
+                },
+                onDismissRequest = { showDisplayOption = false },
+            )
+        }
+
+        showAppInfoState?.let {
+            AppInfoBottomSheet(
+                app = it,
+                onOpenInSettingClick = { onOpenAppInSettingClick(it.packageName) },
+                onMarkAsSafeClick = { onMarkAsSafeClick(it.packageName) },
+                onDismissRequest = { showAppInfoState = null },
+            )
         }
     }
 }

@@ -1,0 +1,3 @@
+An app for scanning suspicious apps on devices that can be risks to users in various aspects, such as apps installed from unsafe sources or misuse of Accessibility Service, and so on.
+
+Our app prioritizes user privacy, which is why we've designed it to work primarily offline, with no internet connection required. All functions of this app are under the control of the user.

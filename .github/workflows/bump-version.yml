@@ -1,0 +1,31 @@
+name: Bump Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "The app version to be release"
+        required: true
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Bump version
+        uses: chkfung/android-version-actions@v1.2.2
+        with:
+          gradlePath: app/build.gradle.kts
+          versionCode: ${{ github.run_number }}
+          versionName: ${{ github.event.inputs.version }}
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "bump: ${{ github.event.inputs.version }}"
+          title: "bump: ${{ github.event.inputs.version }}"
+          body: "Bump versionName of the app"
+          branch: bump/${{ github.event.inputs.version }}
+          base: main
+          add-paths: |
+            *.gradle.kts

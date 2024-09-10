@@ -13,8 +13,8 @@ android {
         applicationId = "com.akexorcist.ruammij"
         minSdk = 23
         targetSdk = 34
-        versionCode = 19
-        versionName = "1.1.1"
+        versionCode = 3
+        versionName = "1.1.2-alpha01"
 
         testInstrumentationRunner = "androidx.test.runner.InstrumentationTestRunner"
         vectorDrawables {

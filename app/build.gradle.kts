@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.devToolsKsp)
-    alias(libs.plugins.ossLicenses)
     alias(libs.plugins.roborazzi)
 }
 

@@ -56,5 +56,4 @@ roborazzi-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-ju
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 devToolsKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-ossLicenses = { id = "com.google.android.gms.oss-licenses-plugin", version.ref = "ossLicensesPlugin" }
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }

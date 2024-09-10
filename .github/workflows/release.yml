@@ -41,12 +41,12 @@ jobs:
     - name: Get current app version name
       id: get-current-app-version-name
       run: |
-        echo "VERSION_NUMBER=$(grep -oE 'versionName = "(.*?)"' app/build.gradle.kts | head -n 1 | cut -d '"' -f 2)" >> "$GITHUB_OUTPUT"
+        echo "VERSION_NAME=$(grep -oE 'versionName = "(.*?)"' app/build.gradle.kts | head -n 1 | cut -d '"' -f 2)" >> "$GITHUB_OUTPUT"
     - name: Create a release
       uses: softprops/action-gh-release@v2
       env:
-        VERSION_NUMBER: ${{ steps.get-current-app-version-name.outputs.VERSION_NUMBER }}
+        VERSION_NAME: ${{ steps.get-current-app-version-name.outputs.VERSION_NAME }}
       with:
-        tag_name: "v${{ VERSION_NUMBER }}"
+        tag_name: "v${{ env.VERSION_NAME }}"
         files: |
           app/build/outputs/apk/release/app-release.apk

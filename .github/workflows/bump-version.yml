@@ -13,11 +13,16 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - uses: actions/checkout@v4
+      - name: Generate version code
+        id: generate-version-code
+        run: |
+          echo "VERSION_CODE=$((${{ github.run_number }} + 20))" >> "$GITHUB_OUTPUT"
       - name: Bump version
-        uses: chkfung/android-version-actions@v1.2.2
+        uses: chkfung/android-version-actions@v1.2.3
         with:
           gradlePath: app/build.gradle.kts
-          versionCode: ${{ github.run_number }}
+          versionCode: ${{ steps.generate-version-code.outputs.VERSION_CODE }}
           versionName: ${{ github.event.inputs.version }}
       - name: Open pull request
         uses: peter-evans/create-pull-request@v6

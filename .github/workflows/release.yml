@@ -2,10 +2,7 @@ name: Release
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: "The app version to be release"
-        required: true
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -21,9 +18,6 @@ jobs:
       run: ./gradlew assembleDebug testDebugUnitTest
   build-release-app:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
     steps:
     - uses: actions/checkout@v4
     - name: set up JDK 17
@@ -37,12 +31,6 @@ jobs:
         mkdir "${GITHUB_WORKSPACE}"/keystore
         echo "${{secrets.ENCRYPTED_KEYSTORE}}" > keystore/keystore.asc
         gpg -d --passphrase "${{secrets.KEYSTORE_PASSPHRASE}}" --batch keystore/keystore.asc > ${{ secrets.SIGNING_KEY_STORE_PATH }}
-    - name: Bump version
-      uses: chkfung/android-version-actions@v1.2.2
-      with:
-        gradlePath: app/build.gradle.kts
-        versionCode: ${{ github.run_number }}
-        versionName: ${{ github.event.inputs.version }}
     - name: Build Release APK
       env:
         SIGNING_KEY_STORE_PATH: "${{ github.workspace }}/${{ secrets.SIGNING_KEY_STORE_PATH }}"
@@ -50,20 +38,15 @@ jobs:
         SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
       run: ./gradlew assembleRelease
+    - name: Get current app version name
+      id: get-current-app-version-name
+      run: |
+        echo "VERSION_NUMBER=$(grep -oE 'versionName = "(.*?)"' app/build.gradle.kts | head -n 1 | cut -d '"' -f 2)" >> "$GITHUB_OUTPUT"
     - name: Create a release
       uses: softprops/action-gh-release@v2
+      env:
+        VERSION_NUMBER: ${{ steps.get-current-app-version-name.outputs.VERSION_NUMBER }}
       with:
-        tag_name: "v${{ github.event.inputs.version }}"
+        tag_name: "v${{ VERSION_NUMBER }}"
         files: |
           app/build/outputs/apk/release/app-release.apk
-    - name: Bump version code
-      uses: peter-evans/create-pull-request@v6
-      with:
-        commit-message: "bump: ${{ github.event.inputs.version }}"
-        title: "bump: ${{ github.event.inputs.version }}"
-        body: "Bump versionName of the app"
-        branch: bump/${{ github.event.inputs.version }}
-        base: main
-        add-paths: |
-          *.gradle.kts
-          

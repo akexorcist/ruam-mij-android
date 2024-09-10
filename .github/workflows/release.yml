@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
+        description: "The app version to be release"
         required: true
 jobs:
   build-and-test:
@@ -52,7 +53,7 @@ jobs:
     - name: Create a release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{ github.event.inputs.version }}
+        tag_name: "v${{ github.event.inputs.version }}"
         files: |
           app/build/outputs/apk/release/app-release.apk
     - name: Bump version code

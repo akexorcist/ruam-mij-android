@@ -13,10 +13,11 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - uses: actions/checkout@v4
       - name: Bump version
         uses: chkfung/android-version-actions@v1.2.3
         with:
-          gradlePath: android/app/build.gradle.kts
+          gradlePath: app/build.gradle.kts
           versionCode: ${{ github.run_number }}
           versionName: ${{ github.event.inputs.version }}
       - name: Open pull request

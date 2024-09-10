@@ -1,0 +1,5 @@
+* Add display app information with bottom sheet
+    * General information
+    * Permissions
+* Fix incorrect default language for non-preferred in-app language
+* Remove Open Source License section

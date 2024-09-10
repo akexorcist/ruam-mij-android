@@ -47,6 +47,6 @@ jobs:
       env:
         VERSION_NAME: ${{ steps.get-current-app-version-name.outputs.VERSION_NAME }}
       with:
-        tag_name: "v${{ VERSION_NAME }}"
+        tag_name: "v${{ env.VERSION_NAME }}"
         files: |
           app/build/outputs/apk/release/app-release.apk

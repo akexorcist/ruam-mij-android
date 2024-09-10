@@ -20,6 +20,7 @@ object Contributors {
         "Pitsanu Kittipittayakorn",
         "Pun Butrach",
         "Siriwat Kunaporn",
-        "Nayuki"
+        "Nayuki",
+        "Arut Jinadit",
     )
 }

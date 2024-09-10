@@ -47,7 +47,6 @@ accompanist-drawable-painter = { module = "com.google.accompanist:accompanist-dr
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreen" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-play-oss-licenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "oss" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
 roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }

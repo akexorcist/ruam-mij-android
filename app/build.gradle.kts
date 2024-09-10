@@ -92,7 +92,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.compose.navigation)
-    implementation(libs.play.oss.licenses)
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.koin.bom))
 

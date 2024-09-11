@@ -89,6 +89,9 @@ cd ruam-mij-android
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/validcube"><img src="https://avatars.githubusercontent.com/u/93124920?v=4?s=100" width="100px;" alt="Pun Butrach"/><br /><sub><b>Pun Butrach</b></sub></a><br /><a href="#code-validcube" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ultimagz"><img src="https://avatars.githubusercontent.com/u/1924593?v=4?s=100" width="100px;" alt="Pitsanu Kittipittayakorn"/><br /><sub><b>Pitsanu Kittipittayakorn</b></sub></a><br /><a href="#code-ultimagz" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/arut-ji"><img src="https://avatars.githubusercontent.com/u/43962033?v=4?s=100" width="100px;" alt="Arut Jinadit"/><br /><sub><b>Arut Jinadit</b></sub></a><br /><a href="#infra-arut-ji" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    </tr>
   </tbody>
 </table>
 

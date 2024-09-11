@@ -136,6 +136,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "arut-ji",
+      "name": "Arut Jinadit",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43962033?v=4",
+      "profile": "https://github.com/arut-ji",
+      "contributions": [
+        "infra"
+      ]
     }
   ]
 }

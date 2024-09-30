@@ -12,6 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Switch to Java 17
-        run: sudo update-java-alternatives --set $JAVA_HOME_17_X64;
+        run: echo "JAVA_HOME=$JAVA_HOME_17_X64" >> $GITHUB_ENV
       - name: Update the Gradle Wrapper
         uses: gradle-update/update-gradle-wrapper-action@v1

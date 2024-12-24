@@ -53,6 +53,7 @@ import com.akexorcist.ruammij.ui.component.BodyText
 import com.akexorcist.ruammij.ui.component.BoldBodyText
 import com.akexorcist.ruammij.ui.component.DescriptionText
 import com.akexorcist.ruammij.ui.component.HeadlineText
+import com.akexorcist.ruammij.ui.osslicense.OpensourceLicenseActivity
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 
@@ -81,7 +82,8 @@ fun AboutAppRoute() {
             showContributor = true
         },
         onOpenSourceLicenseClick = {
-            // TODO navigate to open source license screen
+            val intent = Intent(activity, OpensourceLicenseActivity::class.java)
+            activity.startActivity(intent)
         },
         onSourceCodeClick = {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/akexorcist/ruam-mij-android"))
@@ -133,13 +135,12 @@ private fun AboutAppScreen(
             onClick = onContributorClick,
         )
         Spacer(modifier = Modifier.height(16.dp))
-        // TODO Add Open Source License section
-//        MenuItem(
-//            label = stringResource(R.string.about_app_menu_open_source_licenses),
-//            icon = painterResource(R.drawable.ic_about_app_source_code),
-//            onClick = onOpenSourceLicenseClick,
-//        )
-//        Spacer(modifier = Modifier.height(16.dp))
+        MenuItem(
+            label = stringResource(R.string.about_app_menu_open_source_licenses),
+            icon = painterResource(R.drawable.ic_about_app_source_code),
+            onClick = onOpenSourceLicenseClick,
+        )
+        Spacer(modifier = Modifier.height(16.dp))
         MenuItem(
             label = stringResource(R.string.about_app_menu_source_code),
             icon = painterResource(R.drawable.ic_about_app_source_code),

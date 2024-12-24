@@ -53,7 +53,7 @@ import com.akexorcist.ruammij.ui.component.BodyText
 import com.akexorcist.ruammij.ui.component.BoldBodyText
 import com.akexorcist.ruammij.ui.component.DescriptionText
 import com.akexorcist.ruammij.ui.component.HeadlineText
-import com.akexorcist.ruammij.ui.osslicense.OpensourceLicenseActivity
+import com.akexorcist.ruammij.ui.osslicense.OpenSourceLicenseActivity
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 
@@ -82,7 +82,7 @@ fun AboutAppRoute() {
             showContributor = true
         },
         onOpenSourceLicenseClick = {
-            val intent = Intent(activity, OpensourceLicenseActivity::class.java)
+            val intent = Intent(activity, OpenSourceLicenseActivity::class.java)
             activity.startActivity(intent)
         },
         onSourceCodeClick = {

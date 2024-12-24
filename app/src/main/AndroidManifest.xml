@@ -37,7 +37,7 @@
             android:theme="@style/Theme.AppCompat.DayNight" />
 
         <activity
-            android:name=".ui.osslicense.OpensourceLicenseActivity"
+            android:name=".ui.osslicense.OpenSourceLicenseActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
 
         <service

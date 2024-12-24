@@ -6,14 +6,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 
-class OpensourceLicenseActivity : AppCompatActivity() {
+class OpenSourceLicenseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             RuamMijTheme {
-                OpensourceLicenseScreen()
+                OpenSourceLicenseScreen()
             }
         }
     }

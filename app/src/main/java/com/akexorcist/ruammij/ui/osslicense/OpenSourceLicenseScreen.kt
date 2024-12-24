@@ -21,7 +21,7 @@ import com.mikepenz.aboutlibraries.util.withJson
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun OpensourceLicenseScreen() {
+internal fun OpenSourceLicenseScreen() {
     val activity = LocalContext.current as Activity
 
     Scaffold(

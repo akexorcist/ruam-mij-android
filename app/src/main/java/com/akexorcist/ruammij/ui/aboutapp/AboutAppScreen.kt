@@ -49,16 +49,19 @@ import androidx.compose.ui.unit.dp
 import com.akexorcist.ruammij.BuildConfig
 import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.common.Contributors
+import com.akexorcist.ruammij.ui.AppState
 import com.akexorcist.ruammij.ui.component.BodyText
 import com.akexorcist.ruammij.ui.component.BoldBodyText
 import com.akexorcist.ruammij.ui.component.DescriptionText
 import com.akexorcist.ruammij.ui.component.HeadlineText
-import com.akexorcist.ruammij.ui.osslicense.OpenSourceLicenseActivity
+import com.akexorcist.ruammij.ui.osslicense.navigateToOpenSourceLicense
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 
 @Composable
-fun AboutAppRoute() {
+fun AboutAppRoute(
+    appState: AppState,
+) {
     val activity = LocalContext.current as Activity
     var showPrivacyPolicy by remember { mutableStateOf(false) }
     var showContributor by remember { mutableStateOf(false) }
@@ -82,8 +85,7 @@ fun AboutAppRoute() {
             showContributor = true
         },
         onOpenSourceLicenseClick = {
-            val intent = Intent(activity, OpenSourceLicenseActivity::class.java)
-            activity.startActivity(intent)
+            appState.mainNavController.navigateToOpenSourceLicense()
         },
         onSourceCodeClick = {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/akexorcist/ruam-mij-android"))

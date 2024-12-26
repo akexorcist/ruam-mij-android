@@ -14,16 +14,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
 import com.akexorcist.ruammij.R
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import com.mikepenz.aboutlibraries.util.withJson
 
+@Composable
+fun OpenSourceLicenseRoute(
+    navController: NavController,
+) {
+    OpenSourceLicenseScreen(navController = navController)
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun OpenSourceLicenseScreen() {
-    val activity = LocalContext.current as Activity
-
+private fun OpenSourceLicenseScreen(
+    navController: NavController,
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -33,7 +41,7 @@ internal fun OpenSourceLicenseScreen() {
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { activity.finish() }) {
+                    IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"

@@ -5,8 +5,11 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.akexorcist.ruammij.ui.RuamMijApp
+import androidx.navigation.compose.NavHost
+import com.akexorcist.ruammij.ui.RUAM_MIJ_APP_ROUTE
+import com.akexorcist.ruammij.ui.osslicense.openSourceLicenseScreen
 import com.akexorcist.ruammij.ui.rememberAppState
+import com.akexorcist.ruammij.ui.ruamMijApp
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.getOwnerPackageName
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,7 +29,14 @@ class MainActivity : AppCompatActivity() {
         setContent {
             RuamMijTheme {
                 val appState = rememberAppState()
-                RuamMijApp(appState = appState)
+
+                NavHost(
+                    navController = appState.mainNavController,
+                    startDestination = RUAM_MIJ_APP_ROUTE,
+                ) {
+                    ruamMijApp(appState = appState)
+                    openSourceLicenseScreen(navController = appState.mainNavController)
+                }
             }
         }
         displayManager.registerDisplayListener(displayListener, null)

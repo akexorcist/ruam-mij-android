@@ -36,10 +36,6 @@
             android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
             android:theme="@style/Theme.AppCompat.DayNight" />
 
-        <activity
-            android:name=".ui.osslicense.OpenSourceLicenseActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
             android:enabled="false"

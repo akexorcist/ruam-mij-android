@@ -3,6 +3,14 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.devToolsKsp)
     alias(libs.plugins.roborazzi)
+    alias(libs.plugins.aboutLibraries)
+}
+
+aboutLibraries {
+    registerAndroidTasks = true
+    includePlatform = false
+    offlineMode = true
+    outputFileName = "aboutlibraries.json"
 }
 
 android {
@@ -91,6 +99,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.compose.navigation)
+    implementation(libs.bundles.aboutLibraries.all)
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.koin.bom))
 

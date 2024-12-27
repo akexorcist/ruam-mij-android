@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,7 +44,7 @@ import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 fun RuamMijApp(
     appState: AppState,
 ) {
-    val navController = appState.navController
+    val navController = appState.bottomBarNavController
 
     Scaffold(
         bottomBar = {
@@ -66,13 +65,13 @@ fun RuamMijApp(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
-                navController = appState.navController,
+                navController = appState.bottomBarNavController,
                 startDestination = OVERVIEW_ROUTE,
             ) {
                 overviewScreen(navController = navController)
                 accessibilityScreen()
                 installedAppScreen()
-                aboutAppScreen()
+                aboutAppScreen(appState = appState)
             }
         },
     )
@@ -109,18 +108,20 @@ private fun DownloadButton(onClick: () -> Unit) {
 
 @Stable
 class AppState(
-    val navController: NavHostController,
+    val mainNavController: NavHostController,
+    val bottomBarNavController: NavHostController,
 ) {
     val currentDestination: NavDestination?
-        @Composable get() = navController.currentBackStackEntryAsState().value?.destination
+        @Composable get() = bottomBarNavController.currentBackStackEntryAsState().value?.destination
 }
 
 @Composable
 fun rememberAppState(
-    navController: NavHostController = rememberNavController(),
+    mainNavController: NavHostController = rememberNavController(),
+    bottomBarNavController: NavHostController = rememberNavController(),
 ): AppState {
-    return remember(navController) {
-        AppState(navController)
+    return remember(mainNavController, bottomBarNavController) {
+        AppState(mainNavController, bottomBarNavController)
     }
 }
 

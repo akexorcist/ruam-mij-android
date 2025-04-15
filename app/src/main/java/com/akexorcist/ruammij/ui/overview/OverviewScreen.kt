@@ -1,8 +1,8 @@
 package com.akexorcist.ruammij.ui.overview
 
-import android.app.Activity
 import android.content.Intent
 import android.provider.Settings
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -39,7 +39,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -68,7 +67,6 @@ import com.akexorcist.ruammij.ui.installedapp.navigateToInstalledApp
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.MaterialAdditionColorScheme
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
-import com.akexorcist.ruammij.utility.koinActivityViewModel
 import com.akexorcist.ruammij.utility.toReadableDatetime
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import org.koin.androidx.compose.koinViewModel
@@ -77,9 +75,9 @@ import org.koin.androidx.compose.koinViewModel
 fun OverviewRoute(
     navController: NavController,
     viewModel: OverviewViewModel = koinViewModel(),
-    sharedEventViewModel: SharedEventViewModel = koinActivityViewModel(),
+    sharedEventViewModel: SharedEventViewModel = koinViewModel(),
 ) {
-    val activity = LocalContext.current as Activity
+    val activity = LocalActivity.current ?: return
     val uiState by viewModel.overviewUiState.collectAsStateWithLifecycle()
     val mediaProjectionDetectionEvent by sharedEventViewModel.mediaProjectionEvent.collectAsStateWithLifecycle(
         initialValue = null

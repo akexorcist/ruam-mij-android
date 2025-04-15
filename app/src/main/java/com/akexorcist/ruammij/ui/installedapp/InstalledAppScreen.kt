@@ -2,10 +2,10 @@
 
 package com.akexorcist.ruammij.ui.installedapp
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -41,7 +41,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -54,7 +53,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -80,17 +78,18 @@ import com.akexorcist.ruammij.ui.component.TitleText
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.utility.DarkLightPreviews
-import com.akexorcist.ruammij.utility.koinActivityViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
+import androidx.core.net.toUri
 
 @Composable
 fun InstalledAppRoute(
     preferredInstaller: String?,
     preferredShowSystemApp: Boolean?,
-    viewModel: InstalledAppViewModel = koinActivityViewModel(),
+    viewModel: InstalledAppViewModel = koinViewModel(),
 ) {
+    val activity = LocalActivity.current ?: return
     val uiState by viewModel.installedAppUiState.collectAsStateWithLifecycle()
-    val activity = LocalContext.current as Activity
 
     LaunchedEffect(Unit) {
         viewModel.loadInstalledApps(
@@ -114,7 +113,7 @@ fun InstalledAppRoute(
         },
         onOpenAppInSettingClick = {
             activity.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                data = Uri.parse("package:$it")
+                data = "package:$it".toUri()
             })
         }
     )
@@ -325,6 +324,8 @@ private fun DisplayOptionBottomSheet(
     onDisplayOptionApplyClick: (DisplayOption) -> Unit,
     onDismissRequest: () -> Unit
 ) {
+    val activity = LocalActivity.current ?: return
+    val view = LocalView.current
     var currentSortBy by remember { mutableStateOf(sortBy) }
     var currentShowSystemApp by remember { mutableStateOf(showSystemApp) }
     var currentHideVerifiedInstaller by remember { mutableStateOf(hideVerifiedInstaller) }
@@ -339,9 +340,6 @@ private fun DisplayOptionBottomSheet(
             }
             ?: listOf())
     }
-
-    val activity = LocalContext.current as Activity
-    val view = LocalView.current
     val darkTheme = isSystemInDarkTheme()
     DisposableEffect(Unit) {
         WindowCompat.getInsetsController(activity.window, view).isAppearanceLightStatusBars =

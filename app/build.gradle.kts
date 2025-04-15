@@ -15,12 +15,12 @@ aboutLibraries {
 
 android {
     namespace = "com.akexorcist.ruammij"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.akexorcist.ruammij"
         minSdk = 23
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 25
         versionName = "1.1.2"
 
@@ -41,7 +41,7 @@ android {
             val signingKeyFile: String? = System.getenv("SIGNING_KEY_STORE_PATH")
             if (signingKeyFile != null) {
                 signingConfig = signingConfigs.create("release") {
-                    storeFile = file("$signingKeyFile")
+                    storeFile = file(signingKeyFile)
                     storePassword = System.getenv("SIGNING_STORE_PASSWORD")
                     keyAlias = System.getenv("SIGNING_KEY_ALIAS")
                     keyPassword = System.getenv("SIGNING_KEY_PASSWORD")

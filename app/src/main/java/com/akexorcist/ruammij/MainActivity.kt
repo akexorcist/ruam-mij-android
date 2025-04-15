@@ -2,6 +2,7 @@ package com.akexorcist.ruammij
 
 import android.hardware.display.DisplayManager
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,16 @@ class MainActivity : AppCompatActivity() {
     @OptIn(KoinExperimentalAPI::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
-        enableEdgeToEdge()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.auto(
+                lightScrim = getColor(R.color.status_bar_light),
+                darkScrim = getColor(R.color.status_bar_dark),
+            ),
+            navigationBarStyle = SystemBarStyle.auto(
+                lightScrim = getColor(R.color.navigation_bar_light),
+                darkScrim = getColor(R.color.navigation_bar_dark),
+            )
+        )
         super.onCreate(savedInstanceState)
         setContent {
             RuamMijTheme {

@@ -2,6 +2,7 @@
 <resources>
     <style name="Theme.RuamMij.Main" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 
     <style name="Theme.RuamMij.SplashScreen" parent="Theme.SplashScreen">
@@ -10,5 +11,6 @@
         <item name="windowSplashScreenAnimationDuration">500</item>
         <item name="postSplashScreenTheme">@style/Theme.RuamMij.Main</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 </resources>

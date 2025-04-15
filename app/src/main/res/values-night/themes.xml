@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.RuamMij.Main" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/status_bar_dark</item>
-        <item name="android:navigationBarColor">@color/navigation_bar_dark</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
@@ -11,8 +9,6 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_screen</item>
         <item name="windowSplashScreenAnimationDuration">500</item>
         <item name="postSplashScreenTheme">@style/Theme.RuamMij.Main</item>
-        <item name="android:statusBarColor">@color/status_bar_dark</item>
-        <item name="android:navigationBarColor">@color/navigation_bar_dark</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

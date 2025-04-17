@@ -78,21 +78,18 @@ class DefaultDeviceRepository(
                 .associateBy { it.packageName }
 
             val installers: Map<String?, Installer> = installedAppInfoList
-                .map { (_, info) -> info.applicationInfo.getInstallerPackageName(packageManager) }
+                .map { (_, info) -> info.applicationInfo?.getInstallerPackageName(packageManager) }
                 .distinctBy { it }
                 .map { installerPackageName ->
-                    installedAppInfoList[installerPackageName]
-                        .let { info ->
-                            info.toInstaller(
-                                packageName = installerPackageName,
-                                packageManager = packageManager,
-                            )
-                        }
+                    installedAppInfoList[installerPackageName].toInstaller(
+                        packageName = installerPackageName,
+                        packageManager = packageManager,
+                    )
                 }
                 .associateBy { it.packageName }
 
             installedAppInfoList.map { (_, value) ->
-                val installerPackageName = value.applicationInfo.getInstallerPackageName(packageManager)
+                val installerPackageName = value.applicationInfo?.getInstallerPackageName(packageManager)
                 val installer = installers[installerPackageName]
                     ?: Installer(
                         name = when (installerPackageName == null) {

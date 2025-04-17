@@ -26,6 +26,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
@@ -75,9 +76,9 @@ fun AppInfoBottomSheet(
 ) {
     val coroutineScope = rememberCoroutineScope()
     ModalBottomSheet(
-        windowInsets = WindowInsets(top = 72.dp),
         sheetState = sheetState,
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        contentWindowInsets = { WindowInsets(top = 72.dp) },
         onDismissRequest = onDismissRequest,
     ) {
         DisplayAppInfoContent(

@@ -33,7 +33,9 @@ fun BottomMenu(
     currentDestination: BottomMenuDestination,
     onDestinationSelected: (BottomMenuDestination) -> Unit,
 ) {
-    NavigationBar {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surface,
+    ){
         Spacer(modifier = Modifier.width(2.dp))
         listOf(
             BottomMenuDestination.Overview,

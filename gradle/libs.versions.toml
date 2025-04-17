@@ -1,25 +1,23 @@
 [versions]
-agp = "8.3.0"
-kotlin = "1.9.22"
-ossLicensesPlugin = "0.10.6"
-coreKtx = "1.12.0"
+agp = "8.9.1"
+kotlin = "2.1.20"
+coreKtx = "1.16.0"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.7.0"
-activityCompose = "1.8.2"
-composeBom = "2024.02.02"
-navigation = "2.7.7"
-koin = "3.5.3"
-desugar = "2.0.4"
-accompanist = "0.34.0"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.10.1"
+composeBom = "2025.04.00"
+navigation = "2.8.9"
+koin = "4.0.4"
+desugar = "2.1.5"
+accompanist = "0.37.2"
 splashScreen = "1.0.1"
-room = "2.6.1"
-ksp = "1.9.22-1.0.18"
-oss = "17.0.1"
-robolectric = "4.11.1"
-roborazzi = "1.11.0"
-aboutLibraries = "11.2.3"
+room = "2.7.0"
+ksp = "2.1.20-2.0.0"
+robolectric = "4.14.1"
+roborazzi = "1.43.1"
+aboutLibraries = "11.6.3"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -59,6 +57,7 @@ aboutLibraries-composeM3 = { group = "com.mikepenz", name = "aboutlibraries-comp
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 devToolsKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
 

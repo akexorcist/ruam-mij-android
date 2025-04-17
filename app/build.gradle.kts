@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.devToolsKsp)
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.aboutLibraries)
@@ -15,12 +16,12 @@ aboutLibraries {
 
 android {
     namespace = "com.akexorcist.ruammij"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.akexorcist.ruammij"
         minSdk = 23
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 25
         versionName = "1.1.2"
 
@@ -41,7 +42,7 @@ android {
             val signingKeyFile: String? = System.getenv("SIGNING_KEY_STORE_PATH")
             if (signingKeyFile != null) {
                 signingConfig = signingConfigs.create("release") {
-                    storeFile = file("$signingKeyFile")
+                    storeFile = file(signingKeyFile)
                     storePassword = System.getenv("SIGNING_STORE_PASSWORD")
                     keyAlias = System.getenv("SIGNING_KEY_ALIAS")
                     keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
@@ -51,19 +52,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
         buildConfig = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10"
     }
     packaging {
         resources {

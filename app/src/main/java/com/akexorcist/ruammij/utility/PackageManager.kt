@@ -20,11 +20,11 @@ fun PackageInfo.toInstalledApp(
     installer: Installer,
 ): InstalledApp {
     return InstalledApp(
-        name = applicationInfo.loadLabel(packageManager).toString(),
+        name = applicationInfo?.loadLabel(packageManager).toString(),
         packageName = packageName,
         appVersion = getAppVersion(),
-        icon = applicationInfo.loadIcon(packageManager),
-        systemApp = applicationInfo.flags and 1 != 0,
+        icon = applicationInfo?.loadIcon(packageManager),
+        systemApp = applicationInfo?.let { it.flags and 1 != 0 } ?: false,
         installedAt = firstInstallTime,
         installer = installer,
         sha256 = packageManager.getShaSignature(packageName),
@@ -50,12 +50,10 @@ fun ApplicationInfo.getInstallerPackageName(packageManager: PackageManager): Str
 }
 
 fun PackageInfo.getInstaller(packageManager: PackageManager): Installer {
-    val installerPackageName = this.applicationInfo.getInstallerPackageName(packageManager)
+    val installerPackageName = this.applicationInfo?.getInstallerPackageName(packageManager)
     return runCatching {
         installerPackageName?.let { packageManager.getPackageInfo(it, 0) }
-    }.getOrNull().let { installerPackageInfo ->
-        installerPackageInfo.toInstaller(installerPackageName, packageManager)
-    }
+    }.getOrNull().toInstaller(installerPackageName, packageManager)
 }
 
 fun PackageInfo?.toInstaller(
@@ -63,10 +61,10 @@ fun PackageInfo?.toInstaller(
     packageManager: PackageManager,
 ): Installer {
     return this?.let { info ->
-        val systemApp = applicationInfo.flags and 1 != 0
+        val systemApp = applicationInfo?.let { it.flags and 1 != 0 } ?: false
         val sha256 = packageManager.getShaSignature(info.packageName)
         Installer(
-            name = info.applicationInfo.loadLabel(packageManager).toString(),
+            name = info.applicationInfo?.loadLabel(packageManager).toString(),
             packageName = packageName,
             verificationStatus = Installers.apps[info.packageName]?.let { status ->
                 when (status) {
@@ -110,12 +108,9 @@ fun PackageManager.getShaSignature(packageName: String?): String {
             }?.let { (signature, messageDigest) ->
                 messageDigest.update(signature.toByteArray())
                 messageDigest.digest()
-            }?.let { digest ->
-                digest
-                    .fold("") { acc, value -> acc + "%02x".format(value).uppercase() }
-                    .chunked(2)
-                    .joinToString(separator = ":")
-            }
+            }?.fold("") { acc, value ->
+                acc + "%02x".format(value).uppercase()
+            }?.chunked(2)?.joinToString(separator = ":")
         }
     } else {
         runCatching {
@@ -123,19 +118,16 @@ fun PackageManager.getShaSignature(packageName: String?): String {
             this.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
         }.getOrNull()?.let { info ->
             @Suppress("DEPRECATION")
-            info.signatures?.firstNotNullOf { signature ->
+            (info.signatures?.firstNotNullOf { signature ->
                 runCatching { MessageDigest.getInstance(ALGORITHM_SHA_512) }
                     .getOrNull()
                     ?.let { signature to it }
             }?.let { (signature, messageDigest) ->
                 messageDigest.update(signature.toByteArray())
                 messageDigest.digest()
-            }?.let { digest ->
-                digest
-                    .fold("") { acc, value -> acc + "%02x".format(value).uppercase() }
-                    .chunked(2)
-                    .joinToString(separator = ":")
-            }
+            }?.fold("") { acc, value ->
+                acc + "%02x".format(value).uppercase()
+            }?.chunked(2)?.joinToString(separator = ":"))
         }
     } ?: ""
 }

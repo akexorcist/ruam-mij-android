@@ -5,10 +5,9 @@ import androidx.compose.animation.core.tween
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.akexorcist.ruammij.ui.Destinations
 
-const val OPEN_SOURCE_LICENSES_ROUTE = "open_source_licenses_route"
-
-fun NavController.navigateToOpenSourceLicense() = navigate(route = OPEN_SOURCE_LICENSES_ROUTE) {
+fun NavController.navigateToOpenSourceLicense() = navigate(Destinations.OpenSourceLicense) {
     popUpTo(graph.startDestinationId)
     launchSingleTop = true
 }
@@ -16,13 +15,18 @@ fun NavController.navigateToOpenSourceLicense() = navigate(route = OPEN_SOURCE_L
 fun NavGraphBuilder.openSourceLicenseScreen(
     navController: NavController,
 ) {
-    composable(
-        route = OPEN_SOURCE_LICENSES_ROUTE,
+    composable<Destinations.OpenSourceLicense>(
         enterTransition = {
-            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(350))
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Start,
+                animationSpec = tween(350),
+            )
         },
         exitTransition = {
-            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(350))
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.End,
+                animationSpec = tween(350),
+            )
         },
     ) {
         OpenSourceLicenseRoute(

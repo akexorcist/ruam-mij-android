@@ -3,16 +3,15 @@ package com.akexorcist.ruammij.ui.accessibility
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.akexorcist.ruammij.ui.Destinations
 
-const val ACCESSIBILITY_ROUTE = "accessibility_route"
-
-fun NavController.navigateToAccessibility() = navigate(ACCESSIBILITY_ROUTE) {
+fun NavController.navigateToAccessibility() = navigate(Destinations.Accessibility) {
     popUpTo(graph.startDestinationId)
     launchSingleTop = true
 }
 
 fun NavGraphBuilder.accessibilityScreen() {
-    composable(route = ACCESSIBILITY_ROUTE) {
+    composable<Destinations.Accessibility> {
         AccessibilityRoute()
     }
 }

@@ -34,7 +34,6 @@ import com.akexorcist.ruammij.ui.component.DescriptionText
 import com.akexorcist.ruammij.ui.component.HeadlineText
 import com.akexorcist.ruammij.ui.installedapp.installedAppScreen
 import com.akexorcist.ruammij.ui.installedapp.navigateToInstalledApp
-import com.akexorcist.ruammij.ui.overview.OVERVIEW_ROUTE
 import com.akexorcist.ruammij.ui.overview.navigateToOverview
 import com.akexorcist.ruammij.ui.overview.overviewScreen
 import com.akexorcist.ruammij.ui.theme.Buttons
@@ -66,7 +65,7 @@ fun RuamMijApp(
                     .fillMaxSize()
                     .padding(padding),
                 navController = appState.bottomBarNavController,
-                startDestination = OVERVIEW_ROUTE,
+                startDestination = Destinations.Overview,
             ) {
                 overviewScreen(navController = navController)
                 accessibilityScreen()

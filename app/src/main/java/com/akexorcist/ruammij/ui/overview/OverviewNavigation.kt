@@ -3,10 +3,9 @@ package com.akexorcist.ruammij.ui.overview
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.akexorcist.ruammij.ui.Destinations
 
-const val OVERVIEW_ROUTE = "overview_route"
-
-fun NavController.navigateToOverview() = navigate(OVERVIEW_ROUTE) {
+fun NavController.navigateToOverview() = navigate(Destinations.Overview) {
     popUpTo(graph.startDestinationId)
     launchSingleTop = true
 }
@@ -14,7 +13,7 @@ fun NavController.navigateToOverview() = navigate(OVERVIEW_ROUTE) {
 fun NavGraphBuilder.overviewScreen(
     navController: NavController,
 ) {
-    composable(route = OVERVIEW_ROUTE) {
+    composable<Destinations.Overview> {
         OverviewRoute(
             navController = navController,
         )

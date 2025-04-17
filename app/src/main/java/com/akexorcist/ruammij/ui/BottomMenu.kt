@@ -19,13 +19,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
 import com.akexorcist.ruammij.R
-import com.akexorcist.ruammij.ui.aboutapp.ABOUT_APP_ROUTE
-import com.akexorcist.ruammij.ui.accessibility.ACCESSIBILITY_ROUTE
 import com.akexorcist.ruammij.ui.component.BoldLabelText
-import com.akexorcist.ruammij.ui.component.LabelText
-import com.akexorcist.ruammij.ui.installedapp.INSTALLED_APP_ROUTE
-import com.akexorcist.ruammij.ui.overview.OVERVIEW_ROUTE
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
 
 @Composable
@@ -35,7 +31,7 @@ fun BottomMenu(
 ) {
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.surface,
-    ){
+    ) {
         Spacer(modifier = Modifier.width(2.dp))
         listOf(
             BottomMenuDestination.Overview,
@@ -124,10 +120,11 @@ sealed class BottomMenuDestination(
 }
 
 
-fun NavDestination?.toBottomMenuDestination(): BottomMenuDestination = when (this?.route?.split("?")?.first()) {
-    OVERVIEW_ROUTE -> BottomMenuDestination.Overview
-    ACCESSIBILITY_ROUTE -> BottomMenuDestination.Accessibility
-    INSTALLED_APP_ROUTE -> BottomMenuDestination.InstalledApp
-    ABOUT_APP_ROUTE -> BottomMenuDestination.AboutApp
+fun NavDestination?.toBottomMenuDestination(): BottomMenuDestination = when {
+    this == null -> BottomMenuDestination.Overview
+    this.hasRoute<Destinations.Overview>() -> BottomMenuDestination.Overview
+    this.hasRoute<Destinations.Accessibility>() -> BottomMenuDestination.Accessibility
+    this.hasRoute<Destinations.InstalledApp>() -> BottomMenuDestination.InstalledApp
+    this.hasRoute<Destinations.AboutApp>() -> BottomMenuDestination.AboutApp
     else -> BottomMenuDestination.Overview
 }

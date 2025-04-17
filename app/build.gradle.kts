@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.devToolsKsp)
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.aboutLibraries)
@@ -124,4 +125,6 @@ dependencies {
     ksp(libs.androidx.room.compiler)
 
     coreLibraryDesugaring(libs.desugar)
+
+    implementation(libs.kotlin.seriailization.json)
 }

@@ -4,10 +4,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.akexorcist.ruammij.ui.AppState
+import com.akexorcist.ruammij.ui.Destinations
 
-const val ABOUT_APP_ROUTE = "about_app_route"
-
-fun NavController.navigateToAboutApp() = navigate(ABOUT_APP_ROUTE) {
+fun NavController.navigateToAboutApp() = navigate(Destinations.AboutApp) {
     popUpTo(graph.startDestinationId)
     launchSingleTop = true
 }
@@ -15,7 +14,7 @@ fun NavController.navigateToAboutApp() = navigate(ABOUT_APP_ROUTE) {
 fun NavGraphBuilder.aboutAppScreen(
     appState: AppState,
 ) {
-    composable(route = ABOUT_APP_ROUTE) {
+    composable<Destinations.AboutApp> {
         AboutAppRoute(
             appState = appState,
         )

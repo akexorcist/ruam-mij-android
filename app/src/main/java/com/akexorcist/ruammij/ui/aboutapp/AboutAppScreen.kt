@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -216,6 +217,9 @@ private fun ContributorBottomSheet(
     onDismissRequest: () -> Unit,
 ) {
     ModalBottomSheet(
+        modifier = Modifier
+            .statusBarsPadding()
+            .padding(top = 32.dp),
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
         onDismissRequest = onDismissRequest,
@@ -296,6 +300,9 @@ private fun PrivacyPolicyBottomSheet(
     onDismissRequest: () -> Unit,
 ) {
     ModalBottomSheet(
+        modifier = Modifier
+            .statusBarsPadding()
+            .padding(top = 32.dp),
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
         onDismissRequest = onDismissRequest,

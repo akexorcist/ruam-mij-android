@@ -15,6 +15,15 @@ aboutLibraries {
 }
 
 android {
+    signingConfigs {
+        create("release") {
+            val signingKeyFile: String = System.getenv("SIGNING_KEY_STORE_PATH") ?: "./"
+            storeFile = file(signingKeyFile)
+            storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+            keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+            keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+        }
+    }
     namespace = "com.akexorcist.ruammij"
     compileSdk = 35
 
@@ -39,16 +48,7 @@ android {
                 "proguard-rules.pro"
             )
 
-            val signingKeyFile: String? = System.getenv("SIGNING_KEY_STORE_PATH")
-            if (signingKeyFile != null) {
-                signingConfig = signingConfigs.create("release") {
-                    storeFile = file(signingKeyFile)
-                    storePassword = System.getenv("SIGNING_STORE_PASSWORD")
-                    keyAlias = System.getenv("SIGNING_KEY_ALIAS")
-                    keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
-                }
-                signingConfig = signingConfigs.getByName("release")
-            }
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {

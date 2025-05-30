@@ -20,12 +20,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.akexorcist.ruammij.R
-import com.akexorcist.ruammij.common.Installer
-import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.data.InstalledApp
+import com.akexorcist.ruammij.data.Installer
+import com.akexorcist.ruammij.data.InstallerVerificationStatus
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
-import com.akexorcist.ruammij.utility.DarkLightPreviews
-import com.akexorcist.ruammij.utility.toReadableDatetime
+import com.akexorcist.ruammij.base.utility.DarkLightPreviews
+import com.akexorcist.ruammij.base.utility.toReadableDatetime
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
 @Composable

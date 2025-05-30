@@ -86,7 +86,6 @@
 
     <string name="app_info_version">Version</string>
     <string name="app_info_installed_at">Installed on</string>
-    <string name="app_info_installed_at_unknown">Unknown time</string>
     <string name="app_info_installed_by">Installed by</string>
     <string name="app_info_installer_unknown">OS or ADB</string>
     <string name="app_info_installer_sideload" translatable="false">Sideload</string>

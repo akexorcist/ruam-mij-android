@@ -1,6 +1,6 @@
 # Gradle files
 .gradle/
-build/*
+**/build/*
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -32,6 +32,5 @@ google-services.json
 # Android Profiling
 *.hprof
 app/release/output-metadata.json
-*.dm
 *.dm
 .DS_Store

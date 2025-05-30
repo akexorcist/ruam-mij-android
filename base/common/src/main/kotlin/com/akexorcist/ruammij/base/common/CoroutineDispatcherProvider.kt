@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.common
+package com.akexorcist.ruammij.base.common
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

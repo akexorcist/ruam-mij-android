@@ -13,7 +13,7 @@ import com.akexorcist.ruammij.ui.osslicense.openSourceLicenseScreen
 import com.akexorcist.ruammij.ui.rememberAppState
 import com.akexorcist.ruammij.ui.ruamMijApp
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
-import com.akexorcist.ruammij.utility.getOwnerPackageName
+import com.akexorcist.ruammij.base.utility.getOwnerPackageName
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 

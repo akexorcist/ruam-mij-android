@@ -3,9 +3,11 @@ package com.akexorcist.ruammij.ui.overview
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akexorcist.ruammij.AutoMediaProjectionDetectionEvent
-import com.akexorcist.ruammij.common.*
-import com.akexorcist.ruammij.data.DeviceRepository
 import com.akexorcist.ruammij.data.InstalledApp
+import com.akexorcist.ruammij.data.InstallerVerificationStatus
+import com.akexorcist.ruammij.data.MediaProjectionApp
+import com.akexorcist.ruammij.data.MediaProjectionState
+import com.akexorcist.ruammij.functional.device.DeviceRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -100,16 +102,3 @@ sealed class OverviewUiState {
         val unknownInstaller: List<InstalledApp>,
     ) : OverviewUiState()
 }
-
-enum class MediaProjectionState {
-    MANUAL_DETECTED,
-    AUTO_DETECTED,
-    DEACTIVATED,
-}
-
-data class MediaProjectionApp(
-    val app: InstalledApp,
-    val state: MediaProjectionState,
-    val displayId: Int,
-    val updatedAt: Long,
-)

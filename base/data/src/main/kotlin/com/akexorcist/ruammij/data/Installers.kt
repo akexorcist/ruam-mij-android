@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.common
+package com.akexorcist.ruammij.data
 
 sealed class ReferenceInstallerStatus {
     data class Verified(val sha256: String?) : ReferenceInstallerStatus()

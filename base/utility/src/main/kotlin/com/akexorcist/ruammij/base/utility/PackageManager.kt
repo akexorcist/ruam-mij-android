@@ -1,15 +1,15 @@
-package com.akexorcist.ruammij.utility
+package com.akexorcist.ruammij.base.utility
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
-import com.akexorcist.ruammij.common.Installer
-import com.akexorcist.ruammij.common.InstallerVerificationStatus
-import com.akexorcist.ruammij.common.Installers
-import com.akexorcist.ruammij.common.ReferenceInstallerStatus
 import com.akexorcist.ruammij.data.PermissionInfo
 import com.akexorcist.ruammij.data.InstalledApp
+import com.akexorcist.ruammij.data.Installer
+import com.akexorcist.ruammij.data.InstallerVerificationStatus
+import com.akexorcist.ruammij.data.Installers
+import com.akexorcist.ruammij.data.ReferenceInstallerStatus
 import java.security.MessageDigest
 
 private const val ALGORITHM_SHA_512 = "SHA-256"

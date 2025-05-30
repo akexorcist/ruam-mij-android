@@ -48,9 +48,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.SharedEventViewModel
-import com.akexorcist.ruammij.common.Installer
-import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.data.InstalledApp
+import com.akexorcist.ruammij.data.Installer
+import com.akexorcist.ruammij.data.InstallerVerificationStatus
+import com.akexorcist.ruammij.data.MediaProjectionApp
+import com.akexorcist.ruammij.data.MediaProjectionState
 import com.akexorcist.ruammij.ui.accessibility.navigateToAccessibility
 import com.akexorcist.ruammij.ui.component.AppInstaller
 import com.akexorcist.ruammij.ui.component.BodyText
@@ -67,7 +69,7 @@ import com.akexorcist.ruammij.ui.installedapp.navigateToInstalledApp
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.MaterialAdditionColorScheme
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
-import com.akexorcist.ruammij.utility.toReadableDatetime
+import com.akexorcist.ruammij.base.utility.toReadableDatetime
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import org.koin.androidx.compose.koinViewModel
 

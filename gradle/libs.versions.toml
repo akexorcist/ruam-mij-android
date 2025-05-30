@@ -1,4 +1,8 @@
 [versions]
+compileSdk = "35"
+minSdk = "23"
+targetSdk = "35"
+
 agp = "8.9.1"
 kotlin = "2.1.20"
 coreKtx = "1.16.0"
@@ -40,7 +44,7 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
-koin-test-junit4 = {module="io.insert-koin:koin-test-junit4", version.ref = "koin"}
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
 desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
 accompanist-drawable-painter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreen" }
@@ -53,9 +57,11 @@ roborazzi-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-ju
 aboutLibraries-core = { group = "com.mikepenz", name = "aboutlibraries-core", version.ref = "aboutLibraries" }
 aboutLibraries-composeM3 = { group = "com.mikepenz", name = "aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
 kotlin-seriailization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.8.1" }
+kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.10.2" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 devToolsKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

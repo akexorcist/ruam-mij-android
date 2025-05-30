@@ -83,7 +83,6 @@
 
     <string name="app_info_version">เวอร์ชัน</string>
     <string name="app_info_installed_at">ติดตั้งเมื่อ</string>
-    <string name="app_info_installed_at_unknown">ไม่ทราบเวลา</string>
     <string name="app_info_installed_by">ติดตั้งโดย</string>
     <string name="app_info_installer_unknown">Preload หรือ ADB</string>
     <string name="app_info_open_settings">เปิดการตั้งค่าของแอป</string>

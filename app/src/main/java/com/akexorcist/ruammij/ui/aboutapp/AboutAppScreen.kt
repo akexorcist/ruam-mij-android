@@ -49,7 +49,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.akexorcist.ruammij.BuildConfig
 import com.akexorcist.ruammij.R
-import com.akexorcist.ruammij.common.Contributors
+import com.akexorcist.ruammij.data.Contributors
 import com.akexorcist.ruammij.ui.AppState
 import com.akexorcist.ruammij.ui.component.BodyText
 import com.akexorcist.ruammij.ui.component.BoldBodyText

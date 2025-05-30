@@ -1,9 +1,9 @@
-package com.akexorcist.ruammij.utility
+package com.akexorcist.ruammij.base.utility
 
 import android.annotation.SuppressLint
 import android.view.Display
 
-@SuppressLint("DiscouragedPrivateApi")
+@SuppressLint("PrivateApi")
 fun Display.getOwnerPackageName(): String? {
     return try {
         val declaredMethod = this.javaClass.getDeclaredMethod("getOwnerPackageName")

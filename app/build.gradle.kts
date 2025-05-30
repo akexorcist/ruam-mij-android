@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.devToolsKsp)
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.aboutLibraries)
 }
@@ -26,12 +25,12 @@ android {
         }
     }
     namespace = "com.akexorcist.ruammij"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.akexorcist.ruammij"
-        minSdk = 23
-        targetSdk = 35
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 25
         versionName = "1.1.2"
 
@@ -84,6 +83,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":base:common"))
+    implementation(project(":base:data"))
+    implementation(project(":base:utility"))
+    implementation(project(":functional:device"))
     implementation(libs.accompanist.drawable.painter)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
@@ -120,9 +123,6 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.test.manifest)
     debugImplementation(libs.androidx.ui.tooling)
-
-    annotationProcessor(libs.androidx.room.compiler)
-    ksp(libs.androidx.room.compiler)
 
     coreLibraryDesugaring(libs.desugar)
 

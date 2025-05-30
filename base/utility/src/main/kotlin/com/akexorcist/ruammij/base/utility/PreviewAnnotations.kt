@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.utility
+package com.akexorcist.ruammij.base.utility
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES

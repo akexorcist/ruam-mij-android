@@ -3,7 +3,6 @@
 package com.akexorcist.ruammij.ui.installedapp
 
 import android.content.Intent
-import android.net.Uri
 import android.provider.Settings
 import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.animateContentSize
@@ -62,8 +61,6 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.akexorcist.ruammij.R
-import com.akexorcist.ruammij.common.Installer
-import com.akexorcist.ruammij.common.InstallerVerificationStatus
 import com.akexorcist.ruammij.data.InstalledApp
 import com.akexorcist.ruammij.ui.component.AppInfoContent
 import com.akexorcist.ruammij.ui.component.BodyText
@@ -77,10 +74,12 @@ import com.akexorcist.ruammij.ui.component.OutlinedButtonWithIcon
 import com.akexorcist.ruammij.ui.component.TitleText
 import com.akexorcist.ruammij.ui.theme.Buttons
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
-import com.akexorcist.ruammij.utility.DarkLightPreviews
+import com.akexorcist.ruammij.base.utility.DarkLightPreviews
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import androidx.core.net.toUri
+import com.akexorcist.ruammij.data.Installer
+import com.akexorcist.ruammij.data.InstallerVerificationStatus
 
 @Composable
 fun InstalledAppRoute(

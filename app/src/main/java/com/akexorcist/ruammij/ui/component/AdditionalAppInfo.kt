@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.akexorcist.ruammij.ui.theme.RuamMijTheme
-import com.akexorcist.ruammij.utility.DarkLightPreviews
+import com.akexorcist.ruammij.base.utility.DarkLightPreviews
 
 @Composable
 fun AdditionalAppInfo(

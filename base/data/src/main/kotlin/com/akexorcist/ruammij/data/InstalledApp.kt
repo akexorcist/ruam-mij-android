@@ -1,7 +1,6 @@
 package com.akexorcist.ruammij.data
 
 import android.graphics.drawable.Drawable
-import com.akexorcist.ruammij.common.Installer
 
 data class InstalledApp(
     val name: String,

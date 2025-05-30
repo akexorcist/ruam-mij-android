@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.data
+package com.akexorcist.ruammij.functional.device
 
 import android.Manifest
 import android.accessibilityservice.AccessibilityServiceInfo
@@ -9,19 +9,20 @@ import android.hardware.display.DisplayManager
 import android.os.Build
 import android.provider.Settings
 import android.view.accessibility.AccessibilityManager
-import com.akexorcist.ruammij.common.CoroutineDispatcherProvider
-import com.akexorcist.ruammij.common.Installer
-import com.akexorcist.ruammij.common.InstallerVerificationStatus
+import com.akexorcist.ruammij.base.common.CoroutineDispatcherProvider
+import com.akexorcist.ruammij.data.InstalledApp
+import com.akexorcist.ruammij.data.Installer
+import com.akexorcist.ruammij.data.InstallerVerificationStatus
+import com.akexorcist.ruammij.data.MediaProjectionApp
+import com.akexorcist.ruammij.data.MediaProjectionState
 import com.akexorcist.ruammij.data.database.SafeApp
 import com.akexorcist.ruammij.data.database.SafeAppDao
-import com.akexorcist.ruammij.ui.overview.MediaProjectionApp
-import com.akexorcist.ruammij.ui.overview.MediaProjectionState
-import com.akexorcist.ruammij.utility.getInstaller
-import com.akexorcist.ruammij.utility.getInstallerPackageName
-import com.akexorcist.ruammij.utility.getOwnerPackageName
-import com.akexorcist.ruammij.utility.getShaSignature
-import com.akexorcist.ruammij.utility.toInstalledApp
-import com.akexorcist.ruammij.utility.toInstaller
+import com.akexorcist.ruammij.base.utility.getInstaller
+import com.akexorcist.ruammij.base.utility.getInstallerPackageName
+import com.akexorcist.ruammij.base.utility.getOwnerPackageName
+import com.akexorcist.ruammij.base.utility.getShaSignature
+import com.akexorcist.ruammij.base.utility.toInstalledApp
+import com.akexorcist.ruammij.base.utility.toInstaller
 import kotlinx.coroutines.withContext
 import kotlin.reflect.KMutableProperty0
 

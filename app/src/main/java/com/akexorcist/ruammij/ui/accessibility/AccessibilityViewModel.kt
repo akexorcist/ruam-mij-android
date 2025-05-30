@@ -2,8 +2,8 @@ package com.akexorcist.ruammij.ui.accessibility
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akexorcist.ruammij.data.DeviceRepository
 import com.akexorcist.ruammij.data.InstalledApp
+import com.akexorcist.ruammij.functional.device.DeviceRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

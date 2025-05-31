@@ -42,4 +42,6 @@ include(
     ":feature:aboutapp",
     ":feature:accessibility",
     ":feature:installedapp",
+    ":feature:osslicense",
+    ":feature:overview",
 )

@@ -20,12 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import com.akexorcist.ruammij.R
-import com.akexorcist.ruammij.ui.aboutapp.aboutAppScreen
-import com.akexorcist.ruammij.ui.accessibility.accessibilityScreen
 import com.akexorcist.ruammij.base.ui.component.DescriptionText
 import com.akexorcist.ruammij.base.ui.component.HeadlineText
-import com.akexorcist.ruammij.ui.installedapp.installedAppScreen
-import com.akexorcist.ruammij.ui.overview.overviewScreen
 import com.akexorcist.ruammij.base.ui.theme.Buttons
 import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.functional.core.navigation.Destinations

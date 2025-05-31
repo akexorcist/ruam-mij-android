@@ -7,7 +7,7 @@ import com.akexorcist.ruammij.functional.device.DefaultDeviceRepository
 import com.akexorcist.ruammij.functional.device.DeviceRepository
 import com.akexorcist.ruammij.feature.accessibility.AccessibilityViewModel
 import com.akexorcist.ruammij.feature.installedapp.InstalledAppViewModel
-import com.akexorcist.ruammij.ui.overview.OverviewViewModel
+import com.akexorcist.ruammij.feature.overview.OverviewViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module

@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.overview
+package com.akexorcist.ruammij.feature.overview
 
 import android.content.Intent
 import android.provider.Settings
@@ -46,7 +46,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventViewModel
 import com.akexorcist.ruammij.base.data.InstalledApp
 import com.akexorcist.ruammij.base.data.Installer

@@ -8,13 +8,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
-import com.akexorcist.ruammij.ui.RUAM_MIJ_APP_ROUTE
-import com.akexorcist.ruammij.ui.osslicense.openSourceLicenseScreen
 import com.akexorcist.ruammij.ui.ruamMijApp
 import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.base.utility.getOwnerPackageName
+import com.akexorcist.ruammij.functional.core.navigation.Destinations
 import com.akexorcist.ruammij.functional.core.state.rememberAppState
 import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventViewModel
+import com.akexorcist.ruammij.ui.openSourceLicenseScreen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
                 NavHost(
                     navController = appState.mainNavController,
-                    startDestination = RUAM_MIJ_APP_ROUTE,
+                    startDestination = Destinations.Root,
                 ) {
                     ruamMijApp(appState = appState)
                     openSourceLicenseScreen(navController = appState.mainNavController)

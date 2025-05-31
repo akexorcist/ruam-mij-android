@@ -4,14 +4,6 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.roborazzi)
-    alias(libs.plugins.aboutLibraries)
-}
-
-aboutLibraries {
-    registerAndroidTasks = true
-    includePlatform = false
-    offlineMode = true
-    outputFileName = "aboutlibraries.json"
 }
 
 android {
@@ -93,6 +85,8 @@ dependencies {
     implementation(project(":feature:aboutapp"))
     implementation(project(":feature:accessibility"))
     implementation(project(":feature:installedapp"))
+    implementation(project(":feature:osslicense"))
+    implementation(project(":feature:overview"))
     implementation(libs.accompanist.drawable.painter)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)

@@ -5,6 +5,9 @@ import kotlinx.serialization.Serializable
 
 object Destinations {
     @Serializable
+    data object Root
+
+    @Serializable
     data object Overview
 
     @Serializable

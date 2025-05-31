@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.akexorcist.ruammij.feature.aboutapp"
+    namespace = "com.akexorcist.ruammij.feature.overview"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -29,7 +29,10 @@ dependencies {
     implementation(project(":base:common"))
     implementation(project(":base:data"))
     implementation(project(":base:ui"))
+    implementation(project(":base:utility"))
     implementation(project(":functional:core"))
+    implementation(project(":functional:device"))
+    implementation(project(":functional:mediaprojection"))
     coreLibraryDesugaring(libs.desugar)
     implementation(libs.kotlin.coroutines.core)
 

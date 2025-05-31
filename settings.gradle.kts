@@ -44,4 +44,5 @@ include(
     ":feature:installedapp",
     ":feature:osslicense",
     ":feature:overview",
+    ":feature:unverified",
 )

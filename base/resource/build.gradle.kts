@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.akexorcist.ruammij.base.utility"
+    namespace = "com.akexorcist.ruammij.base.resource"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {

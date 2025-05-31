@@ -35,16 +35,16 @@ import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.base.data.InstalledApp
 import com.akexorcist.ruammij.base.data.Installer
 import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
-import com.akexorcist.ruammij.ui.component.AppInfoContent
-import com.akexorcist.ruammij.ui.component.BodyText
-import com.akexorcist.ruammij.ui.component.DescriptionText
-import com.akexorcist.ruammij.ui.component.HeadlineText
-import com.akexorcist.ruammij.ui.component.LoadingContent
-import com.akexorcist.ruammij.ui.component.OutlinedButtonWithIcon
-import com.akexorcist.ruammij.ui.component.SectionCard
-import com.akexorcist.ruammij.ui.component.TitleText
-import com.akexorcist.ruammij.ui.theme.MaterialAdditionColorScheme
-import com.akexorcist.ruammij.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.base.ui.component.AppInfoContent
+import com.akexorcist.ruammij.base.ui.component.BodyText
+import com.akexorcist.ruammij.base.ui.component.DescriptionText
+import com.akexorcist.ruammij.base.ui.component.HeadlineText
+import com.akexorcist.ruammij.base.ui.component.LoadingContent
+import com.akexorcist.ruammij.base.ui.component.OutlinedButtonWithIcon
+import com.akexorcist.ruammij.base.ui.component.SectionCard
+import com.akexorcist.ruammij.base.ui.component.TitleText
+import com.akexorcist.ruammij.base.ui.theme.MaterialAdditionColorScheme
+import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

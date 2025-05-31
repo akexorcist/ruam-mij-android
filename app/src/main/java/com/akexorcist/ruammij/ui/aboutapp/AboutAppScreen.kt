@@ -51,13 +51,13 @@ import com.akexorcist.ruammij.BuildConfig
 import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.base.data.Contributors
 import com.akexorcist.ruammij.ui.AppState
-import com.akexorcist.ruammij.ui.component.BodyText
-import com.akexorcist.ruammij.ui.component.BoldBodyText
-import com.akexorcist.ruammij.ui.component.DescriptionText
-import com.akexorcist.ruammij.ui.component.HeadlineText
+import com.akexorcist.ruammij.base.ui.component.BodyText
+import com.akexorcist.ruammij.base.ui.component.BoldBodyText
+import com.akexorcist.ruammij.base.ui.component.DescriptionText
+import com.akexorcist.ruammij.base.ui.component.HeadlineText
 import com.akexorcist.ruammij.ui.osslicense.navigateToOpenSourceLicense
-import com.akexorcist.ruammij.ui.theme.Buttons
-import com.akexorcist.ruammij.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.base.ui.theme.Buttons
+import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 
 @Composable
 fun AboutAppRoute(

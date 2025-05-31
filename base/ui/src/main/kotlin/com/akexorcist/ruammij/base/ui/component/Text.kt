@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.component
+package com.akexorcist.ruammij.base.ui.component
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

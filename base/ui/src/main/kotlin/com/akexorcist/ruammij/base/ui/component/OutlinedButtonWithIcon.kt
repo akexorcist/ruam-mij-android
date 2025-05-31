@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.component
+package com.akexorcist.ruammij.base.ui.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import com.akexorcist.ruammij.ui.theme.Buttons
+import com.akexorcist.ruammij.base.ui.theme.Buttons
 
 @Composable
 fun OutlinedButtonWithIcon(

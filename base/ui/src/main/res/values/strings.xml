@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="description_app_icon">App icon of %1$s</string>
+    <string name="description_safe">Safe</string>
+    <string name="description_unsafe">Unsafe</string>
+
+    <string name="app_info_permissions_section_title">Permissions</string>
+</resources>

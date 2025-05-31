@@ -30,14 +30,14 @@ import com.akexorcist.ruammij.ui.aboutapp.aboutAppScreen
 import com.akexorcist.ruammij.ui.aboutapp.navigateToAboutApp
 import com.akexorcist.ruammij.ui.accessibility.accessibilityScreen
 import com.akexorcist.ruammij.ui.accessibility.navigateToAccessibility
-import com.akexorcist.ruammij.ui.component.DescriptionText
-import com.akexorcist.ruammij.ui.component.HeadlineText
+import com.akexorcist.ruammij.base.ui.component.DescriptionText
+import com.akexorcist.ruammij.base.ui.component.HeadlineText
 import com.akexorcist.ruammij.ui.installedapp.installedAppScreen
 import com.akexorcist.ruammij.ui.installedapp.navigateToInstalledApp
 import com.akexorcist.ruammij.ui.overview.navigateToOverview
 import com.akexorcist.ruammij.ui.overview.overviewScreen
-import com.akexorcist.ruammij.ui.theme.Buttons
-import com.akexorcist.ruammij.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.base.ui.theme.Buttons
+import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 
 @Composable
 fun RuamMijApp(

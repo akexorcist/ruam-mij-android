@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.component
+package com.akexorcist.ruammij.base.ui.component
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FilterChip

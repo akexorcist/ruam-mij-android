@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.component
+package com.akexorcist.ruammij.base.ui.component
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
@@ -20,9 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
-import com.akexorcist.ruammij.ui.theme.MaterialAdditionColorScheme
+import com.akexorcist.ruammij.base.ui.R
+import com.akexorcist.ruammij.base.ui.theme.MaterialAdditionColorScheme
 
 @Composable
 fun AppInstaller(

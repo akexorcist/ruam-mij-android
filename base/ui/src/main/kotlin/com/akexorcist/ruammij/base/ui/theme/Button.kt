@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.theme
+package com.akexorcist.ruammij.base.ui.theme
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp

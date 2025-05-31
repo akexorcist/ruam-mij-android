@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.akexorcist.ruammij.ui.component
+package com.akexorcist.ruammij.base.ui.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
@@ -52,14 +52,14 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
-import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.base.data.InstalledApp
 import com.akexorcist.ruammij.base.data.Installer
 import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
 import com.akexorcist.ruammij.base.data.PermissionInfo
-import com.akexorcist.ruammij.ui.theme.Buttons
-import com.akexorcist.ruammij.ui.theme.RuamMijTheme
-import com.akexorcist.ruammij.base.utility.DarkLightPreviews
+import com.akexorcist.ruammij.base.ui.theme.Buttons
+import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.base.ui.DarkLightPreviews
+import com.akexorcist.ruammij.base.ui.R
 import com.akexorcist.ruammij.base.utility.toReadableDatetime
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import kotlinx.coroutines.launch

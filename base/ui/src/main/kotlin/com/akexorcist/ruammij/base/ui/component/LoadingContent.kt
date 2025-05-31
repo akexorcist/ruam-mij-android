@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.component
+package com.akexorcist.ruammij.base.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,8 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.akexorcist.ruammij.ui.theme.RuamMijTheme
-import com.akexorcist.ruammij.base.utility.DarkLightPreviews
+import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.base.ui.DarkLightPreviews
 
 @Composable
 fun LoadingContent(

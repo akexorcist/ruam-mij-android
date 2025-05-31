@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.component
+package com.akexorcist.ruammij.base.ui.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -7,8 +7,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.akexorcist.ruammij.ui.theme.RuamMijTheme
-import com.akexorcist.ruammij.base.utility.DarkLightPreviews
+import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.base.ui.DarkLightPreviews
 
 @Composable
 fun SystemAppBadge() {

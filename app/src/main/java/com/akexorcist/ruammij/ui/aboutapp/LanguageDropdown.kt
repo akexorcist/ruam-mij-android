@@ -15,9 +15,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import androidx.core.os.*
 import com.akexorcist.ruammij.R
-import com.akexorcist.ruammij.ui.component.BodyText
-import com.akexorcist.ruammij.ui.component.BoldBodyText
-import com.akexorcist.ruammij.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.base.ui.component.BodyText
+import com.akexorcist.ruammij.base.ui.component.BoldBodyText
+import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 import java.util.Locale
 
 @Composable

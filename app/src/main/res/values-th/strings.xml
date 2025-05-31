@@ -89,17 +89,13 @@
     <string name="app_info_button_mark_as_safe">ยืนยันว่าปลอดภัย</string>
     <string name="app_info_button_app_info">ดูข้อมูล</string>
     <string name="app_info_general_section_title">ข้อมูลทั่วไป</string>
-    <string name="app_info_permissions_section_title">สิทธิ์ที่ขอจากแอปนี้</string>
 
     <string name="state_enabled">เปิดอยู่</string>
     <string name="state_unsupported">ไม่รองรับ</string>
     <string name="state_disabled">ปิดอยู่</string>
 
-    <string name="description_unsafe">ไม่ปลอดภัย</string>
     <string name="description_more_info">ข้อมูลเพิ่มเติม</string>
     <string name="description_checked">เลือกอยู่</string>
-    <string name="description_safe">ปลอดภัย</string>
-    <string name="description_app_icon">ภาพไอคอนของแอป %1$s</string>
     <string name="description_empty">ว่างเปล่า</string>
     <string name="description_see_more">ดูข้อมูล%1$s</string>
     <string name="description_close">ปิด</string>

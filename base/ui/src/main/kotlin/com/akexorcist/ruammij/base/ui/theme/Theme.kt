@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.theme
+package com.akexorcist.ruammij.base.ui.theme
 
 import android.app.Activity
 import android.os.Build

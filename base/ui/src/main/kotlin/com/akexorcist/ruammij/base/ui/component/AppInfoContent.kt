@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.component
+package com.akexorcist.ruammij.base.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,8 +23,8 @@ import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.base.data.InstalledApp
 import com.akexorcist.ruammij.base.data.Installer
 import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
-import com.akexorcist.ruammij.ui.theme.RuamMijTheme
-import com.akexorcist.ruammij.base.utility.DarkLightPreviews
+import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.base.ui.DarkLightPreviews
 import com.akexorcist.ruammij.base.utility.toReadableDatetime
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 

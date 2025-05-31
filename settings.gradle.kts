@@ -40,4 +40,6 @@ include(
     ":functional:device",
     ":functional:mediaprojection",
     ":feature:aboutapp",
+    ":feature:accessibility",
+    ":feature:installedapp",
 )

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 
-package com.akexorcist.ruammij.ui.installedapp
+package com.akexorcist.ruammij.feature.installedapp
 
 import android.content.Intent
 import android.provider.Settings
@@ -60,7 +60,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.base.data.InstalledApp
 import com.akexorcist.ruammij.base.ui.component.AppInfoContent
 import com.akexorcist.ruammij.base.ui.component.BodyText

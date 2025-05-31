@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.akexorcist.ruammij.feature.aboutapp"
+    namespace = "com.akexorcist.ruammij.feature.accessibility"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -30,6 +30,7 @@ dependencies {
     implementation(project(":base:data"))
     implementation(project(":base:ui"))
     implementation(project(":functional:core"))
+    implementation(project(":functional:device"))
     coreLibraryDesugaring(libs.desugar)
     implementation(libs.kotlin.coroutines.core)
 
@@ -52,6 +53,4 @@ dependencies {
 
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.compose.navigation)
-
-    implementation(libs.bundles.aboutLibraries.all)
 }

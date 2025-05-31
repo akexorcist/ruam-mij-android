@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.installedapp
+package com.akexorcist.ruammij.feature.installedapp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

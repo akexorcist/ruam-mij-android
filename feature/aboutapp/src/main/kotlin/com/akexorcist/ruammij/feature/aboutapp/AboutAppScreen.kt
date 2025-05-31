@@ -2,7 +2,6 @@
 
 package com.akexorcist.ruammij.feature.aboutapp
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -64,7 +63,7 @@ import com.akexorcist.ruammij.functional.core.state.AppState
 fun AboutAppRoute(
     appState: AppState,
 ) {
-    val activity = LocalContext.current as Activity
+    val activity = LocalActivity.current
     var showPrivacyPolicy by remember { mutableStateOf(false) }
     var showContributor by remember { mutableStateOf(false) }
 
@@ -91,7 +90,7 @@ fun AboutAppRoute(
         },
         onSourceCodeClick = {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/akexorcist/ruam-mij-android"))
-            activity.startActivity(intent)
+            activity?.startActivity(intent)
         },
     )
 }

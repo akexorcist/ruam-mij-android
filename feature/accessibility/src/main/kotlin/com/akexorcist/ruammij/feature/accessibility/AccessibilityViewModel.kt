@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.accessibility
+package com.akexorcist.ruammij.feature.accessibility
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

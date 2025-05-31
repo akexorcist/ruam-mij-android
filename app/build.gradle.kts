@@ -91,6 +91,8 @@ dependencies {
     implementation(project(":functional:device"))
     implementation(project(":functional:mediaprojection"))
     implementation(project(":feature:aboutapp"))
+    implementation(project(":feature:accessibility"))
+    implementation(project(":feature:installedapp"))
     implementation(libs.accompanist.drawable.painter)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)

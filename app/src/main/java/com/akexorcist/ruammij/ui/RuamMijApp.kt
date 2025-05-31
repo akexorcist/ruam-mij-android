@@ -14,30 +14,26 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavDestination
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.ui.aboutapp.aboutAppScreen
-import com.akexorcist.ruammij.ui.aboutapp.navigateToAboutApp
 import com.akexorcist.ruammij.ui.accessibility.accessibilityScreen
-import com.akexorcist.ruammij.ui.accessibility.navigateToAccessibility
 import com.akexorcist.ruammij.base.ui.component.DescriptionText
 import com.akexorcist.ruammij.base.ui.component.HeadlineText
 import com.akexorcist.ruammij.ui.installedapp.installedAppScreen
-import com.akexorcist.ruammij.ui.installedapp.navigateToInstalledApp
-import com.akexorcist.ruammij.ui.overview.navigateToOverview
 import com.akexorcist.ruammij.ui.overview.overviewScreen
 import com.akexorcist.ruammij.base.ui.theme.Buttons
 import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.functional.core.navigation.Destinations
+import com.akexorcist.ruammij.functional.core.navigation.navigateToAboutApp
+import com.akexorcist.ruammij.functional.core.navigation.navigateToAccessibility
+import com.akexorcist.ruammij.functional.core.navigation.navigateToInstalledApp
+import com.akexorcist.ruammij.functional.core.navigation.navigateToOverview
+import com.akexorcist.ruammij.functional.core.state.AppState
 
 @Composable
 fun RuamMijApp(
@@ -102,25 +98,6 @@ private fun DownloadButton(onClick: () -> Unit) {
         onClick = onClick,
     ) {
         Text(text = stringResource(R.string.landing_tips_open_google_play))
-    }
-}
-
-@Stable
-class AppState(
-    val mainNavController: NavHostController,
-    val bottomBarNavController: NavHostController,
-) {
-    val currentDestination: NavDestination?
-        @Composable get() = bottomBarNavController.currentBackStackEntryAsState().value?.destination
-}
-
-@Composable
-fun rememberAppState(
-    mainNavController: NavHostController = rememberNavController(),
-    bottomBarNavController: NavHostController = rememberNavController(),
-): AppState {
-    return remember(mainNavController, bottomBarNavController) {
-        AppState(mainNavController, bottomBarNavController)
     }
 }
 

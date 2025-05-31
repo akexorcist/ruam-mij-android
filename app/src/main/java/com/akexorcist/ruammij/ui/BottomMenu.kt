@@ -23,6 +23,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.base.ui.component.BoldLabelText
 import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.functional.core.navigation.Destinations
 
 @Composable
 fun BottomMenu(

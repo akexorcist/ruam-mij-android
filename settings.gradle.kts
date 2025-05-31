@@ -33,8 +33,11 @@ include(
     ":app",
     ":base:common",
     ":base:data",
+    ":base:resource",
     ":base:ui",
     ":base:utility",
+    ":functional:core",
     ":functional:device",
     ":functional:mediaprojection",
+    ":feature:aboutapp",
 )

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="description_app_icon">ภาพไอคอนของแอป %1$s</string>
-    <string name="description_safe">ปลอดภัย</string>
-    <string name="description_unsafe">ไม่ปลอดภัย</string>
-
-    <string name="app_info_permissions_section_title">สิทธิ์ที่ขอจากแอปนี้</string>
-</resources>

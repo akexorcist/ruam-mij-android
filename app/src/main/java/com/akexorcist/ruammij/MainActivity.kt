@@ -10,10 +10,10 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import com.akexorcist.ruammij.ui.RUAM_MIJ_APP_ROUTE
 import com.akexorcist.ruammij.ui.osslicense.openSourceLicenseScreen
-import com.akexorcist.ruammij.ui.rememberAppState
 import com.akexorcist.ruammij.ui.ruamMijApp
 import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.base.utility.getOwnerPackageName
+import com.akexorcist.ruammij.functional.core.state.rememberAppState
 import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.annotation.KoinExperimentalAPI

@@ -389,11 +389,7 @@ private fun DisplayAppInfoBottomSheetPreview() {
                 name = "App Name",
                 packageName = "com.akexorcist.ruammij",
                 appVersion = "1.0.0",
-                icon = ResourcesCompat.getDrawable(
-                    LocalContext.current.resources,
-                    R.mipmap.ic_launcher,
-                    LocalContext.current.theme
-                ),
+                icon = null,
                 systemApp = true,
                 installedAt = System.currentTimeMillis(),
                 installer = Installer(
@@ -424,7 +420,7 @@ private fun DisplayAppInfoBottomSheetPreview() {
             ),
             onOpenInSettingClick = {},
             onMarkAsSafeClick = {},
-            onDismissRequest = {}
+            onDismissRequest = {},
         )
     }
 }

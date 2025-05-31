@@ -53,7 +53,6 @@ import com.akexorcist.ruammij.base.data.Installer
 import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
 import com.akexorcist.ruammij.base.data.MediaProjectionApp
 import com.akexorcist.ruammij.base.data.MediaProjectionState
-import com.akexorcist.ruammij.ui.accessibility.navigateToAccessibility
 import com.akexorcist.ruammij.base.ui.component.AppInstaller
 import com.akexorcist.ruammij.base.ui.component.BodyText
 import com.akexorcist.ruammij.base.ui.component.BoldBodyText
@@ -65,11 +64,12 @@ import com.akexorcist.ruammij.base.ui.component.LoadingContent
 import com.akexorcist.ruammij.base.ui.component.OutlinedButtonWithIcon
 import com.akexorcist.ruammij.base.ui.component.SectionCard
 import com.akexorcist.ruammij.base.ui.component.TitleText
-import com.akexorcist.ruammij.ui.installedapp.navigateToInstalledApp
 import com.akexorcist.ruammij.base.ui.theme.Buttons
 import com.akexorcist.ruammij.base.ui.theme.MaterialAdditionColorScheme
 import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.base.utility.toReadableDatetime
+import com.akexorcist.ruammij.functional.core.navigation.navigateToAccessibility
+import com.akexorcist.ruammij.functional.core.navigation.navigateToInstalledApp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import org.koin.androidx.compose.koinViewModel
 

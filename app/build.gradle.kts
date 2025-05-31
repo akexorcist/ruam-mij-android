@@ -87,6 +87,7 @@ dependencies {
     implementation(project(":base:data"))
     implementation(project(":base:ui"))
     implementation(project(":base:utility"))
+    implementation(project(":functional:core"))
     implementation(project(":functional:device"))
     implementation(project(":functional:mediaprojection"))
     implementation(project(":feature:aboutapp"))

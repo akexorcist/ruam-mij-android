@@ -2,6 +2,7 @@ package com.akexorcist.ruammij.ui
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.akexorcist.ruammij.functional.core.state.AppState
 
 const val RUAM_MIJ_APP_ROUTE = "ruam_mij_app_route"
 

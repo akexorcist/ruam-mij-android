@@ -1,10 +1,12 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.akexorcist.ruammij.ui.aboutapp
+package com.akexorcist.ruammij.feature.aboutapp
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -43,21 +45,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.akexorcist.ruammij.BuildConfig
-import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.base.data.Contributors
-import com.akexorcist.ruammij.ui.AppState
 import com.akexorcist.ruammij.base.ui.component.BodyText
 import com.akexorcist.ruammij.base.ui.component.BoldBodyText
 import com.akexorcist.ruammij.base.ui.component.DescriptionText
 import com.akexorcist.ruammij.base.ui.component.HeadlineText
-import com.akexorcist.ruammij.ui.osslicense.navigateToOpenSourceLicense
 import com.akexorcist.ruammij.base.ui.theme.Buttons
 import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.functional.core.navigation.navigateToOpenSourceLicense
+import com.akexorcist.ruammij.functional.core.state.AppState
 
 @Composable
 fun AboutAppRoute(
@@ -103,7 +104,17 @@ private fun AboutAppScreen(
     onSourceCodeClick: () -> Unit,
     onContributorClick: () -> Unit,
 ) {
-    val appVersion by remember { mutableStateOf("${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})") }
+    val preview = LocalInspectionMode.current
+    val appVersion = if (preview) {
+        "1.0.0 (1234)"
+    } else {
+        val content = LocalContext.current
+        content.packageManager.getPackageInfo(content.packageName, 0).let {
+            @Suppress("DEPRECATION")
+            val versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) it.longVersionCode else it.versionCode
+            "${it.versionName} ($versionCode)"
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()

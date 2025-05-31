@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.ui.aboutapp
+package com.akexorcist.ruammij.feature.aboutapp
 
 import androidx.appcompat.app.*
 import androidx.compose.foundation.*
@@ -14,7 +14,6 @@ import androidx.compose.ui.res.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import androidx.core.os.*
-import com.akexorcist.ruammij.R
 import com.akexorcist.ruammij.base.ui.component.BodyText
 import com.akexorcist.ruammij.base.ui.component.BoldBodyText
 import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
@@ -52,7 +51,7 @@ private fun LanguageDropdownItem(
     ) {
         BodyText(text = stringResource(R.string.about_app_menu_language))
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.Companion.weight(1f))
 
         Box {
             Row(verticalAlignment = Alignment.CenterVertically) {

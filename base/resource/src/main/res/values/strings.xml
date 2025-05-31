@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ruam Mij</string>
+    <string name="app_description">A collection (Ruam) of information to help you avoid scammers (Mij)</string>
+
+    <string name="menu_about_app">About App</string>
+    <string name="menu_accessibility">Accessibility</string>
+    <string name="menu_installed_app">Installed App</string>
+    <string name="menu_overview">Overview</string>
+
+    <string name="overview_device_configuration_description">These settings are intended for developers only. Most general users do not need to enable them.</string>
+    <string name="overview_device_configuration_title">Developer configuration</string>
+    <string name="overview_developer_options_label">Developer Options</string>
+    <string name="overview_draw_over_other_app_button_description">You can click the button below to open the settings for this feature.</string>
+    <string name="overview_draw_over_other_app_description">Android does not allow app to check apps that are drawing over other apps or appearing on top, so you need to check it themselves.</string>
+    <string name="overview_draw_over_other_app_title">Draw over other apps or Appear on top</string>
+    <string name="overview_loading_description">The scanning time will depend on the speed of the device and the number of apps installed on it (but it should not take longer than 1 minute).</string>
+    <string name="overview_loading_title">Scanning all apps</string>
+    <string name="overview_media_projection_auto_detected_when">%1$s</string>
+    <string name="overview_media_projection_deactivated">Stopped</string>
+    <string name="overview_media_projection_description">The list of apps shown in this section are apps that are currently using Media Projection, which allows them to capture your mobile screen.</string>
+    <string name="overview_media_projection_empty">No apps found using Media Projection</string>
+    <string name="overview_media_projection_running">Running</string>
+    <string name="overview_media_projection_title">Media Projection</string>
+    <string name="overview_running_accessibility_service_description">The list of apps shown in this section are apps that are currently using Accessibility Service.</string>
+    <string name="overview_running_accessibility_service_empty_app">No apps found using Accessibility Service</string>
+    <string name="overview_running_accessibility_service_title">Accessibility Service</string>
+    <string name="overview_subtitle">Overall privacy details for device at risk of being controlled by unsafe apps</string>
+    <string name="overview_title">Device Privacy Overview</string>
+    <string name="overview_unverified_installed_app_description_1">Details of app sources on the device that are not installed from Google Play or a trusted App Store.</string>
+    <string name="overview_unverified_installed_app_description_2">Some app installers shown here may by trusted, but this app is unknown, so users should check it themselves again.</string>
+    <string name="overview_unverified_installed_app_empty">No apps found installed by untrusted installers</string>
+    <string name="overview_unverified_installed_app_title">Apps installed by untrusted installers</string>
+    <string name="overview_usb_debugging_label">USB Debugging</string>
+    <string name="overview_wireless_debugging_additional_label">(For Android 11 or higher)</string>
+    <string name="overview_wireless_debugging_label">Wireless Debugging</string>
+
+    <string name="accessibility_active_apps_description_1">These apps are currently using Accessibility Services.</string>
+    <string name="accessibility_active_apps_description_2">You should check these apps yourself to see if they really need to enable this feature.</string>
+    <string name="accessibility_active_apps_title">Apps currently using Accessibility Service</string>
+    <string name="accessibility_description">List of all apps on the device that can use Accessibility Service.</string>
+    <string name="accessibility_empty_active_app">No apps are currently using Accessibility Service</string>
+    <string name="accessibility_empty_inactive_app">No apps support Accessibility Service</string>
+    <string name="accessibility_inactive_apps_description">These apps are apps that have some features that require Acessibility Service, but are not working yet because you have not enabled them.</string>
+    <string name="accessibility_inactive_apps_title">Apps that support Accessibility Service but are not enabled</string>
+    <string name="accessibility_loading_description">Searching for apps that support Accessibility Service</string>
+    <string name="accessibility_loading_title">Please wait a moment</string>
+    <string name="accessibility_title">Accessibility Service supported apps</string>
+
+    <string name="installed_app_description">Details of all apps installed on the device</string>
+    <string name="installed_app_display_option_close">Close</string>
+    <string name="installed_app_display_option_common_display">Others</string>
+    <string name="installed_app_display_option_description">Options to display the apps list</string>
+    <string name="installed_app_display_option_installer_display">Installer</string>
+    <string name="installed_app_display_option_reset">Reset</string>
+    <string name="installed_app_display_option_save">Save</string>
+    <string name="installed_app_display_option_sort_by">Sort by</string>
+    <string name="installed_app_display_option_title">Display options</string>
+    <string name="installed_app_empty">No apps found with this setting. Try changing the display options to something else</string>
+    <string name="installed_app_hide_verified_installer">Hide trusted app installers</string>
+    <string name="installed_app_info_title">App Info</string>
+    <plurals name="installed_app_installer_amount">
+        <item quantity="one">Found %1$d app installed by this installer</item>
+        <item quantity="other">Found %1$d apps installed by this installer</item>
+    </plurals>
+    <string name="installed_app_installer_unknown">No information about this installer</string>
+    <string name="installed_app_loading_description">@string/overview_loading_description</string>
+    <string name="installed_app_loading_title">@string/overview_loading_title</string>
+    <string name="installed_app_show_system_app">Show System Apps</string>
+    <string name="installed_app_sort_by_installed_date">Installed date</string>
+    <string name="installed_app_sort_by_installer">Installer name</string>
+    <string name="installed_app_sort_by_name">App name</string>
+    <string name="installed_app_sort_by_package_name">Package name</string>
+    <string name="installed_app_title">Installed Apps</string>
+
+    <string name="app_info_button_app_info">App info</string>
+    <string name="app_info_button_mark_as_safe">Mark as safe</string>
+    <string name="app_info_general_section_title">General Information</string>
+    <string name="app_info_installed_at">Installed on</string>
+    <string name="app_info_installed_by">Installed by</string>
+    <string name="app_info_installer_sideload" translatable="false">Sideload</string>
+    <string name="app_info_installer_unknown">OS or ADB</string>
+    <string name="app_info_open_settings">Open app settings</string>
+    <string name="app_info_permissions_section_title">Permissions</string>
+    <string name="app_info_version">Version</string>
+    <string name="app_installed_at_unknown">Unknown time</string>
+
+    <string name="about_app_language_english" translatable="false">English</string>
+    <string name="about_app_language_thai" translatable="false">ไทย</string>
+    <string name="about_app_menu_contributor">Contributor</string>
+    <string name="about_app_menu_contributor_more">Space for others in the future</string>
+    <string name="about_app_menu_frequently_asked_questions">Frequently Asked Questions</string>
+    <string name="about_app_menu_language">Language</string>
+    <string name="about_app_menu_open_source_licenses">Open Source Licenses</string>
+    <string name="about_app_menu_privacy_policy">Privacy Policy</string>
+    <string name="about_app_menu_source_code">Source Code</string>
+    <string name="about_app_version">Version %1$s</string>
+
+    <string name="button_display_option">Display options</string>
+    <string name="button_open_draw_over_other_app">Open settings</string>
+    <string name="button_open_in_setting_description">View app info</string>
+    <string name="button_recheck_overview">Refresh</string>
+
+    <string name="state_disabled">Disabled</string>
+    <string name="state_enabled">Enabled</string>
+    <string name="state_unsupported">Unsupported</string>
+
+    <string name="description_app_icon">App icon of %1$s</string>
+    <string name="description_checked">Selected</string>
+    <string name="description_close">Close</string>
+    <string name="description_collapsed_permission_item">Collapsed item</string>
+    <string name="description_empty">Empty</string>
+    <string name="description_expanded_permission_item">Expanded item</string>
+    <string name="description_more_info">More information</string>
+    <string name="description_safe">Safe</string>
+    <string name="description_see_more">See more about %1$s</string>
+    <string name="description_unsafe">Unsafe</string>
+
+    <string name="landing_tips_description">Downloading and installing APK files yourself is often a popular way for scammers to try to trick users for various purposes. So let\'s practice making our Android devices more secure by stopping installing this app through APK file and downloading from Google Play instead!</string>
+    <string name="landing_tips_open_google_play">Download from Google Play</string>
+    <string name="landing_tips_title">Tips for making your Android device more secure</string>
+
+    <string name="privacy_policy_1_detail">This application uses the collected data for the following purposes:</string>
+    <string name="privacy_policy_1_item_1">Display a list of applications installed on the device</string>
+    <string name="privacy_policy_1_item_2">Display information about applications, such as Accessibility Service usage, Media Projection usage, and installer</string>
+    <string name="privacy_policy_1_title">Data Usage</string>
+    <string name="privacy_policy_2_detail">This application does not collect any personal data from users. This application does not request permission to access personal data such as contacts, photos, or messages. And does not connect to the internet</string>
+    <string name="privacy_policy_2_title">Data Collection</string>
+    <string name="privacy_policy_3_detail">This application does not share any user data with third parties.</string>
+    <string name="privacy_policy_3_title">Data Sharing</string>
+    <string name="privacy_policy_app_name">@string/app_name</string>
+    <string name="privacy_policy_introduction">This application is developed to help users check other applications installed on their device conveniently and quickly. This application places great importance on user privacy. This Privacy Policy explains how this application collects, uses, and manages user data.</string>
+    <string name="privacy_policy_year">2024</string>
+</resources>

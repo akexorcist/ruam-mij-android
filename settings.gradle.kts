@@ -35,4 +35,5 @@ include(
     ":base:data",
     ":base:utility",
     ":functional:device",
+    ":functional:mediaprojection",
 )

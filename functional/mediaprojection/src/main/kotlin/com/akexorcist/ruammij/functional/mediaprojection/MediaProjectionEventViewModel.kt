@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij
+package com.akexorcist.ruammij.functional.mediaprojection
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,7 +6,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class SharedEventViewModel : ViewModel() {
+class MediaProjectionEventViewModel : ViewModel() {
     private val _mediaProjectionEvent = Channel<AutoMediaProjectionDetectionEvent?>()
     val mediaProjectionEvent = _mediaProjectionEvent.receiveAsFlow()
 

@@ -87,6 +87,7 @@ dependencies {
     implementation(project(":base:data"))
     implementation(project(":base:utility"))
     implementation(project(":functional:device"))
+    implementation(project(":functional:mediaprojection"))
     implementation(libs.accompanist.drawable.painter)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)

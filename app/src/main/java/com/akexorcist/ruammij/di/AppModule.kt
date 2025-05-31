@@ -1,6 +1,6 @@
 package com.akexorcist.ruammij.di
 
-import com.akexorcist.ruammij.SharedEventViewModel
+import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventViewModel
 import com.akexorcist.ruammij.base.common.CoroutineDispatcherProvider
 import com.akexorcist.ruammij.base.common.DefaultCoroutineDispatcherProvider
 import com.akexorcist.ruammij.functional.device.DefaultDeviceRepository
@@ -19,7 +19,7 @@ object AppModule {
         viewModelOf(::OverviewViewModel)
         viewModelOf(::AccessibilityViewModel)
         viewModelOf(::InstalledAppViewModel)
-        viewModelOf(::SharedEventViewModel)
+        viewModelOf(::MediaProjectionEventViewModel)
     }
 
     val allModules = modules + databaseModule

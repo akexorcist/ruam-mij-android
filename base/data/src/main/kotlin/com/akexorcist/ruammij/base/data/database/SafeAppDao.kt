@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.data.database
+package com.akexorcist.ruammij.base.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -11,6 +11,6 @@ interface SafeAppDao {
     @Query("SELECT * FROM safe_app")
     fun getAll(): List<SafeApp>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     fun insert(safeApp: SafeApp)
 }

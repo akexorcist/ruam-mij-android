@@ -32,9 +32,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.akexorcist.ruammij.R
-import com.akexorcist.ruammij.data.InstalledApp
-import com.akexorcist.ruammij.data.Installer
-import com.akexorcist.ruammij.data.InstallerVerificationStatus
+import com.akexorcist.ruammij.base.data.InstalledApp
+import com.akexorcist.ruammij.base.data.Installer
+import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
 import com.akexorcist.ruammij.ui.component.AppInfoContent
 import com.akexorcist.ruammij.ui.component.BodyText
 import com.akexorcist.ruammij.ui.component.DescriptionText

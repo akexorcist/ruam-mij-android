@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.data.database
+package com.akexorcist.ruammij.base.data.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

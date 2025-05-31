@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.data
+package com.akexorcist.ruammij.base.data
 
 import android.graphics.drawable.Drawable
 

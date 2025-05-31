@@ -1,6 +1,7 @@
-package com.akexorcist.ruammij.data
+package com.akexorcist.ruammij.base.data
 
 import android.graphics.drawable.Drawable
+import com.akexorcist.ruammij.base.data.PermissionInfo
 
 data class InstalledApp(
     val name: String,

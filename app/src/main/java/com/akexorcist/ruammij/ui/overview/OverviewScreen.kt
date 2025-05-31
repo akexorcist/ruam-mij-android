@@ -47,12 +47,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.akexorcist.ruammij.R
-import com.akexorcist.ruammij.SharedEventViewModel
-import com.akexorcist.ruammij.data.InstalledApp
-import com.akexorcist.ruammij.data.Installer
-import com.akexorcist.ruammij.data.InstallerVerificationStatus
-import com.akexorcist.ruammij.data.MediaProjectionApp
-import com.akexorcist.ruammij.data.MediaProjectionState
+import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventViewModel
+import com.akexorcist.ruammij.base.data.InstalledApp
+import com.akexorcist.ruammij.base.data.Installer
+import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
+import com.akexorcist.ruammij.base.data.MediaProjectionApp
+import com.akexorcist.ruammij.base.data.MediaProjectionState
 import com.akexorcist.ruammij.ui.accessibility.navigateToAccessibility
 import com.akexorcist.ruammij.ui.component.AppInstaller
 import com.akexorcist.ruammij.ui.component.BodyText
@@ -77,11 +77,11 @@ import org.koin.androidx.compose.koinViewModel
 fun OverviewRoute(
     navController: NavController,
     viewModel: OverviewViewModel = koinViewModel(),
-    sharedEventViewModel: SharedEventViewModel = koinViewModel(),
+    mediaProjectionEventViewModel: MediaProjectionEventViewModel = koinViewModel(),
 ) {
     val activity = LocalActivity.current ?: return
     val uiState by viewModel.overviewUiState.collectAsStateWithLifecycle()
-    val mediaProjectionDetectionEvent by sharedEventViewModel.mediaProjectionEvent.collectAsStateWithLifecycle(
+    val mediaProjectionDetectionEvent by mediaProjectionEventViewModel.mediaProjectionEvent.collectAsStateWithLifecycle(
         initialValue = null
     )
 

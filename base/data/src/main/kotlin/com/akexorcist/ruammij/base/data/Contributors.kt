@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.data
+package com.akexorcist.ruammij.base.data
 
 object Contributors {
     val contributors = listOf(

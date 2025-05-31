@@ -11,8 +11,8 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.akexorcist.ruammij.common.Installer
 import com.akexorcist.ruammij.common.InstallerVerificationStatus
-import com.akexorcist.ruammij.data.InstalledApp
-import com.akexorcist.ruammij.data.PermissionInfo
+import com.akexorcist.ruammij.base.data.InstalledApp
+import com.akexorcist.ruammij.base.data.PermissionInfo
 import com.akexorcist.ruammij.ui.component.AppInfoBottomSheet
 import com.akexorcist.ruammij.utils.SnapshotTests
 import com.akexorcist.ruammij.utils.TestRuamMijTheme

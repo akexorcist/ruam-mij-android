@@ -1,4 +1,4 @@
-package com.akexorcist.ruammij.data
+package com.akexorcist.ruammij.base.data
 
 enum class MediaProjectionState {
     MANUAL_DETECTED,

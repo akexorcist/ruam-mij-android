@@ -4,12 +4,12 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
-import com.akexorcist.ruammij.data.PermissionInfo
-import com.akexorcist.ruammij.data.InstalledApp
-import com.akexorcist.ruammij.data.Installer
-import com.akexorcist.ruammij.data.InstallerVerificationStatus
-import com.akexorcist.ruammij.data.Installers
-import com.akexorcist.ruammij.data.ReferenceInstallerStatus
+import com.akexorcist.ruammij.base.data.PermissionInfo
+import com.akexorcist.ruammij.base.data.InstalledApp
+import com.akexorcist.ruammij.base.data.Installer
+import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
+import com.akexorcist.ruammij.base.data.Installers
+import com.akexorcist.ruammij.base.data.ReferenceInstallerStatus
 import java.security.MessageDigest
 
 private const val ALGORITHM_SHA_512 = "SHA-256"

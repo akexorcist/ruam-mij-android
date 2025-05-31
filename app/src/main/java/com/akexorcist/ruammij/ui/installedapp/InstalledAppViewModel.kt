@@ -2,9 +2,9 @@ package com.akexorcist.ruammij.ui.installedapp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akexorcist.ruammij.data.InstalledApp
-import com.akexorcist.ruammij.data.Installer
-import com.akexorcist.ruammij.data.InstallerVerificationStatus
+import com.akexorcist.ruammij.base.data.InstalledApp
+import com.akexorcist.ruammij.base.data.Installer
+import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
 import com.akexorcist.ruammij.functional.device.DeviceRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

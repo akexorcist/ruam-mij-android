@@ -2,11 +2,11 @@ package com.akexorcist.ruammij.ui.overview
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akexorcist.ruammij.AutoMediaProjectionDetectionEvent
-import com.akexorcist.ruammij.data.InstalledApp
-import com.akexorcist.ruammij.data.InstallerVerificationStatus
-import com.akexorcist.ruammij.data.MediaProjectionApp
-import com.akexorcist.ruammij.data.MediaProjectionState
+import com.akexorcist.ruammij.functional.mediaprojection.AutoMediaProjectionDetectionEvent
+import com.akexorcist.ruammij.base.data.InstalledApp
+import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
+import com.akexorcist.ruammij.base.data.MediaProjectionApp
+import com.akexorcist.ruammij.base.data.MediaProjectionState
 import com.akexorcist.ruammij.functional.device.DeviceRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow

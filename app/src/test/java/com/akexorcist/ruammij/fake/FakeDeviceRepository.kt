@@ -1,9 +1,9 @@
 package com.akexorcist.ruammij.fake
 
-import com.akexorcist.ruammij.data.DeviceRepository
-import com.akexorcist.ruammij.data.InstalledApp
-import com.akexorcist.ruammij.data.database.SafeApp
-import com.akexorcist.ruammij.ui.overview.MediaProjectionApp
+import com.akexorcist.ruammij.base.data.InstalledApp
+import com.akexorcist.ruammij.base.data.MediaProjectionApp
+import com.akexorcist.ruammij.base.data.database.SafeApp
+import com.akexorcist.ruammij.functional.device.DeviceRepository
 
 class FakeDeviceRepository : DeviceRepository {
     override suspend fun getInstalledApps(forceRefresh: Boolean): List<InstalledApp> {

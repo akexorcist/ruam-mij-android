@@ -14,4 +14,6 @@
     <color name="navigation_bar_dark">#FF2A6493</color>
     <color name="background_dark">#FF19191F</color>
     <color name="background_light">#FFFFFFFF</color>
+
+    <color name="ic_launcher_background">#FFE2A8</color>
 </resources>

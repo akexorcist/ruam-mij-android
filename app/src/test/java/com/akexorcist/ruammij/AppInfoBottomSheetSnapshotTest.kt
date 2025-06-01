@@ -9,11 +9,11 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.akexorcist.ruammij.common.Installer
-import com.akexorcist.ruammij.common.InstallerVerificationStatus
-import com.akexorcist.ruammij.data.InstalledApp
-import com.akexorcist.ruammij.data.PermissionInfo
-import com.akexorcist.ruammij.ui.component.AppInfoBottomSheet
+import com.akexorcist.ruammij.base.data.InstalledApp
+import com.akexorcist.ruammij.base.data.Installer
+import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
+import com.akexorcist.ruammij.base.data.PermissionInfo
+import com.akexorcist.ruammij.base.ui.component.AppInfoBottomSheet
 import com.akexorcist.ruammij.utils.SnapshotTests
 import com.akexorcist.ruammij.utils.TestRuamMijTheme
 import com.github.takahirom.roborazzi.ExperimentalRoborazziApi

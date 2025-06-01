@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
     repositories {
         google {
@@ -27,4 +29,20 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Ruam Mij"
-include(":app")
+include(
+    ":app",
+    ":base:common",
+    ":base:data",
+    ":base:resource",
+    ":base:ui",
+    ":base:utility",
+    ":functional:core",
+    ":functional:device",
+    ":functional:mediaprojection",
+    ":feature:aboutapp",
+    ":feature:accessibility",
+    ":feature:installedapp",
+    ":feature:osslicense",
+    ":feature:overview",
+    ":feature:unverified",
+)

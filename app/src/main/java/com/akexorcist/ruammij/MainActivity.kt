@@ -8,17 +8,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
-import com.akexorcist.ruammij.ui.RUAM_MIJ_APP_ROUTE
-import com.akexorcist.ruammij.ui.osslicense.openSourceLicenseScreen
-import com.akexorcist.ruammij.ui.rememberAppState
 import com.akexorcist.ruammij.ui.ruamMijApp
-import com.akexorcist.ruammij.ui.theme.RuamMijTheme
-import com.akexorcist.ruammij.utility.getOwnerPackageName
+import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
+import com.akexorcist.ruammij.base.utility.getOwnerPackageName
+import com.akexorcist.ruammij.functional.core.navigation.Destinations
+import com.akexorcist.ruammij.functional.core.state.rememberAppState
+import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventViewModel
+import com.akexorcist.ruammij.ui.openSourceLicenseScreen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
 class MainActivity : AppCompatActivity() {
-    private val sharedEventViewModel: SharedEventViewModel by viewModel()
+    private val mediaProjectionEventViewModel: MediaProjectionEventViewModel by viewModel()
 
     private val displayManager: DisplayManager by lazy {
         getSystemService(DisplayManager::class.java)
@@ -41,13 +42,13 @@ class MainActivity : AppCompatActivity() {
         setContent {
             RuamMijTheme {
                 val appState = rememberAppState()
-
+                val mainNavController = appState.mainNavController.controller
                 NavHost(
-                    navController = appState.mainNavController,
-                    startDestination = RUAM_MIJ_APP_ROUTE,
+                    navController = mainNavController,
+                    startDestination = Destinations.Root,
                 ) {
                     ruamMijApp(appState = appState)
-                    openSourceLicenseScreen(navController = appState.mainNavController)
+                    openSourceLicenseScreen(navController = mainNavController)
                 }
             }
         }
@@ -63,11 +64,11 @@ class MainActivity : AppCompatActivity() {
         override fun onDisplayAdded(displayId: Int) {
             val display = displayManager.getDisplay(displayId) ?: return
             val packageName = display.getOwnerPackageName() ?: return
-            sharedEventViewModel.onMediaProjectionDetected(packageName, displayId)
+            mediaProjectionEventViewModel.onMediaProjectionDetected(packageName, displayId)
         }
 
         override fun onDisplayRemoved(displayId: Int) {
-            sharedEventViewModel.onMediaProjectionDeactivated(displayId)
+            mediaProjectionEventViewModel.onMediaProjectionDeactivated(displayId)
         }
 
         override fun onDisplayChanged(displayId: Int) = Unit

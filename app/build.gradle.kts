@@ -3,16 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.devToolsKsp)
     alias(libs.plugins.roborazzi)
-    alias(libs.plugins.aboutLibraries)
-}
-
-aboutLibraries {
-    registerAndroidTasks = true
-    includePlatform = false
-    offlineMode = true
-    outputFileName = "aboutlibraries.json"
 }
 
 android {
@@ -26,12 +17,12 @@ android {
         }
     }
     namespace = "com.akexorcist.ruammij"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.akexorcist.ruammij"
-        minSdk = 23
-        targetSdk = 35
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 25
         versionName = "1.1.2"
 
@@ -84,11 +75,24 @@ android {
 }
 
 dependencies {
+    implementation(project(":base:common"))
+    implementation(project(":base:data"))
+    implementation(project(":base:ui"))
+    implementation(project(":base:utility"))
+    implementation(project(":functional:core"))
+    implementation(project(":functional:device"))
+    implementation(project(":functional:mediaprojection"))
+    implementation(project(":feature:aboutapp"))
+    implementation(project(":feature:accessibility"))
+    implementation(project(":feature:installedapp"))
+    implementation(project(":feature:osslicense"))
+    implementation(project(":feature:overview"))
     implementation(libs.accompanist.drawable.painter)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.room.runtime)
@@ -120,9 +124,6 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.test.manifest)
     debugImplementation(libs.androidx.ui.tooling)
-
-    annotationProcessor(libs.androidx.room.compiler)
-    ksp(libs.androidx.room.compiler)
 
     coreLibraryDesugaring(libs.desugar)
 

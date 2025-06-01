@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_description">รวมสารพัดข้อมูลเพื่อช่วยให้คุณพ้นภัยจากมิจฉาชีพ</string>
+    <string name="app_name">รวมมิจ</string>
+
+    <string name="menu_about_app">เกี่ยวกับแอป</string>
+    <string name="menu_accessibility">Accessibility</string>
+    <string name="menu_installed_app">แอปในเครื่อง</string>
+    <string name="menu_overview">ภาพรวม</string>
+
+    <string name="overview_device_configuration_description">การตั้งค่าเหล่านี้มีไว้สำหรับนักพัฒนาซอฟต์แวร์เท่านั้น ผู้ใช้ทั่วไปส่วนใหญ่ไม่จำเป็นต้องเปิดการใช้งานเหล่านี้</string>
+    <string name="overview_device_configuration_title">การตั้งค่าสำหรับนักพัฒนา</string>
+    <string name="overview_developer_options_label">ตัวเลือกสำหรับนักพัฒนาแอป</string>
+    <string name="overview_draw_over_other_app_button_description">สามารถกดที่ปุ่มข้างล่างเพื่อเปิดหน้าตั้งค่าสำหรับฟีเจอร์ดังกล่าว</string>
+    <string name="overview_draw_over_other_app_description">ระบบแอนดรอยด์ไม่อนุญาตให้ตรวจสอบแอปที่มีการวาดทับบนหน้าจอ (Draw over other apps หรือ Appear on top) ผู้ใช้จึงต้องทำการตรวจสอบด้วยตัวเอง</string>
+    <string name="overview_draw_over_other_app_title">Draw over other apps หรือ Appear on top</string>
+    <string name="overview_loading_description">ระยะเวลาในการตรวจสอบจะขึ้นอยู่กับความเร็วของอุปกรณ์และจำนวนแอปที่ติดตั้งอยู่ภายในเครื่อง (แต่ไม่ควรนานเกิน 1 นาที)</string>
+    <string name="overview_loading_title">กำลังตรวจสอบแอปทั้งหมด</string>
+    <string name="overview_media_projection_auto_detected_when">เมื่อ %1$s</string>
+    <string name="overview_media_projection_deactivated">หยุดทำงานแล้ว</string>
+    <string name="overview_media_projection_description">รายชื่อแอปที่แสดงในหัวข้อนี้คือแอปที่กำลังใช้เปิดใช้งาน Media Projection ที่ทำให้แอปเหล่านี้สามารถจับภาพหน้าจอมือถือได้</string>
+    <string name="overview_media_projection_empty">ไม่พบแอปที่กำลังใช้งาน Media Projection</string>
+    <string name="overview_media_projection_running">กำลังทำงานอยู่</string>
+    <string name="overview_media_projection_title">Media Projection</string>
+    <string name="overview_running_accessibility_service_description">รายชื่อแอปที่แสดงในหัวข้อนี้คือแอปที่กำลังใช้งาน Accessibility Service หรือการช่วยเหลือพิเศษอยู่</string>
+    <string name="overview_running_accessibility_service_empty_app">ไม่พบแอปที่กำลังใช้งาน Accessibility Service</string>
+    <string name="overview_running_accessibility_service_title">Accessibility Service</string>
+    <string name="overview_subtitle">รายละเอียดโดยรวมสำหรับความปลอดภัยของอุปกรณ์ที่สุ่มเสี่ยงต่อการถูกควบคุมจากแอปที่ไม่ปลอดภัยที่ติดตั้งอยู่ในเครื่อง</string>
+    <string name="overview_title">ภาพรวมความปลอดภัยของอุปกรณ์</string>
+    <string name="overview_unverified_installed_app_description_1">รายละเอียดแหล่งที่มาของแอปภายในเครื่องที่ไม่ได้ติดตั้งจาก Google Play หรือ App Store ที่มีความน่าเชื่อถือ</string>
+    <string name="overview_unverified_installed_app_description_2">ผู้ติดตั้งแอปบางรายที่แสดงในนี้อาจจะมีความน่าเชื่อถือ แต่แอปนี้ไม่รู้จัก ดังนั้นผู้ใช้ควรตรวจสอบด้วยตัวเองอีกครั้ง</string>
+    <string name="overview_unverified_installed_app_empty">ไม่พบแอปที่ถูกติดตั้งโดยผู้ติดตั้งที่ไม่น่าเชื่อถือ</string>
+    <string name="overview_unverified_installed_app_title">แอปที่ติดตั้งโดยผู้ติดตั้งที่ไม่น่าเชื่อถือ</string>
+    <string name="overview_usb_debugging_label">การแก้ไขข้อบกพร่อง USB</string>
+    <string name="overview_wireless_debugging_additional_label">(สำหรับ Android 11 ขึ้นไป)</string>
+    <string name="overview_wireless_debugging_label">การแก้ไขข้อบกพร่องผ่าน Wi-Fi</string>
+
+    <string name="accessibility_active_apps_description_1">แอปเหล่านี้คือแอปที่กำลังใช้งานการช่วยเหลือพิเศษหรือ Accessibility Service อยู่ในตอนนี้</string>
+    <string name="accessibility_active_apps_description_2">ควรตรวจสอบแอปเหล่านี้ด้วยตัวเองว่าแอปมีความจำเป็นต้องเปิดใช้งานฟีเจอร์ดังกล่าวจริง ๆ หรือไม่</string>
+    <string name="accessibility_active_apps_title">แอปที่กำลังใช้งาน Accessibility Service</string>
+    <string name="accessibility_description">รายชื่อแอปทั้งหมดภายในเครื่องที่สามารถเรียกใช้งานการช่วยเหลือพิเศษหรือ Accessibility Service ได้</string>
+    <string name="accessibility_empty_active_app">ไม่มีแอปที่กำลังใช้งาน Accessibility Service</string>
+    <string name="accessibility_empty_inactive_app">ไม่มีแอปใดรองรับ Accessibility Service</string>
+    <string name="accessibility_inactive_apps_description">แอปเหล่านี้คือแอปที่มีบางฟีเจอร์ที่ต้องใช้การช่วยเหลือพิเศษหรือ Accessibility Service แต่ยังไม่ได้ทำงาน เพราะผู้ใช้ไม่ได้เปิดใช้งาน</string>
+    <string name="accessibility_inactive_apps_title">แอปที่รองรับ Accessibility Service แต่ไม่ได้เปิดใช้งาน</string>
+    <string name="accessibility_loading_description">กำลังค้นหาแอปที่รองรับการช่วยเหลือพิเศษหรือ Accessibility Service</string>
+    <string name="accessibility_loading_title">รอซักครู่</string>
+    <string name="accessibility_title">ข้อมูลแอปที่รองรับ Accessibility Service</string>
+
+    <string name="installed_app_description">รายละเอียดของแอปทั้งหมดที่ติดตั้งอยู่ในเครื่อง</string>
+    <string name="installed_app_display_option_close">ปิด</string>
+    <string name="installed_app_display_option_common_display">อื่น ๆ</string>
+    <string name="installed_app_display_option_description">ตัวเลือกเพื่อช่วยในการแสดงผลรายชื่อแอป</string>
+    <string name="installed_app_display_option_installer_display">ผู้ติดตั้ง</string>
+    <string name="installed_app_display_option_reset">รีเซ็ต</string>
+    <string name="installed_app_display_option_save">บันทึก</string>
+    <string name="installed_app_display_option_sort_by">เรียงลำดับตาม</string>
+    <string name="installed_app_display_option_title">ตั้งค่าการแสดงผล</string>
+    <string name="installed_app_empty">ไม่พบแอปจากการตั้งค่านี้ ลองเปลี่ยนค่าในการแสดงผลเป็นแบบอื่นแทน</string>
+    <string name="installed_app_hide_verified_installer">ซ่อนผู้ติดตั้งแอปที่น่าเชื่อถือ</string>
+    <string name="installed_app_info_title">ข้อมูลแอปพลิเคชัน</string>
+    <plurals name="installed_app_installer_amount" tools:ignore="UnusedQuantity">
+        <item quantity="one">พบ %1$d แอปที่ติดตั้งจากผู้ติดตั้งรายนี้</item>
+        <item quantity="other">พบ %1$d แอปที่ติดตั้งจากผู้ติดตั้งรายนี้</item>
+    </plurals>
+    <string name="installed_app_installer_unknown">ไม่มีข้อมูลผู้ติดตั้งรายนี้</string>
+    <string name="installed_app_loading_description">@string/overview_loading_description</string>
+    <string name="installed_app_loading_title">@string/overview_loading_title</string>
+    <string name="installed_app_show_system_app">แสดง System App ด้วย</string>
+    <string name="installed_app_sort_by_installed_date">วันที่ติดตั้ง</string>
+    <string name="installed_app_sort_by_installer">ชื่อผู้ติดตั้ง</string>
+    <string name="installed_app_sort_by_name">ชื่อแอป</string>
+    <string name="installed_app_sort_by_package_name">Package Name</string>
+    <string name="installed_app_title">แอปที่ติดตั้งภายในเครื่อง</string>
+
+    <string name="app_info_button_app_info">ดูข้อมูล</string>
+    <string name="app_info_button_mark_as_safe">ยืนยันว่าปลอดภัย</string>
+    <string name="app_info_general_section_title">ข้อมูลทั่วไป</string>
+    <string name="app_info_installed_at">ติดตั้งเมื่อ</string>
+    <string name="app_info_installed_by">ติดตั้งโดย</string>
+    <string name="app_info_installer_unknown">Preload หรือ ADB</string>
+    <string name="app_info_open_settings">เปิดการตั้งค่าของแอป</string>
+    <string name="app_info_permissions_section_title">สิทธิ์ที่ขอจากแอปนี้</string>
+    <string name="app_info_version">เวอร์ชัน</string>
+    <string name="app_installed_at_unknown">ไม่ทราบเวลา</string>
+
+    <string name="about_app_menu_contributor">ผู้ที่มีส่วนร่วมในแอปนี้</string>
+    <string name="about_app_menu_contributor_more">พื้นที่ว่างสำหรับท่านอื่นในอนาคต</string>
+    <string name="about_app_menu_frequently_asked_questions">คำถามที่พบบ่อย (FAQ)</string>
+    <string name="about_app_menu_language">ภาษา</string>
+    <string name="about_app_menu_open_source_licenses">Open Source Licenses</string>
+    <string name="about_app_menu_privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <string name="about_app_menu_source_code">Source Code</string>
+    <string name="about_app_version">Version %1$s</string>
+
+    <string name="button_display_option">ตัวเลือกการแสดง</string>
+    <string name="button_open_draw_over_other_app">เปิดหน้าตั้งค่า</string>
+    <string name="button_open_in_setting_description">ดูข้อมูลแอป</string>
+    <string name="button_recheck_overview">ตรวจสอบใหม่</string>
+
+    <string name="state_disabled">ปิดอยู่</string>
+    <string name="state_enabled">เปิดอยู่</string>
+    <string name="state_unsupported">ไม่รองรับ</string>
+
+    <string name="description_app_icon">ภาพไอคอนของแอป %1$s</string>
+    <string name="description_checked">เลือกอยู่</string>
+    <string name="description_close">ปิด</string>
+    <string name="description_collapsed_permission_item">ข้อมูลที่ซ่่อนอยู่</string>
+    <string name="description_empty">ว่างเปล่า</string>
+    <string name="description_expanded_permission_item">ข้อมูลที่แสดงอยู่</string>
+    <string name="description_more_info">ข้อมูลเพิ่มเติม</string>
+    <string name="description_safe">ปลอดภัย</string>
+    <string name="description_see_more">ดูข้อมูล%1$s</string>
+    <string name="description_unsafe">ไม่ปลอดภัย</string>
+
+    <string name="landing_tips_description">การดาวน์โหลดไฟล์ APK มาติดตั้งด้วยตัวเองมักจะเป็นช่องทางยอดนิยมสำหรับมิจฉาชีพที่พยายามหลอกผู้ใช้งานเพื่อจุดประสงค์บางอย่าง ดังนั้นเรามาฝึกทำให้อุปกรณ์แอนดรอยด์ของเราปลอดภัยมากขึ้น โดยเริ่มจากเลิกติดตั้งแอปนี้ผ่านไฟล์ APK แล้วมาดาวน์โหลดผ่าน Google Play แทนกันเถอะ!</string>
+    <string name="landing_tips_open_google_play">ดาวน์โหลดผ่าน Google Play</string>
+    <string name="landing_tips_title">เคล็ดลับในการทำให้อุปกรณ์แอนดรอยด์ของคุณปลอดภัยมากขึ้น</string>
+
+    <string name="privacy_policy_1_detail">แอปพลิเคชันนี้ใช้ข้อมูลที่รวบรวมมาเพื่อวัตถุประสงค์ดังต่อไปนี้:</string>
+    <string name="privacy_policy_1_item_1">แสดงรายชื่อแอปพลิเคชันที่ติดตั้งอยู่ในเครื่อง</string>
+    <string name="privacy_policy_1_item_2">แสดงข้อมูลเกี่ยวกับแอปพลิเคชัน เช่น การใช้งาน Accessibility Service, การใช้งาน Media Projection, และผู้ติดตั้ง</string>
+    <string name="privacy_policy_1_title">การใช้ข้อมูล</string>
+    <string name="privacy_policy_2_detail">แอปพลิเคชันนี้ไม่รวบรวมข้อมูลส่วนตัวใด ๆ ของผู้ใช้ และไม่ขออนุญาตเข้าถึงข้อมูลส่วนตัว เช่น ข้อมูลติดต่อ รูปภาพ หรือข้อความ และไม่มีการเชื่อมต่ออินเตอร์เน็ต</string>
+    <string name="privacy_policy_2_title">ข้อมูลที่รวบรวม</string>
+    <string name="privacy_policy_3_detail">แอปพลิเคชันนี้ไม่เปิดเผยข้อมูลใด ๆ ของผู้ใช้แก่บุคคลที่สาม</string>
+    <string name="privacy_policy_3_title">การเปิดเผยข้อมูล</string>
+    <string name="privacy_policy_app_name">@string/app_name</string>
+    <string name="privacy_policy_introduction">แอปพลิเคชันนี้ถูกพัฒนาขึ้นเพื่อช่วยให้ผู้ใช้สามารถตรวจสอบแอปพลิเคชันอื่น ๆ ที่ติดตั้งอยู่ในเครื่องได้สะดวกและรวดเร็วยิ่งขึ้น แอปพลิเคชันนี้ให้ความสำคัญกับความเป็นส่วนตัวของผู้ใช้เป็นอย่างมาก นโยบายความเป็นส่วนตัวนี้จึงอธิบายถึงวิธีการที่แอปพลิเคชันนี้รวบรวม ใช้ และจัดการข้อมูลของผู้ใช้</string>
+    <string name="privacy_policy_year">2024</string>
+</resources>

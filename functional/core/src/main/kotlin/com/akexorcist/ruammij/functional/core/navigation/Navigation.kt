@@ -1,6 +1,5 @@
 package com.akexorcist.ruammij.functional.core.navigation
 
-import androidx.navigation.NavController
 import kotlinx.serialization.Serializable
 
 object Destinations {
@@ -26,35 +25,45 @@ object Destinations {
     data object OpenSourceLicense
 }
 
-fun NavController.navigateToOverview() = navigate(Destinations.Overview) {
-    popUpTo(graph.startDestinationId)
-    launchSingleTop = true
+fun BottomBarNavController.navigateToOverview() = with(controller) {
+    navigate(Destinations.Overview) {
+        popUpTo(graph.startDestinationId)
+        launchSingleTop = true
+    }
 }
 
-fun NavController.navigateToAccessibility() = navigate(Destinations.Accessibility) {
-    popUpTo(graph.startDestinationId)
-    launchSingleTop = true
+fun BottomBarNavController.navigateToAccessibility() = with(controller) {
+    navigate(Destinations.Accessibility) {
+        popUpTo(graph.startDestinationId)
+        launchSingleTop = true
+    }
 }
 
-fun NavController.navigateToInstalledApp(
+fun BottomBarNavController.navigateToInstalledApp(
     installer: String? = null,
     showSystemApp: Boolean = false,
-) = navigate(
-    Destinations.InstalledApp(
-        installer = installer,
-        showSystemApp = showSystemApp,
-    )
-) {
-    popUpTo(graph.startDestinationId)
-    launchSingleTop = true
+) = with(controller) {
+    navigate(
+        Destinations.InstalledApp(
+            installer = installer,
+            showSystemApp = showSystemApp,
+        )
+    ) {
+        popUpTo(graph.startDestinationId)
+        launchSingleTop = true
+    }
 }
 
-fun NavController.navigateToAboutApp() = navigate(Destinations.AboutApp) {
-    popUpTo(graph.startDestinationId)
-    launchSingleTop = true
+fun BottomBarNavController.navigateToAboutApp() = with(controller) {
+    navigate(Destinations.AboutApp) {
+        popUpTo(graph.startDestinationId)
+        launchSingleTop = true
+    }
 }
 
-fun NavController.navigateToOpenSourceLicense() = navigate(Destinations.OpenSourceLicense) {
-    popUpTo(graph.startDestinationId)
-    launchSingleTop = true
+fun MainNavController.navigateToOpenSourceLicense() = with(controller) {
+    navigate(Destinations.OpenSourceLicense) {
+        popUpTo(graph.startDestinationId)
+        launchSingleTop = true
+    }
 }

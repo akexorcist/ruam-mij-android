@@ -45,7 +45,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventViewModel
 import com.akexorcist.ruammij.base.data.InstalledApp
 import com.akexorcist.ruammij.base.data.Installer
@@ -67,6 +66,7 @@ import com.akexorcist.ruammij.base.ui.theme.Buttons
 import com.akexorcist.ruammij.base.ui.theme.MaterialAdditionColorScheme
 import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.base.utility.toReadableDatetime
+import com.akexorcist.ruammij.functional.core.navigation.BottomBarNavController
 import com.akexorcist.ruammij.functional.core.navigation.navigateToAccessibility
 import com.akexorcist.ruammij.functional.core.navigation.navigateToInstalledApp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
@@ -74,7 +74,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun OverviewRoute(
-    navController: NavController,
+    navController: BottomBarNavController,
     viewModel: OverviewViewModel = koinViewModel(),
     mediaProjectionEventViewModel: MediaProjectionEventViewModel = koinViewModel(),
 ) {

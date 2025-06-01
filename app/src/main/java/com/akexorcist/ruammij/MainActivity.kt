@@ -42,13 +42,13 @@ class MainActivity : AppCompatActivity() {
         setContent {
             RuamMijTheme {
                 val appState = rememberAppState()
-
+                val mainNavController = appState.mainNavController.controller
                 NavHost(
-                    navController = appState.mainNavController,
+                    navController = mainNavController,
                     startDestination = Destinations.Root,
                 ) {
                     ruamMijApp(appState = appState)
-                    openSourceLicenseScreen(navController = appState.mainNavController)
+                    openSourceLicenseScreen(navController = mainNavController)
                 }
             }
         }

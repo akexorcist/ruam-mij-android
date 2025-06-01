@@ -7,14 +7,16 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.akexorcist.ruammij.functional.core.navigation.BottomBarNavController
+import com.akexorcist.ruammij.functional.core.navigation.MainNavController
 
 @Stable
 class AppState(
-    val mainNavController: NavHostController,
-    val bottomBarNavController: NavHostController,
+    val mainNavController: MainNavController,
+    val bottomBarNavController: BottomBarNavController,
 ) {
-    val currentDestination: NavDestination?
-        @Composable get() = bottomBarNavController.currentBackStackEntryAsState().value?.destination
+    val currentBottomMenuDestination: NavDestination?
+        @Composable get() = bottomBarNavController.controller.currentBackStackEntryAsState().value?.destination
 }
 
 @Composable
@@ -23,6 +25,9 @@ fun rememberAppState(
     bottomBarNavController: NavHostController = rememberNavController(),
 ): AppState {
     return remember(mainNavController, bottomBarNavController) {
-        AppState(mainNavController, bottomBarNavController)
+        AppState(
+            MainNavController(mainNavController),
+            BottomBarNavController(bottomBarNavController),
+        )
     }
 }

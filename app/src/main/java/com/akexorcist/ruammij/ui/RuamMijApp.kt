@@ -17,18 +17,18 @@ import com.akexorcist.ruammij.functional.core.state.AppState
 fun RuamMijApp(
     appState: AppState,
 ) {
-    val navController = appState.bottomBarNavController
+    val bottomBarNavController = appState.bottomBarNavController
 
     Scaffold(
         bottomBar = {
             BottomMenu(
-                currentDestination = appState.currentDestination.toBottomMenuDestination(),
+                currentDestination = appState.currentBottomMenuDestination.toBottomMenuDestination(),
                 onDestinationSelected = {
                     when (it) {
-                        BottomMenuDestination.Overview -> navController.navigateToOverview()
-                        BottomMenuDestination.Accessibility -> navController.navigateToAccessibility()
-                        BottomMenuDestination.InstalledApp -> navController.navigateToInstalledApp()
-                        BottomMenuDestination.AboutApp -> navController.navigateToAboutApp()
+                        BottomMenuDestination.Overview -> bottomBarNavController.navigateToOverview()
+                        BottomMenuDestination.Accessibility -> bottomBarNavController.navigateToAccessibility()
+                        BottomMenuDestination.InstalledApp -> bottomBarNavController.navigateToInstalledApp()
+                        BottomMenuDestination.AboutApp -> bottomBarNavController.navigateToAboutApp()
                     }
                 },
             )
@@ -38,10 +38,10 @@ fun RuamMijApp(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
-                navController = appState.bottomBarNavController,
+                navController = appState.bottomBarNavController.controller,
                 startDestination = Destinations.Overview,
             ) {
-                overviewScreen(navController = navController)
+                overviewScreen(navController = bottomBarNavController)
                 accessibilityScreen()
                 installedAppScreen()
                 aboutAppScreen(appState = appState)

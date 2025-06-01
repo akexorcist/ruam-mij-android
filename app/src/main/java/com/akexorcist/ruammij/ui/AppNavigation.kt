@@ -10,6 +10,7 @@ import com.akexorcist.ruammij.feature.accessibility.AccessibilityRoute
 import com.akexorcist.ruammij.feature.installedapp.InstalledAppRoute
 import com.akexorcist.ruammij.feature.osslicense.OpenSourceLicenseRoute
 import com.akexorcist.ruammij.feature.overview.OverviewRoute
+import com.akexorcist.ruammij.functional.core.navigation.BottomBarNavController
 import com.akexorcist.ruammij.functional.core.navigation.Destinations
 import com.akexorcist.ruammij.functional.core.state.AppState
 
@@ -72,7 +73,7 @@ fun NavGraphBuilder.openSourceLicenseScreen(
 }
 
 fun NavGraphBuilder.overviewScreen(
-    navController: NavController,
+    navController: BottomBarNavController,
 ) {
     composable<Destinations.Overview> {
         OverviewRoute(

@@ -5,11 +5,10 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
+import com.akexorcist.ruammij.functional.core.state.rememberAppState
 import com.akexorcist.ruammij.ui.RuamMijApp
-import com.akexorcist.ruammij.ui.rememberAppState
 import com.akexorcist.ruammij.utils.SnapshotTests
 import com.akexorcist.ruammij.utils.TestRuamMijTheme
-import com.github.takahirom.roborazzi.InternalRoborazziApi
 import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Rule
 import org.junit.Test

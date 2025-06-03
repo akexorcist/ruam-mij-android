@@ -51,7 +51,7 @@ private fun LanguageDropdownItem(
     ) {
         BodyText(text = stringResource(R.string.about_app_menu_language))
 
-        Spacer(modifier = Modifier.Companion.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
 
         Box {
             Row(verticalAlignment = Alignment.CenterVertically) {

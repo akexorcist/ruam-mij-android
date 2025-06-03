@@ -2,7 +2,7 @@ package com.akexorcist.ruammij.base.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate", "unused")
 object Colors {
     val LightPrimary10 = Color(0xFFF5F7FC)
     val LightPrimary50 = Color(0xFFE8EBF8)

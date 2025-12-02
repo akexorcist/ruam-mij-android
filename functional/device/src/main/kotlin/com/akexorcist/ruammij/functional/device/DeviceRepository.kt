@@ -117,7 +117,7 @@ class DefaultDeviceRepository(
         packageName: String,
     ): InstalledApp? {
         val app = if (!forceRefresh) {
-            cacheInstalledApps?.find { it.packageName == context.packageName }
+            cacheInstalledApps?.find { it.packageName == packageName }
         } else {
             null
         }

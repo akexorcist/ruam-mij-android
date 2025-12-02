@@ -14,8 +14,9 @@ object Destinations {
 
     @Serializable
     data class InstalledApp(
+        val packageName: String?,
         val installer: String?,
-        val showSystemApp: Boolean
+        val showSystemApp: Boolean,
     )
 
     @Serializable
@@ -26,25 +27,39 @@ object Destinations {
 }
 
 fun BottomBarNavController.navigateToOverview() = with(controller) {
-    navigate(Destinations.Overview) {
+    navigate(route = Destinations.Overview) {
         popUpTo(graph.startDestinationId)
         launchSingleTop = true
     }
 }
 
 fun BottomBarNavController.navigateToAccessibility() = with(controller) {
-    navigate(Destinations.Accessibility) {
+    navigate(route = Destinations.Accessibility) {
+        popUpTo(graph.startDestinationId)
+        launchSingleTop = true
+    }
+}
+
+fun BottomBarNavController.navigateToInstalledApp() = with(controller) {
+    navigate(
+        route = Destinations.InstalledApp(
+            packageName = null,
+            installer = null,
+            showSystemApp = false,
+        )
+    ) {
         popUpTo(graph.startDestinationId)
         launchSingleTop = true
     }
 }
 
 fun BottomBarNavController.navigateToInstalledApp(
-    installer: String? = null,
-    showSystemApp: Boolean = false,
+    installer: String?,
+    showSystemApp: Boolean,
 ) = with(controller) {
     navigate(
-        Destinations.InstalledApp(
+        route = Destinations.InstalledApp(
+            packageName = null,
             installer = installer,
             showSystemApp = showSystemApp,
         )
@@ -54,15 +69,30 @@ fun BottomBarNavController.navigateToInstalledApp(
     }
 }
 
+fun BottomBarNavController.navigateToInstalledApp(
+    packageName: String,
+) = with(controller) {
+    navigate(
+        route = Destinations.InstalledApp(
+            packageName = packageName,
+            installer = null,
+            showSystemApp = false,
+        )
+    ) {
+        popUpTo(graph.startDestinationId)
+        launchSingleTop = true
+    }
+}
+
 fun BottomBarNavController.navigateToAboutApp() = with(controller) {
-    navigate(Destinations.AboutApp) {
+    navigate(route = Destinations.AboutApp) {
         popUpTo(graph.startDestinationId)
         launchSingleTop = true
     }
 }
 
 fun MainNavController.navigateToOpenSourceLicense() = with(controller) {
-    navigate(Destinations.OpenSourceLicense) {
+    navigate(route = Destinations.OpenSourceLicense) {
         popUpTo(graph.startDestinationId)
         launchSingleTop = true
     }

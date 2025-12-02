@@ -82,8 +82,9 @@ import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
 
 @Composable
 fun InstalledAppRoute(
+    preferredPackageName: String?,
     preferredInstaller: String?,
-    preferredShowSystemApp: Boolean?,
+    preferredShowSystemApp: Boolean,
     viewModel: InstalledAppViewModel = koinViewModel(),
 ) {
     val activity = LocalActivity.current ?: return
@@ -98,6 +99,7 @@ fun InstalledAppRoute(
 
     InstalledAppScreen(
         uiState = uiState,
+        initialPackageName = preferredPackageName,
         onDisplayOptionApplyClick = {
             viewModel.updateDisplayOption(it)
         },
@@ -105,7 +107,7 @@ fun InstalledAppRoute(
         onRecheckClick = {
             viewModel.loadInstalledApps(
                 preferredInstaller = null,
-                preferredShowSystemApp = null,
+                preferredShowSystemApp = false,
                 forceRefresh = true,
             )
         },
@@ -117,9 +119,11 @@ fun InstalledAppRoute(
     )
 }
 
+@Suppress("AssignedValueIsNeverRead")
 @Composable
 private fun InstalledAppScreen(
     uiState: InstalledAppUiState,
+    initialPackageName: String?,
     onMarkAsSafeClick: (String) -> Unit,
     onRecheckClick: () -> Unit,
     onDisplayOptionApplyClick: (DisplayOption) -> Unit,
@@ -130,6 +134,19 @@ private fun InstalledAppScreen(
 
     var showAppInfoState by remember { mutableStateOf<InstalledApp?>(null) }
     var showDisplayOption by remember { mutableStateOf(false) }
+    var isInitialAppShown by remember { mutableStateOf(false) }
+
+    LaunchedEffect(uiState) {
+        if (initialPackageName == null) return@LaunchedEffect
+        if (isInitialAppShown) return@LaunchedEffect
+        val installedAppLoaded = (uiState as? InstalledAppUiState.InstalledAppLoaded) ?: return@LaunchedEffect
+        installedAppLoaded.installedApps
+            .find { app -> app.packageName == initialPackageName }
+            ?.let { app ->
+                showAppInfoState = app
+                isInitialAppShown = true
+            }
+    }
 
     Column(modifier = Modifier.fillMaxSize()) {
         Header()
@@ -312,6 +329,7 @@ private fun EmptyAppItem(
     }
 }
 
+@Suppress("AssignedValueIsNeverRead")
 @Composable
 private fun DisplayOptionBottomSheet(
     sortBy: SortBy,
@@ -328,24 +346,22 @@ private fun DisplayOptionBottomSheet(
     var currentShowSystemApp by remember { mutableStateOf(showSystemApp) }
     var currentHideVerifiedInstaller by remember { mutableStateOf(hideVerifiedInstaller) }
     var currentInstallers: List<Pair<Installer, Boolean>> by remember {
-        mutableStateOf(installers
-            ?.map { installer ->
-                val selected = when (currentSelectedInstallers.isEmpty()) {
-                    true -> true
-                    false -> currentSelectedInstallers.contains(installer.packageName)
+        mutableStateOf(
+            installers
+                ?.map { installer ->
+                    val selected = when (currentSelectedInstallers.isEmpty()) {
+                        true -> true
+                        false -> currentSelectedInstallers.contains(installer.packageName)
+                    }
+                    installer to selected
                 }
-                installer to selected
-            }
-            ?: listOf())
+                ?: listOf())
     }
     val darkTheme = isSystemInDarkTheme()
     DisposableEffect(Unit) {
-        WindowCompat.getInsetsController(activity.window, view).isAppearanceLightStatusBars =
-            !darkTheme
-
+        WindowCompat.getInsetsController(activity.window, view).isAppearanceLightStatusBars = !darkTheme
         onDispose {
-            WindowCompat.getInsetsController(activity.window, view).isAppearanceLightStatusBars =
-                darkTheme
+            WindowCompat.getInsetsController(activity.window, view).isAppearanceLightStatusBars = darkTheme
         }
     }
 
@@ -691,6 +707,7 @@ private fun InstalledAppPreview(@PreviewParameter(InstalledAppUiStateProvider::c
         ) {
             InstalledAppScreen(
                 uiState = uiState,
+                initialPackageName = null,
                 onRecheckClick = { },
                 onMarkAsSafeClick = {},
                 onDisplayOptionApplyClick = {},

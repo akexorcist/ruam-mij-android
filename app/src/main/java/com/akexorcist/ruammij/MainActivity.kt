@@ -7,19 +7,21 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
-import com.akexorcist.ruammij.ui.ruamMijApp
 import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.base.utility.getOwnerPackageName
 import com.akexorcist.ruammij.functional.core.navigation.Destinations
 import com.akexorcist.ruammij.functional.core.state.rememberAppState
-import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventViewModel
+import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventManager
 import com.akexorcist.ruammij.ui.openSourceLicenseScreen
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.akexorcist.ruammij.ui.ruamMijApp
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.core.annotation.KoinExperimentalAPI
 
 class MainActivity : AppCompatActivity() {
-    private val mediaProjectionEventViewModel: MediaProjectionEventViewModel by viewModel()
+    private val mediaProjectionEventManager: MediaProjectionEventManager by inject()
 
     private val displayManager: DisplayManager by lazy {
         getSystemService(DisplayManager::class.java)
@@ -64,11 +66,15 @@ class MainActivity : AppCompatActivity() {
         override fun onDisplayAdded(displayId: Int) {
             val display = displayManager.getDisplay(displayId) ?: return
             val packageName = display.getOwnerPackageName() ?: return
-            mediaProjectionEventViewModel.onMediaProjectionDetected(packageName, displayId)
+            lifecycleScope.launch {
+                mediaProjectionEventManager.onMediaProjectionDetected(packageName, displayId)
+            }
         }
 
         override fun onDisplayRemoved(displayId: Int) {
-            mediaProjectionEventViewModel.onMediaProjectionDeactivated(displayId)
+            lifecycleScope.launch {
+                mediaProjectionEventManager.onMediaProjectionDeactivated(displayId)
+            }
         }
 
         override fun onDisplayChanged(displayId: Int) = Unit

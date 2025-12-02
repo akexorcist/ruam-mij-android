@@ -2,16 +2,17 @@ package com.akexorcist.ruammij.feature.overview
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akexorcist.ruammij.functional.mediaprojection.AutoMediaProjectionDetectionEvent
 import com.akexorcist.ruammij.base.data.InstalledApp
 import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
 import com.akexorcist.ruammij.base.data.MediaProjectionApp
 import com.akexorcist.ruammij.base.data.MediaProjectionState
 import com.akexorcist.ruammij.functional.device.DeviceRepository
-import kotlinx.coroutines.*
+import com.akexorcist.ruammij.functional.mediaprojection.AutoMediaProjectionDetectionEvent
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class OverviewViewModel(
     private val deviceRepository: DeviceRepository,

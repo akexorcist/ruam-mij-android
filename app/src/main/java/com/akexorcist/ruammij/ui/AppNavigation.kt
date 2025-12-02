@@ -5,6 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.akexorcist.ruammij.feature.aboutapp.AboutAppRoute
 import com.akexorcist.ruammij.feature.accessibility.AccessibilityRoute
 import com.akexorcist.ruammij.feature.installedapp.InstalledAppRoute
@@ -42,9 +43,14 @@ fun NavGraphBuilder.accessibilityScreen() {
 
 fun NavGraphBuilder.installedAppScreen() {
     composable<Destinations.InstalledApp> { backStackEntry ->
+        val route = backStackEntry.toRoute<Destinations.InstalledApp>()
+        val preferredPackageName = route.packageName
+        val preferredInstaller = route.installer
+        val preferredShowSystemApp = route.showSystemApp
         InstalledAppRoute(
-            preferredInstaller = backStackEntry.arguments?.getString("installer"),
-            preferredShowSystemApp = backStackEntry.arguments?.getBoolean("showSystemApp"),
+            preferredPackageName = preferredPackageName,
+            preferredInstaller = preferredInstaller,
+            preferredShowSystemApp = preferredShowSystemApp,
         )
     }
 }

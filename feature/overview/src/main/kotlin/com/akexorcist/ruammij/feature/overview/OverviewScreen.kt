@@ -50,7 +50,6 @@ import com.akexorcist.ruammij.base.data.Installer
 import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
 import com.akexorcist.ruammij.base.data.MediaProjectionApp
 import com.akexorcist.ruammij.base.data.MediaProjectionState
-import com.akexorcist.ruammij.base.ui.component.AppInstaller
 import com.akexorcist.ruammij.base.ui.component.BodyText
 import com.akexorcist.ruammij.base.ui.component.BoldBodyText
 import com.akexorcist.ruammij.base.ui.component.BoldLabelText
@@ -99,13 +98,18 @@ fun OverviewRoute(
             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
             activity.startActivity(intent)
         },
-        onAccessibilityAppClick = { navController.navigateToAccessibility() },
         onUnverifiedInstallerClick = { installer ->
             navController.navigateToInstalledApp(
                 installer = installer,
                 showSystemApp = true,
             )
         },
+        onMediaProjectionAppClick = { packageName ->
+            navController.navigateToInstalledApp(
+                packageName = packageName,
+            )
+        },
+        onAccessibilityAppClick = { navController.navigateToAccessibility() },
     )
 }
 
@@ -114,8 +118,9 @@ private fun OverviewScreen(
     uiState: OverviewUiState,
     onRecheckClick: () -> Unit,
     onOpenDrawOverOtherAppsClick: () -> Unit,
-    onAccessibilityAppClick: (String) -> Unit,
-    onUnverifiedInstallerClick: (String?) -> Unit,
+    onUnverifiedInstallerClick: (packageName: String?) -> Unit,
+    onMediaProjectionAppClick: (packageName: String) -> Unit,
+    onAccessibilityAppClick: (packageName: String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -134,8 +139,9 @@ private fun OverviewScreen(
                     uiState = uiState,
                     onRecheckClick = onRecheckClick,
                     onOpenDrawOverOtherAppsClick = onOpenDrawOverOtherAppsClick,
-                    onAccessibilityAppClick = onAccessibilityAppClick,
                     onUnverifiedInstallerClick = onUnverifiedInstallerClick,
+                    onMediaProjectionAppClick = onMediaProjectionAppClick,
+                    onAccessibilityAppClick = onAccessibilityAppClick,
                 )
             }
         }
@@ -169,8 +175,9 @@ private fun OverviewContent(
     uiState: OverviewUiState.Complete,
     onRecheckClick: () -> Unit,
     onOpenDrawOverOtherAppsClick: () -> Unit,
-    onAccessibilityAppClick: (String) -> Unit,
-    onUnverifiedInstallerClick: (String?) -> Unit,
+    onUnverifiedInstallerClick: (packageName: String?) -> Unit,
+    onMediaProjectionAppClick: (packageName: String) -> Unit,
+    onAccessibilityAppClick: (packageName: String) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         OutlinedButtonWithIcon(
@@ -192,6 +199,7 @@ private fun OverviewContent(
         Spacer(modifier = Modifier.height(16.dp))
         MediaProjectionSection(
             runningApps = uiState.mediaProjectionApps,
+            onMediaProjectionAppClick = onMediaProjectionAppClick,
         )
         Spacer(modifier = Modifier.height(16.dp))
         RunningAccessibilitySection(
@@ -288,7 +296,7 @@ private fun DeviceConfigItem(
 @Composable
 private fun UnverifiedInstalledAppSection(
     installedApps: List<InstalledApp>,
-    onUnverifiedInstallerClick: (String?) -> Unit,
+    onUnverifiedInstallerClick: (packageName: String?) -> Unit,
 ) {
     SectionCard(
         modifier = Modifier.fillMaxWidth(),
@@ -314,7 +322,7 @@ private fun UnverifiedInstalledAppSection(
 @Composable
 private fun UnverifiedInstalledAppGroup(
     installedApps: List<InstalledApp>,
-    onInstallerClick: (String?) -> Unit,
+    onInstallerClick: (packageName: String?) -> Unit,
 ) {
     val groups = installedApps.groupBy { it.installer }
     if (groups.isNotEmpty()) {
@@ -341,7 +349,7 @@ private fun UnverifiedInstalledAppItem(
     name: String?,
     packageName: String?,
     appCount: Int,
-    onInstallerClick: (String?) -> Unit,
+    onInstallerClick: (packageName: String?) -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -388,6 +396,7 @@ private fun UnverifiedInstalledAppItem(
 @Composable
 private fun MediaProjectionSection(
     runningApps: List<MediaProjectionApp>,
+    onMediaProjectionAppClick: (packageName: String) -> Unit,
 ) {
     SectionCard(
         modifier = Modifier.fillMaxWidth(),
@@ -406,6 +415,7 @@ private fun MediaProjectionSection(
                         app = app,
                         state = state,
                         updatedAt = updatedAt,
+                        onAppClick = onMediaProjectionAppClick,
                     )
                     if (index != runningApps.lastIndex) {
                         Spacer(modifier = Modifier.height(8.dp))
@@ -460,6 +470,7 @@ private fun MediaProjectionAppItem(
     app: InstalledApp,
     state: MediaProjectionState,
     updatedAt: Long,
+    onAppClick: (packageName: String) -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -469,6 +480,7 @@ private fun MediaProjectionAppItem(
                 color = MaterialTheme.colorScheme.outline,
                 shape = RoundedCornerShape(6.dp),
             )
+            .clickable { onAppClick(app.packageName) }
             .padding(8.dp),
     ) {
         Box(modifier = Modifier.padding(top = 4.dp)) {
@@ -486,23 +498,7 @@ private fun MediaProjectionAppItem(
             )
             BodyText(text = app.packageName)
             Spacer(modifier = Modifier.height(4.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                BoldLabelText(text = stringResource(R.string.app_info_installed_by))
-                Spacer(modifier = Modifier.width(4.dp))
-                AppInstaller(
-                    name = app.installer.name,
-                    packageName = app.installer.packageName,
-                    verificationStatus = app.installer.verificationStatus,
-                )
-            }
-            Spacer(modifier = Modifier.height(4.dp))
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.End
-            ) {
+            Row(modifier = Modifier.fillMaxWidth()) {
                 LabelText(
                     text = stringResource(
                         when (state) {
@@ -519,7 +515,7 @@ private fun MediaProjectionAppItem(
                         MediaProjectionState.DEACTIVATED -> MaterialAdditionColorScheme.colorScheme.warning
                     }
                 )
-                Spacer(modifier = Modifier.width(2.dp))
+                Spacer(modifier = Modifier.weight(1f))
                 LabelText(
                     text = stringResource(
                         R.string.overview_media_projection_auto_detected_when,
@@ -738,8 +734,9 @@ private fun CheckedContentPreview() {
                 ),
                 onRecheckClick = {},
                 onOpenDrawOverOtherAppsClick = {},
-                onAccessibilityAppClick = {},
                 onUnverifiedInstallerClick = {},
+                onMediaProjectionAppClick = {},
+                onAccessibilityAppClick = {},
             )
         }
     }
@@ -870,7 +867,8 @@ private fun MediaProjectionSectionPreview() {
                     displayId = 2,
                     updatedAt = System.currentTimeMillis(),
                 ),
-            )
+            ),
+            onMediaProjectionAppClick = {},
         )
     }
 }
@@ -880,7 +878,8 @@ private fun MediaProjectionSectionPreview() {
 private fun EmptyMediaProjectionSectionPreview() {
     RuamMijTheme {
         MediaProjectionSection(
-            runningApps = listOf()
+            runningApps = listOf(),
+            onMediaProjectionAppClick = {},
         )
     }
 }

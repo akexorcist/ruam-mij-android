@@ -22,7 +22,7 @@ class InstalledAppViewModel(
 
     fun loadInstalledApps(
         preferredInstaller: String?,
-        preferredShowSystemApp: Boolean?,
+        preferredShowSystemApp: Boolean,
         forceRefresh: Boolean = false,
     ) = viewModelScope.launch {
         _installedAppUiState.update { InstalledAppUiState.Loading(it.displayOption) }
@@ -39,7 +39,7 @@ class InstalledAppViewModel(
                     ?.let { installer -> listOf(installer) }
                     ?: installers.map { installer -> installer.packageName }
                 )
-            }.copy(showSystemApp = preferredShowSystemApp ?: false)
+            }.copy(showSystemApp = preferredShowSystemApp)
 
             InstalledAppUiState.InstalledAppLoaded(
                 displayOption = displayOption,
@@ -83,11 +83,11 @@ class InstalledAppViewModel(
         }
     }
 
-    fun markAsSafe(packageName: String) = viewModelScope.launch() {
+    fun markAsSafe(packageName: String) = viewModelScope.launch {
         deviceRepository.markAsSafe(packageName)
         loadInstalledApps(
             preferredInstaller = null,
-            preferredShowSystemApp = null,
+            preferredShowSystemApp = false,
             forceRefresh = true,
         )
     }

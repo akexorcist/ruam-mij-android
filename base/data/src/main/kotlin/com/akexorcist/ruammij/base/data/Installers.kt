@@ -119,6 +119,9 @@ object Installers {
         "com.asus.dm" to ReferenceInstallerStatus.Verified(
             sha256 = "FE:C2:3C:C8:22:96:8E:99:0D:7C:3B:4B:88:1A:C0:E8:6B:88:7F:32:0F:DB:38:E4:F4:15:65:94:CB:9C:1A:2F",
         ),
+        "com.oplus.sau" to ReferenceInstallerStatus.Verified(
+            sha256 = "FC:98:DA:E6:3A:D3:96:26:C8:C6:7F:BE:83:F2:F0:6F:74:93:2A:9C:D1:46:B9:2C:EC:FC:6A:04:7A:90:43:86",
+        ),
 
         "com.apkpure.aegon" to ReferenceInstallerStatus.Unverified,
         "com.qooapp.qoohelper" to ReferenceInstallerStatus.Unverified,

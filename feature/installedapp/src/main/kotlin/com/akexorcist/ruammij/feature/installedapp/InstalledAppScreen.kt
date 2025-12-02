@@ -142,7 +142,10 @@ private fun InstalledAppScreen(
         val installedAppLoaded = (uiState as? InstalledAppUiState.InstalledAppLoaded) ?: return@LaunchedEffect
         installedAppLoaded.installedApps
             .find { app -> app.packageName == initialPackageName }
-            ?.let { app -> showAppInfoState = app }
+            ?.let { app ->
+                showAppInfoState = app
+                isInitialAppShown = true
+            }
     }
 
     Column(modifier = Modifier.fillMaxSize()) {

@@ -15,7 +15,7 @@ jobs:
           distribution: "temurin"
           cache: "gradle"
       - name: Build with Gradle
-        run: ./gradlew assembleDebug testDebugUnitTest
+        run: ./gradlew app:assembleDebug testDebugUnitTest
   build-release-app:
     runs-on: ubuntu-latest
     needs: [build-and-test]
@@ -40,7 +40,7 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-        run: ./gradlew assembleRelease
+        run: ./gradlew app:assembleRelease
       - name: Get current app version name
         id: get-current-app-version-name
         run: |

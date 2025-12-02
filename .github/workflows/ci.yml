@@ -26,4 +26,4 @@ jobs:
         distribution: 'temurin'
         cache: 'gradle'
     - name: Build with Gradle
-      run: ./gradlew assembleDebug testDebugUnitTest
+      run: ./gradlew app:assembleDebug testDebugUnitTest

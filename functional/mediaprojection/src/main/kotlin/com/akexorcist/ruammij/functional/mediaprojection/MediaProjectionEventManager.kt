@@ -1,19 +1,16 @@
 package com.akexorcist.ruammij.functional.mediaprojection
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
 
-class MediaProjectionEventViewModel : ViewModel() {
+class MediaProjectionEventManager {
     private val _mediaProjectionEvent = Channel<AutoMediaProjectionDetectionEvent?>()
     val mediaProjectionEvent = _mediaProjectionEvent.receiveAsFlow()
 
-    fun onMediaProjectionDetected(
+    suspend fun onMediaProjectionDetected(
         packageName: String,
         displayId: Int,
-    ) = viewModelScope.launch {
+    ) {
         _mediaProjectionEvent.send(
             AutoMediaProjectionDetectionEvent.Detected(
                 packageName = packageName,
@@ -22,9 +19,9 @@ class MediaProjectionEventViewModel : ViewModel() {
         )
     }
 
-    fun onMediaProjectionDeactivated(
+    suspend fun onMediaProjectionDeactivated(
         displayId: Int,
-    ) = viewModelScope.launch {
+    ) {
         _mediaProjectionEvent.send(
             AutoMediaProjectionDetectionEvent.Deactivated(
                 displayId = displayId,

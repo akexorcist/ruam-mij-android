@@ -45,7 +45,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventViewModel
 import com.akexorcist.ruammij.base.data.InstalledApp
 import com.akexorcist.ruammij.base.data.Installer
 import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
@@ -69,18 +68,20 @@ import com.akexorcist.ruammij.base.utility.toReadableDatetime
 import com.akexorcist.ruammij.functional.core.navigation.BottomBarNavController
 import com.akexorcist.ruammij.functional.core.navigation.navigateToAccessibility
 import com.akexorcist.ruammij.functional.core.navigation.navigateToInstalledApp
+import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventManager
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun OverviewRoute(
     navController: BottomBarNavController,
     viewModel: OverviewViewModel = koinViewModel(),
-    mediaProjectionEventViewModel: MediaProjectionEventViewModel = koinViewModel(),
+    mediaProjectionEventManager: MediaProjectionEventManager = koinInject(),
 ) {
     val activity = LocalActivity.current ?: return
     val uiState by viewModel.overviewUiState.collectAsStateWithLifecycle()
-    val mediaProjectionDetectionEvent by mediaProjectionEventViewModel.mediaProjectionEvent.collectAsStateWithLifecycle(
+    val mediaProjectionDetectionEvent by mediaProjectionEventManager.mediaProjectionEvent.collectAsStateWithLifecycle(
         initialValue = null
     )
 

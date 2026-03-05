@@ -4,8 +4,7 @@ package com.akexorcist.ruammij
 
 import androidx.activity.ComponentActivity
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SheetState
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -119,10 +118,7 @@ class AppInfoBottomSheetSnapshotTest(
             TestRuamMijTheme(darkTheme = useDarkMode) {
                 AppInfoBottomSheet(
                     app = installedApp,
-                    sheetState = SheetState(
-                        skipPartiallyExpanded = true,
-                        density = LocalDensity.current
-                    ),
+                    sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
                     onOpenInSettingClick = {},
                     onMarkAsSafeClick = {},
                     onDismissRequest = {}
@@ -183,10 +179,7 @@ class AppInfoBottomSheetSnapshotTest(
             TestRuamMijTheme(darkTheme = useDarkMode) {
                 AppInfoBottomSheet(
                     app = installedApp,
-                    sheetState = SheetState(
-                        skipPartiallyExpanded = true,
-                        density = LocalDensity.current
-                    ),
+                    sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
                     onOpenInSettingClick = {},
                     onMarkAsSafeClick = {},
                     onDismissRequest = {}

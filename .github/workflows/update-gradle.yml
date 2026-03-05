@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - name: Switch to Java 17
-        run: echo "JAVA_HOME=$JAVA_HOME_17_X64" >> $GITHUB_ENV
+        uses: actions/checkout@v6
       - name: Update the Gradle Wrapper
-        uses: gradle-update/update-gradle-wrapper-action@v1
+        uses: gradle-update/update-gradle-wrapper-action@v2

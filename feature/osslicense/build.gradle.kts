@@ -1,15 +1,17 @@
 plugins {
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.aboutLibraries)
 }
 
 aboutLibraries {
-    registerAndroidTasks = true
-    includePlatform = false
     offlineMode = true
-    outputFileName = "aboutlibraries.json"
+    collect {
+        includePlatform = false
+    }
+    export {
+        outputFile.set(layout.projectDirectory.file("src/main/res/raw/aboutlibraries.json"))
+    }
 }
 
 android {
@@ -24,8 +26,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        }
     }
     buildFeatures {
         compose = true
@@ -49,6 +53,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.navigation.compose)
 
     implementation(platform(libs.androidx.compose.bom))

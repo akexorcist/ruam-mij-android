@@ -32,7 +32,6 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
-import androidx.compose.material3.SheetValue.PartiallyExpanded
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -47,7 +46,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.akexorcist.ruammij.base.data.InstalledApp
@@ -410,12 +408,7 @@ private fun DisplayAppInfoBottomSheetPreview() {
                     ),
                 ),
             ),
-            sheetState = SheetState(
-                skipPartiallyExpanded = false,
-                density = LocalDensity.current,
-                initialValue = PartiallyExpanded,
-                skipHiddenState = true,
-            ),
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false),
             onOpenInSettingClick = {},
             onMarkAsSafeClick = {},
             onDismissRequest = {},

@@ -50,6 +50,7 @@ android {
     kotlin {
         compilerOptions {
             jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+            freeCompilerArgs.add("-Xskip-prerelease-check")
         }
     }
     buildFeatures {
@@ -92,7 +93,6 @@ dependencies {
     implementation(project(":feature:installedapp"))
     implementation(project(":feature:osslicense"))
     implementation(project(":feature:overview"))
-    implementation(libs.accompanist.drawable.painter)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)

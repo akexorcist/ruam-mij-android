@@ -26,7 +26,6 @@ import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.base.ui.DarkLightPreviews
 import com.akexorcist.ruammij.base.ui.R
 import com.akexorcist.ruammij.base.utility.toReadableDatetime
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
 @Composable
 fun AppInfoContent(
@@ -42,7 +41,7 @@ fun AppInfoContent(
             Box(modifier = Modifier.padding(top = 4.dp)) {
                 Image(
                     modifier = Modifier.size(32.dp),
-                    painter = rememberDrawablePainter(drawable = app.icon),
+                    painter = rememberAppIconPainter(icon = app.icon),
                     contentDescription = stringResource(R.string.description_app_icon, app.name),
                 )
             }

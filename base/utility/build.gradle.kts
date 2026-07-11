@@ -18,6 +18,7 @@ android {
     kotlin {
         compilerOptions {
             jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+            freeCompilerArgs.add("-Xcontext-parameters")
         }
     }
     buildFeatures {

@@ -71,44 +71,45 @@ class DefaultDeviceRepository(
 
     override suspend fun getInstalledApps(forceRefresh: Boolean): List<InstalledApp> =
         getCachedDataOrFetch(::cacheInstalledApps, forceRefresh) {
-            val safePackageNameList = getSafeApps(forceRefresh).map { it.packageName }
-            val installedAppInfoList: Map<String, PackageInfo> = packageManager.getInstalledApplications(0)
-                .mapNotNull {
-                    runCatching { packageManager.getPackageInfo(it.packageName, requiredPackageInfoFlags) }.getOrNull()
-                }
-                .associateBy { it.packageName }
+            context(packageManager) {
+                val safePackageNameList = getSafeApps(forceRefresh).map { it.packageName }
+                val installedAppInfoList: Map<String, PackageInfo> = packageManager.getInstalledApplications(0)
+                    .mapNotNull {
+                        runCatching { packageManager.getPackageInfo(it.packageName, requiredPackageInfoFlags) }.getOrNull()
+                    }
+                    .associateBy { it.packageName }
 
-            val installers: Map<String?, Installer> = installedAppInfoList
-                .map { (_, info) -> info.applicationInfo?.getInstallerPackageName(packageManager) }
-                .distinctBy { it }
-                .map { installerPackageName ->
-                    installedAppInfoList[installerPackageName].toInstaller(
-                        packageName = installerPackageName,
-                        packageManager = packageManager,
-                    )
-                }
-                .associateBy { it.packageName }
+                val installers: Map<String?, Installer> = installedAppInfoList
+                    .map { (_, info) -> info.applicationInfo?.getInstallerPackageName() }
+                    .distinctBy { it }
+                    .map { installerPackageName ->
+                        installedAppInfoList[installerPackageName].toInstaller(
+                            packageName = installerPackageName,
+                        )
+                    }
+                    .associateBy { it.packageName }
 
-            installedAppInfoList.map { (_, value) ->
-                val installerPackageName = value.applicationInfo?.getInstallerPackageName(packageManager)
-                val installer = installers[installerPackageName]
-                    ?: Installer(
-                        name = when (installerPackageName == null) {
-                            true -> "OS or ADB"
-                            false -> null
-                        },
-                        packageName = installerPackageName,
-                        verificationStatus = when (installerPackageName == null) {
-                            true -> InstallerVerificationStatus.VERIFIED
-                            false -> if (safePackageNameList.contains(installerPackageName)) {
-                                InstallerVerificationStatus.VERIFIED
-                            } else {
-                                InstallerVerificationStatus.UNVERIFIED
-                            }
-                        },
-                        sha256 = packageManager.getShaSignature(installerPackageName),
-                    )
-                value.toInstalledApp(packageManager, installer)
+                installedAppInfoList.map { (_, value) ->
+                    val installerPackageName = value.applicationInfo?.getInstallerPackageName()
+                    val installer = installers[installerPackageName]
+                        ?: Installer(
+                            name = when (installerPackageName == null) {
+                                true -> "OS or ADB"
+                                false -> null
+                            },
+                            packageName = installerPackageName,
+                            verificationStatus = when (installerPackageName == null) {
+                                true -> InstallerVerificationStatus.VERIFIED
+                                false -> if (safePackageNameList.contains(installerPackageName)) {
+                                    InstallerVerificationStatus.VERIFIED
+                                } else {
+                                    InstallerVerificationStatus.UNVERIFIED
+                                }
+                            },
+                            sha256 = packageManager.getShaSignature(installerPackageName),
+                        )
+                    value.toInstalledApp(installer)
+                }
             }
         }
 
@@ -122,12 +123,14 @@ class DefaultDeviceRepository(
             null
         }
         return app ?: runCatching {
-            val packageInfo = packageManager.getPackageInfo(
-                packageName,
-                requiredPackageInfoFlags
-            )
-            val installer = packageInfo.getInstaller(packageManager)
-            packageInfo.toInstalledApp(packageManager, installer)
+            context(packageManager) {
+                val packageInfo = packageManager.getPackageInfo(
+                    packageName,
+                    requiredPackageInfoFlags
+                )
+                val installer = packageInfo.getInstaller()
+                packageInfo.toInstalledApp(installer)
+            }
         }.getOrNull()
     }
 
@@ -144,61 +147,67 @@ class DefaultDeviceRepository(
 
     override suspend fun getEnabledAccessibilityApps(forceRefresh: Boolean): List<InstalledApp> =
         getCachedDataOrFetch(::cacheEnabledAccessibilityApps, forceRefresh) {
-            accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
-                .orEmpty()
-                .mapNotNull { info ->
-                    runCatching {
-                        info.resolveInfo.serviceInfo.packageName.let {
-                            packageManager.getPackageInfo(it, requiredPackageInfoFlags)
-                        }
-                    }.getOrNull()
-                        ?.let { packageInfo ->
-                            val installer = packageInfo.getInstaller(packageManager)
-                            packageInfo.toInstalledApp(packageManager, installer)
-                        }
-                }
+            context(packageManager) {
+                accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
+                    .orEmpty()
+                    .mapNotNull { info ->
+                        runCatching {
+                            info.resolveInfo.serviceInfo.packageName.let {
+                                packageManager.getPackageInfo(it, requiredPackageInfoFlags)
+                            }
+                        }.getOrNull()
+                            ?.let { packageInfo ->
+                                val installer = packageInfo.getInstaller()
+                                packageInfo.toInstalledApp(installer)
+                            }
+                    }
+            }
         }
 
     private var cacheAccessibilitySupportApps: List<InstalledApp>? = null
 
     override suspend fun getAccessibilitySupportApps(forceRefresh: Boolean): List<InstalledApp> =
         getCachedDataOrFetch(::cacheAccessibilitySupportApps, forceRefresh) {
-            packageManager.getInstalledPackages(PackageManager.GET_SERVICES or requiredPackageInfoFlags)
-                .filter { packageInfo ->
-                    packageInfo.services
-                        ?.any { serviceInfo -> serviceInfo.permission == Manifest.permission.BIND_ACCESSIBILITY_SERVICE }
-                        ?: false
-                }.map { packageInfo ->
-                    val installer = packageInfo.getInstaller(packageManager)
-                    packageInfo.toInstalledApp(packageManager, installer)
-                }
+            context(packageManager) {
+                packageManager.getInstalledPackages(PackageManager.GET_SERVICES or requiredPackageInfoFlags)
+                    .filter { packageInfo ->
+                        packageInfo.services
+                            ?.any { serviceInfo -> serviceInfo.permission == Manifest.permission.BIND_ACCESSIBILITY_SERVICE }
+                            ?: false
+                    }.map { packageInfo ->
+                        val installer = packageInfo.getInstaller()
+                        packageInfo.toInstalledApp(installer)
+                    }
+            }
         }
 
     private var cacheRunningMediaProjectionApps: List<MediaProjectionApp>? = null
 
     override suspend fun getRunningMediaProjectionApps(forceRefresh: Boolean): List<MediaProjectionApp> =
         getCachedDataOrFetch(::cacheRunningMediaProjectionApps, forceRefresh) {
-            (1 until 1000).asSequence().mapNotNull { displayId ->
-                displayManager.getDisplay(displayId)
-            }.mapNotNull { display ->
-                display.getOwnerPackageName()?.let { packageName ->
-                    display.displayId to packageName
-                }
-            }.mapNotNull { (displayId, packageName) ->
-                runCatching {
-                    val packageInfo = packageManager.getPackageInfo(packageName, requiredPackageInfoFlags)
-                    val installer = packageInfo.getInstaller(packageManager)
-                    packageInfo.toInstalledApp(packageManager, installer)
-                }.getOrNull()
-                    ?.let { app -> displayId to app }
-            }.map { (displayId, app) ->
-                MediaProjectionApp(
-                    app = app,
-                    state = MediaProjectionState.MANUAL_DETECTED,
-                    displayId = displayId,
-                    updatedAt = System.currentTimeMillis(),
-                )
-            }.toList()
+            context(packageManager) {
+                (1 until 1000).asSequence().mapNotNull { displayId ->
+                    displayManager.getDisplay(displayId)
+                }.mapNotNull { display ->
+                    display.getOwnerPackageName()?.let { packageName ->
+                        display.displayId to packageName
+                    }
+                }.mapNotNull { (displayId, packageName) ->
+                    runCatching {
+                        val packageInfo = packageManager.getPackageInfo(packageName, requiredPackageInfoFlags)
+                        val installer = packageInfo.getInstaller()
+                        packageInfo.toInstalledApp(installer)
+                    }.getOrNull()
+                        ?.let { app -> displayId to app }
+                }.map { (displayId, app) ->
+                    MediaProjectionApp(
+                        app = app,
+                        state = MediaProjectionState.MANUAL_DETECTED,
+                        displayId = displayId,
+                        updatedAt = System.currentTimeMillis(),
+                    )
+                }.toList()
+            }
         }
 
     override suspend fun isUsbDebuggingEnabled(): Boolean = withContext(dispatcherProvider.io()) {

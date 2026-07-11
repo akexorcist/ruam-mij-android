@@ -60,6 +60,7 @@ import com.akexorcist.ruammij.base.ui.component.LoadingContent
 import com.akexorcist.ruammij.base.ui.component.OutlinedButtonWithIcon
 import com.akexorcist.ruammij.base.ui.component.SectionCard
 import com.akexorcist.ruammij.base.ui.component.TitleText
+import com.akexorcist.ruammij.base.ui.component.rememberAppIconPainter
 import com.akexorcist.ruammij.base.ui.theme.Buttons
 import com.akexorcist.ruammij.base.ui.theme.MaterialAdditionColorScheme
 import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
@@ -68,7 +69,6 @@ import com.akexorcist.ruammij.functional.core.navigation.BottomBarNavController
 import com.akexorcist.ruammij.functional.core.navigation.navigateToAccessibility
 import com.akexorcist.ruammij.functional.core.navigation.navigateToInstalledApp
 import com.akexorcist.ruammij.functional.mediaprojection.MediaProjectionEventManager
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
@@ -486,7 +486,7 @@ private fun MediaProjectionAppItem(
         Box(modifier = Modifier.padding(top = 4.dp)) {
             Image(
                 modifier = Modifier.size(32.dp),
-                painter = rememberDrawablePainter(drawable = app.icon),
+                painter = rememberAppIconPainter(icon = app.icon),
                 contentDescription = stringResource(R.string.description_app_icon, app.name),
             )
         }
@@ -582,7 +582,7 @@ private fun AccessibilityAppItem(
     ) {
         Image(
             modifier = Modifier.size(32.dp),
-            painter = rememberDrawablePainter(drawable = app.icon),
+            painter = rememberAppIconPainter(icon = app.icon),
             contentDescription = stringResource(R.string.description_app_icon, app.name),
         )
         Spacer(modifier = Modifier.width(8.dp))

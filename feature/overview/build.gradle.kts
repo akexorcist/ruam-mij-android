@@ -18,6 +18,7 @@ android {
     kotlin {
         compilerOptions {
             jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+            freeCompilerArgs.add("-Xexplicit-backing-fields")
         }
     }
     buildFeatures {
@@ -37,7 +38,6 @@ dependencies {
     coreLibraryDesugaring(libs.desugar)
     implementation(libs.kotlin.coroutines.core)
 
-    implementation(libs.accompanist.drawable.painter)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)

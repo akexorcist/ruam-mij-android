@@ -7,7 +7,7 @@ import com.akexorcist.ruammij.base.data.Installer
 import com.akexorcist.ruammij.base.data.InstallerVerificationStatus
 import com.akexorcist.ruammij.functional.device.DeviceRepository
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -15,20 +15,18 @@ import java.time.Instant
 class InstalledAppViewModel(
     private val deviceRepository: DeviceRepository,
 ) : ViewModel() {
-    private val _installedAppUiState: MutableStateFlow<InstalledAppUiState> = MutableStateFlow(
-        InstalledAppUiState.Loading(DisplayOption.default)
-    )
-    val installedAppUiState = _installedAppUiState.asStateFlow()
+    val installedAppUiState: StateFlow<InstalledAppUiState>
+        field: MutableStateFlow<InstalledAppUiState> = MutableStateFlow(InstalledAppUiState.Loading(DisplayOption.default))
 
     fun loadInstalledApps(
         preferredInstaller: String?,
         preferredShowSystemApp: Boolean,
         forceRefresh: Boolean = false,
     ) = viewModelScope.launch {
-        _installedAppUiState.update { InstalledAppUiState.Loading(it.displayOption) }
+        installedAppUiState.update { InstalledAppUiState.Loading(it.displayOption) }
         val installedApps = deviceRepository.getInstalledApps(forceRefresh)
 
-        _installedAppUiState.update {
+        installedAppUiState.update {
             val installers = installedApps
                 .distinctBy { app -> app.installer }
                 .map { app -> app.installer }
@@ -52,7 +50,7 @@ class InstalledAppViewModel(
     }
 
     fun updateDisplayOption(displayOption: DisplayOption) {
-        _installedAppUiState.update {
+        installedAppUiState.update {
             when (it) {
                 is InstalledAppUiState.Loading -> it.copy(displayOption = displayOption)
                 is InstalledAppUiState.InstalledAppLoaded -> it.copy(

@@ -10,7 +10,7 @@ import com.akexorcist.ruammij.functional.device.DeviceRepository
 import com.akexorcist.ruammij.functional.mediaprojection.AutoMediaProjectionDetectionEvent
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -18,13 +18,11 @@ class OverviewViewModel(
     private val deviceRepository: DeviceRepository,
 ) : ViewModel() {
 
-    private val _overviewUiState: MutableStateFlow<OverviewUiState> = MutableStateFlow(
-        OverviewUiState.Loading
-    )
-    val overviewUiState = _overviewUiState.asStateFlow()
+    val overviewUiState: StateFlow<OverviewUiState>
+        field: MutableStateFlow<OverviewUiState> = MutableStateFlow(OverviewUiState.Loading)
 
     fun checkDevicePrivacy(forceRefresh: Boolean = false) = viewModelScope.launch {
-        _overviewUiState.update { OverviewUiState.Loading }
+        overviewUiState.update { OverviewUiState.Loading }
         val usbDebugging = deviceRepository.isUsbDebuggingEnabled()
         val wirelessDebugging = deviceRepository.isWirelessDebuggingEnabled()
         val developerOptions = deviceRepository.isDeveloperOptionsEnabled()
@@ -42,7 +40,7 @@ class OverviewViewModel(
                 it.installer.verificationStatus != InstallerVerificationStatus.VERIFIED
             }
         }
-        _overviewUiState.update {
+        overviewUiState.update {
             OverviewUiState.Complete(
                 usbDebugging = usbDebugging,
                 wirelessDebugging = wirelessDebugging,
@@ -57,7 +55,7 @@ class OverviewViewModel(
     fun updateMediaProjectionEventStatus(
         event: AutoMediaProjectionDetectionEvent,
     ) = viewModelScope.launch {
-        val uiState = _overviewUiState.value as? OverviewUiState.Complete ?: return@launch
+        val uiState = overviewUiState.value as? OverviewUiState.Complete ?: return@launch
 
         val updateMediaProjectionApps = when (event) {
             is AutoMediaProjectionDetectionEvent.Detected -> {
@@ -87,7 +85,7 @@ class OverviewViewModel(
                 }
             }
         }
-        _overviewUiState.update { uiState.copy(mediaProjectionApps = updateMediaProjectionApps) }
+        overviewUiState.update { uiState.copy(mediaProjectionApps = updateMediaProjectionApps) }
     }
 }
 

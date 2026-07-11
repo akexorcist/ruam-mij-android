@@ -6,19 +6,17 @@ import com.akexorcist.ruammij.base.data.InstalledApp
 import com.akexorcist.ruammij.functional.device.DeviceRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
 class AccessibilityViewModel(
     private val deviceRepository: DeviceRepository,
 ) : ViewModel() {
-    private val _accessibilityUiState: MutableStateFlow<AccessibilityUiState> = MutableStateFlow(
-        AccessibilityUiState.Loading
-    )
-    val accessibilityUiState = _accessibilityUiState.asStateFlow()
+    val accessibilityUiState: StateFlow<AccessibilityUiState>
+        field: MutableStateFlow<AccessibilityUiState> = MutableStateFlow(AccessibilityUiState.Loading)
 
     fun loadAccessibilityApps(forceRefresh: Boolean = false) = viewModelScope.launch {
-        _accessibilityUiState.update { AccessibilityUiState.Loading }
+        accessibilityUiState.update { AccessibilityUiState.Loading }
         val activeAccessibilityAppsDeferred = async { deviceRepository.getEnabledAccessibilityApps(forceRefresh) }
         val accessibilitySupportAppsDeferred = async { deviceRepository.getAccessibilitySupportApps(forceRefresh) }
 
@@ -27,7 +25,7 @@ class AccessibilityViewModel(
         val inactiveAccessibilityApps = accessibilitySupportApps
             .filterNot { app -> activeAccessibilityApps.any { it.packageName == app.packageName } }
 
-        _accessibilityUiState.update {
+        accessibilityUiState.update {
             AccessibilityUiState.AccessibilityAppLoaded(
                 active = activeAccessibilityApps,
                 inactive = inactiveAccessibilityApps,

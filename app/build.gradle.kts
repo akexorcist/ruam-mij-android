@@ -50,6 +50,7 @@ android {
     kotlin {
         compilerOptions {
             jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+            freeCompilerArgs.add("-Xskip-prerelease-check")
         }
     }
     buildFeatures {

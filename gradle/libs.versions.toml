@@ -15,7 +15,6 @@ composeBom = "2026.06.01"
 navigation = "2.9.8"
 koin = "4.2.2"
 desugar = "2.1.5"
-accompanist = "0.37.3"
 splashScreen = "1.2.0"
 room = "2.8.4"
 ksp = "2.3.10"
@@ -48,7 +47,6 @@ koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-comp
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
 desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
-accompanist-drawable-painter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreen" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }

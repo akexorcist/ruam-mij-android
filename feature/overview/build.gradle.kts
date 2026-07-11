@@ -38,7 +38,6 @@ dependencies {
     coreLibraryDesugaring(libs.desugar)
     implementation(libs.kotlin.coroutines.core)
 
-    implementation(libs.accompanist.drawable.painter)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)

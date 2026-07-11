@@ -57,7 +57,6 @@ import com.akexorcist.ruammij.base.ui.theme.RuamMijTheme
 import com.akexorcist.ruammij.base.ui.DarkLightPreviews
 import com.akexorcist.ruammij.base.ui.R
 import com.akexorcist.ruammij.base.utility.toReadableDatetime
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -143,7 +142,7 @@ private fun HeaderSection(
     ) {
         Image(
             modifier = Modifier.size(64.dp),
-            painter = rememberDrawablePainter(drawable = app.icon),
+            painter = rememberAppIconPainter(icon = app.icon),
             contentDescription = stringResource(
                 R.string.description_app_icon,
                 app.name

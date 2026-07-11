@@ -15,8 +15,8 @@ import java.security.MessageDigest
 private const val ALGORITHM_SHA_512 = "SHA-256"
 private val ANDROID_PERMISSION_PREFIX = setOf("android.permission.", "com.google.android.")
 
+context(packageManager: PackageManager)
 fun PackageInfo.toInstalledApp(
-    packageManager: PackageManager,
     installer: Installer,
 ): InstalledApp {
     return InstalledApp(
@@ -41,7 +41,8 @@ fun PackageInfo.getAppVersion(): String {
 }
 
 @Suppress("DEPRECATION")
-fun ApplicationInfo.getInstallerPackageName(packageManager: PackageManager): String? {
+context(packageManager: PackageManager)
+fun ApplicationInfo.getInstallerPackageName(): String? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         packageManager.getInstallSourceInfo(packageName).installingPackageName
     } else {
@@ -49,16 +50,17 @@ fun ApplicationInfo.getInstallerPackageName(packageManager: PackageManager): Str
     }
 }
 
-fun PackageInfo.getInstaller(packageManager: PackageManager): Installer {
-    val installerPackageName = this.applicationInfo?.getInstallerPackageName(packageManager)
+context(packageManager: PackageManager)
+fun PackageInfo.getInstaller(): Installer {
+    val installerPackageName = this.applicationInfo?.getInstallerPackageName()
     return runCatching {
         installerPackageName?.let { packageManager.getPackageInfo(it, 0) }
-    }.getOrNull().toInstaller(installerPackageName, packageManager)
+    }.getOrNull().toInstaller(installerPackageName)
 }
 
+context(packageManager: PackageManager)
 fun PackageInfo?.toInstaller(
     packageName: String?,
-    packageManager: PackageManager,
 ): Installer {
     return this?.let { info ->
         val systemApp = applicationInfo?.let { it.flags and 1 != 0 } ?: false

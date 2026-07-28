@@ -11,6 +11,7 @@ class RuamMijApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
+
             androidLogger(Level.ERROR)
             androidContext(applicationContext)
             modules(AppModule.allModules)

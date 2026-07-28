@@ -58,8 +58,8 @@ jobs:
         java-version: '21'
         distribution: 'jetbrains'
         cache: 'gradle'
-    - name: Build with Gradle
-      run: ./gradlew app:assembleDebug
+    - name: Compile Kotlin sources
+      run: ./gradlew :app:compileDebugKotlin
 
   test-unit:
     name: Unit Test

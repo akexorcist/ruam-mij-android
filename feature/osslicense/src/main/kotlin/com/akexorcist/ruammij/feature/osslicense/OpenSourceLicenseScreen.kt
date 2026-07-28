@@ -10,12 +10,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
-import com.mikepenz.aboutlibraries.Libs
+import com.mikepenz.aboutlibraries.ui.compose.android.produceLibraries
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
-import com.mikepenz.aboutlibraries.util.withJson
 
 @Composable
 fun OpenSourceLicenseRoute(
@@ -48,14 +48,11 @@ private fun OpenSourceLicenseScreen(
             )
         }
     ) { paddingValues ->
+        val libraries by produceLibraries(R.raw.aboutlibraries)
         LibrariesContainer(
+            libraries = libraries,
             modifier = Modifier.fillMaxSize(),
             contentPadding = paddingValues,
-            librariesBlock = { ctx ->
-                Libs.Builder()
-                    .withJson(ctx, R.raw.aboutlibraries)
-                    .build()
-            },
         )
     }
 }

@@ -5,17 +5,49 @@ on:
   pull_request:
     branches-ignore:
       - 'bump/**'
-    paths-ignore:
-      - 'README.md'
-      - 'image/**'
   push:
     branches:
       ['main']
     paths-ignore:
+      - '.github/workflows/**'
       - 'README.md'
       - 'image/**'
+      - 'CONTRIBUTING.md'
+      - '.all-contributorsrc'
+      - 'metadata/**'
+      - 'CLAUDE.md'
+      - 'LICENSE'
+      - '.gitignore'
 jobs:
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      app: ${{ steps.filter.outputs.app }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Filter changed paths
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          predicate-quantifier: 'every'
+          filters: |
+            app:
+              - '**'
+              - '!.github/workflows/**'
+              - '!README.md'
+              - '!image/**'
+              - '!CONTRIBUTING.md'
+              - '!.all-contributorsrc'
+              - '!metadata/**'
+              - '!CLAUDE.md'
+              - '!LICENSE'
+              - '!.gitignore'
+
   build-debug:
+    needs: changes
+    if: needs.changes.outputs.app == 'true'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
@@ -29,6 +61,8 @@ jobs:
       run: ./gradlew app:assembleDebug
 
   test-unit:
+    needs: changes
+    if: needs.changes.outputs.app == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

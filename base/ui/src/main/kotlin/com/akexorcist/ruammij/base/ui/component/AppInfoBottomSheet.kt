@@ -115,6 +115,13 @@ private fun DisplayAppInfoContent(
 
         HeaderSection(app = app)
 
+        if (app.isTrustedByUser) {
+            BodyText(
+                text = stringResource(R.string.app_info_trusted_by_user),
+                color = MaterialTheme.colorScheme.primary,
+            )
+        }
+
         Spacer(modifier = Modifier.height(8.dp))
 
         GeneralInformationSection(app = app)
@@ -351,14 +358,17 @@ private fun AdditionButtonSection(
                 Text(text = stringResource(R.string.app_info_button_app_info))
             }
 
-            if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
+            if (app.isTrustedByUser || app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED) {
                 Spacer(modifier = Modifier.width(8.dp))
                 FilledTonalButton(
                     modifier = Modifier.height(32.dp),
                     contentPadding = Buttons.ContentPadding,
                     onClick = onMarkAsSafeClick,
                 ) {
-                    Text(text = stringResource(R.string.app_info_button_mark_as_safe))
+                    Text(text = stringResource(
+                        if (app.isTrustedByUser) R.string.app_info_button_remove_trust
+                        else R.string.app_info_button_mark_as_safe
+                    ))
                 }
             }
 
@@ -371,6 +381,12 @@ private fun AdditionButtonSection(
             ) {
                 BoldBodyText(text = stringResource(R.string.installed_app_display_option_close))
             }
+        }
+        if (app.installer.verificationStatus != InstallerVerificationStatus.VERIFIED || app.isTrustedByUser) {
+            BodyText(
+                text = stringResource(R.string.app_info_user_trust_description),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
     }
 }

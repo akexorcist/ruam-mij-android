@@ -17,6 +17,7 @@ import com.akexorcist.ruammij.base.data.MediaProjectionApp
 import com.akexorcist.ruammij.base.data.MediaProjectionState
 import com.akexorcist.ruammij.base.data.database.SafeApp
 import com.akexorcist.ruammij.base.data.database.SafeAppDao
+import com.akexorcist.ruammij.base.data.withUserTrust
 import com.akexorcist.ruammij.base.utility.getInstaller
 import com.akexorcist.ruammij.base.utility.getInstallerPackageName
 import com.akexorcist.ruammij.base.utility.getOwnerPackageName
@@ -32,6 +33,8 @@ interface DeviceRepository {
     suspend fun getSafeApps(forceRefresh: Boolean = false): List<SafeApp>
 
     suspend fun markAsSafe(packageName: String)
+
+    suspend fun unmarkAsSafe(packageName: String)
 
     suspend fun getInstalledApp(
         forceRefresh: Boolean = false,
@@ -72,7 +75,7 @@ class DefaultDeviceRepository(
     override suspend fun getInstalledApps(forceRefresh: Boolean): List<InstalledApp> =
         getCachedDataOrFetch(::cacheInstalledApps, forceRefresh) {
             context(packageManager) {
-                val safePackageNameList = getSafeApps(forceRefresh).map { it.packageName }
+                val trustDecisions = getSafeApps(forceRefresh)
                 val installedAppInfoList: Map<String, PackageInfo> = packageManager.getInstalledApplications(0)
                     .mapNotNull {
                         runCatching { packageManager.getPackageInfo(it.packageName, requiredPackageInfoFlags) }.getOrNull()
@@ -100,15 +103,11 @@ class DefaultDeviceRepository(
                             packageName = installerPackageName,
                             verificationStatus = when (installerPackageName == null) {
                                 true -> InstallerVerificationStatus.VERIFIED
-                                false -> if (safePackageNameList.contains(installerPackageName)) {
-                                    InstallerVerificationStatus.VERIFIED
-                                } else {
-                                    InstallerVerificationStatus.UNVERIFIED
-                                }
+                                false -> InstallerVerificationStatus.UNVERIFIED
                             },
                             sha256 = packageManager.getShaSignature(installerPackageName),
                         )
-                    value.toInstalledApp(installer)
+                    value.toInstalledApp(installer).withUserTrust(trustDecisions)
                 }
             }
         }
@@ -129,7 +128,7 @@ class DefaultDeviceRepository(
                     requiredPackageInfoFlags
                 )
                 val installer = packageInfo.getInstaller()
-                packageInfo.toInstalledApp(installer)
+                packageInfo.toInstalledApp(installer).withUserTrust(getSafeApps(forceRefresh))
             }
         }.getOrNull()
     }
@@ -140,13 +139,31 @@ class DefaultDeviceRepository(
         getCachedDataOrFetch(::cacheSafeApps, forceRefresh) { safeAppDao.getAll() }
 
     override suspend fun markAsSafe(packageName: String) = withContext(dispatcherProvider.io()) {
-        safeAppDao.insert(SafeApp(packageName = packageName))
+        val app = getInstalledApp(forceRefresh = true, packageName = packageName)
+        requireNotNull(app) { "App is no longer installed" }
+        require(app.sha256.isNotBlank()) { "Cannot trust an app without its signing identity" }
+        safeAppDao.replace(SafeApp(packageName = packageName, signingSha256 = app.sha256))
+        invalidateTrustCaches()
+    }
+
+    override suspend fun unmarkAsSafe(packageName: String) = withContext(dispatcherProvider.io()) {
+        safeAppDao.delete(packageName)
+        invalidateTrustCaches()
+    }
+
+    private fun invalidateTrustCaches() {
+        cacheSafeApps = null
+        cacheInstalledApps = null
+        cacheEnabledAccessibilityApps = null
+        cacheAccessibilitySupportApps = null
+        cacheRunningMediaProjectionApps = null
     }
 
     private var cacheEnabledAccessibilityApps: List<InstalledApp>? = null
 
     override suspend fun getEnabledAccessibilityApps(forceRefresh: Boolean): List<InstalledApp> =
         getCachedDataOrFetch(::cacheEnabledAccessibilityApps, forceRefresh) {
+            val trustDecisions = getSafeApps(forceRefresh)
             context(packageManager) {
                 accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
                     .orEmpty()
@@ -158,7 +175,7 @@ class DefaultDeviceRepository(
                         }.getOrNull()
                             ?.let { packageInfo ->
                                 val installer = packageInfo.getInstaller()
-                                packageInfo.toInstalledApp(installer)
+                                packageInfo.toInstalledApp(installer).withUserTrust(trustDecisions)
                             }
                     }
             }
@@ -168,6 +185,7 @@ class DefaultDeviceRepository(
 
     override suspend fun getAccessibilitySupportApps(forceRefresh: Boolean): List<InstalledApp> =
         getCachedDataOrFetch(::cacheAccessibilitySupportApps, forceRefresh) {
+            val trustDecisions = getSafeApps(forceRefresh)
             context(packageManager) {
                 packageManager.getInstalledPackages(PackageManager.GET_SERVICES or requiredPackageInfoFlags)
                     .filter { packageInfo ->
@@ -176,7 +194,7 @@ class DefaultDeviceRepository(
                             ?: false
                     }.map { packageInfo ->
                         val installer = packageInfo.getInstaller()
-                        packageInfo.toInstalledApp(installer)
+                        packageInfo.toInstalledApp(installer).withUserTrust(trustDecisions)
                     }
             }
         }
@@ -185,6 +203,7 @@ class DefaultDeviceRepository(
 
     override suspend fun getRunningMediaProjectionApps(forceRefresh: Boolean): List<MediaProjectionApp> =
         getCachedDataOrFetch(::cacheRunningMediaProjectionApps, forceRefresh) {
+            val trustDecisions = getSafeApps(forceRefresh)
             context(packageManager) {
                 (1 until 1000).asSequence().mapNotNull { displayId ->
                     displayManager.getDisplay(displayId)
@@ -196,7 +215,7 @@ class DefaultDeviceRepository(
                     runCatching {
                         val packageInfo = packageManager.getPackageInfo(packageName, requiredPackageInfoFlags)
                         val installer = packageInfo.getInstaller()
-                        packageInfo.toInstalledApp(installer)
+                        packageInfo.toInstalledApp(installer).withUserTrust(trustDecisions)
                     }.getOrNull()
                         ?.let { app -> displayId to app }
                 }.map { (displayId, app) ->

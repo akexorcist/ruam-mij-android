@@ -34,6 +34,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.Button
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -89,6 +92,7 @@ fun InstalledAppRoute(
 ) {
     val activity = LocalActivity.current ?: return
     val uiState by viewModel.installedAppUiState.collectAsStateWithLifecycle()
+    val trustUpdateFailed by viewModel.trustUpdateFailed.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.loadInstalledApps(
@@ -103,7 +107,7 @@ fun InstalledAppRoute(
         onDisplayOptionApplyClick = {
             viewModel.updateDisplayOption(it)
         },
-        onMarkAsSafeClick = viewModel::markAsSafe,
+        onMarkAsSafeClick = viewModel::toggleUserTrust,
         onRecheckClick = {
             viewModel.loadInstalledApps(
                 preferredInstaller = null,
@@ -117,6 +121,18 @@ fun InstalledAppRoute(
             })
         }
     )
+
+    if (trustUpdateFailed) {
+        AlertDialog(
+            onDismissRequest = viewModel::dismissTrustUpdateError,
+            text = { Text(stringResource(R.string.app_info_trust_update_failed)) },
+            confirmButton = {
+                TextButton(onClick = viewModel::dismissTrustUpdateError) {
+                    Text(stringResource(R.string.installed_app_display_option_close))
+                }
+            },
+        )
+    }
 }
 
 @Suppress("AssignedValueIsNeverRead")
@@ -198,11 +214,13 @@ private fun InstalledAppScreen(
             )
         }
 
-        showAppInfoState?.let {
+        showAppInfoState?.let { selected ->
+            val currentApp = uiState.installedApps.find { it.packageName == selected.packageName }
+                ?: return@let
             AppInfoBottomSheet(
-                app = it,
-                onOpenInSettingClick = { onOpenAppInSettingClick(it.packageName) },
-                onMarkAsSafeClick = { onMarkAsSafeClick(it.packageName) },
+                app = currentApp,
+                onOpenInSettingClick = { onOpenAppInSettingClick(currentApp.packageName) },
+                onMarkAsSafeClick = { onMarkAsSafeClick(currentApp.packageName) },
                 onDismissRequest = { showAppInfoState = null },
             )
         }

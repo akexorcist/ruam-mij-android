@@ -16,6 +16,6 @@ private fun provideDataBase(application: Application): RuamMijDatabase =
         application,
         RuamMijDatabase::class.java,
         "ruammij"
-    ).fallbackToDestructiveMigration(false).build()
+    ).addMigrations(RuamMijDatabase.MIGRATION_1_2).build()
 
 private fun provideSafeAppDao(database: RuamMijDatabase): SafeAppDao = database.getSafeAppDao()

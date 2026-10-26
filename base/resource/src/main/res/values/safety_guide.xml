@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="safety_guide_title">Scam prevention and help</string>
+    <string name="safety_guide_updated">Content reviewed: 25 October 2026. Guidance is bundled with this app version.</string>
+    <string name="safety_guide_offline">Read this guide offline. This app does not monitor calls or messages. The help button opens your dialer; you choose whether to call.</string>
+    <string name="safety_urgent_title">Already paid or shared sensitive information?</string>
+    <string name="safety_urgent_body">1. Stop the conversation, payments and screen sharing. If remote control is suspected, disconnect the affected device from the internet and use another trusted device.\n2. Contact the bank you paid from through its official channel immediately. In Thailand, call AOC 1441 for help with online fraud and suspected accounts. Follow the bank and police instructions; recovery is not guaranteed.\n3. Keep payment slips, chats, account details and times for your report. Change exposed passwords from a trusted device. Do not pay an unsolicited helper who promises to recover the money.</string>
+    <string name="safety_dial_aoc">Open dialer: AOC 1441 (Thailand)</string>
+    <string name="safety_impersonation_title">AI voices, video and impersonation</string>
+    <string name="safety_impersonation_body">A familiar voice, face or caller ID is not enough to confirm identity. Scammers can imitate a relative, manager, bank or official and invent an emergency.\nEnd the conversation and call a number you saved independently, or verify in person. Agree a private family verification phrase in advance. Never move money to a supposed safe account or reveal an OTP, PIN or password because someone is rushing or threatening you.</string>
+    <string name="safety_links_title">Fake links, QR codes and delivery messages</string>
+    <string name="safety_links_body">Unexpected parcel fees, refunds, unpaid fines and account warnings can lead to fake sign-in or payment pages. QR stickers can also be replaced.\nPreview the complete destination and check the domain carefully. HTTPS alone does not prove a site is genuine. Open the official app or a website you independently know instead of following an unsolicited link. Before approving a QR payment, check the recipient and amount in your banking app; scanning is not proof of a trusted payee.</string>
+    <string name="safety_device_title">Installation, remote control and screen sharing</string>
+    <string name="safety_device_body">Do not install an APK, remote-support app or configuration sent by an unexpected caller. Do not bypass system warnings or turn off Play Protect at their request.\nReview Accessibility, notification access, permission to appear on top and installation from unknown sources in Settings. Only enable access you understand and need; assistive apps can have legitimate reasons for Accessibility. Stop screen sharing before opening a bank, password manager or OTP. An app being listed here is a reason to investigate, not a malware verdict.</string>
+    <string name="safety_money_title">Task jobs, investment and recovery traps</string>
+    <string name="safety_money_body">Be cautious of unexpected offers to earn money by liking, reviewing or boosting products, and relationships that turn into investment advice. Small early payouts or an impressive balance can be used to build trust.\nStop when asked to deposit money to unlock tasks, withdrawals, tax payments or higher returns. Check the provider through an independent official channel. After a loss, do not send another payment to someone who contacts you promising recovery for a fee.</string>
+    <string name="safety_accounts_title">Protect accounts and respond to exposure</string>
+    <string name="safety_accounts_body">Use a different strong password for each important account, enable multi-factor authentication and install OS, browser and app updates. Do not approve a login you did not initiate.\nIf you entered credentials on a suspicious page, use a trusted device to change the password and any other account that reused it. Review active sessions and recovery settings through the official service. Contact your bank immediately if banking credentials, a card or payment information were exposed.</string>
+    <string name="safety_android_title">Use Android protections, with realistic expectations</string>
+    <string name="safety_android_body">Keep Play Protect scanning enabled: Play Store → profile → Play Protect → Settings. Some scanning options send unknown apps to Google; those are Google services, separate from this offline app.\nGoogle announced fake call detection in June 2026 for supported Android 12+ devices. It requires Phone by Google on both devices, Contacts, Google Messages and RCS capability. Availability and rollout vary; do not assume a missing warning means a caller is genuine. Built-in warnings complement independent verification.</string>
+    <string name="safety_limits_title">What do these scan results mean?</string>
+    <string name="safety_limits_body">Ruam Mij displays device and app information. It does not block fraud, read your chats or confirm that an app is malware. A known installer or your own trust decision does not prove safety.\nScreen-sharing detection can miss sessions because of Android or device limitations. An empty result is not an assurance that no recording or scam exists. The app sees only information Android makes available to it; other profiles or protected spaces may be outside that view. Treat requested permissions separately from permissions actually granted. Use Settings and official support when in doubt.</string>
+    <string name="safety_sources_title">Official references</string>
+    <string name="safety_sources_description">These links open your browser and may use the internet. US guidance is used for general scam patterns; AOC 1441 is the Thai help channel. Content can change after the review date.</string>
+    <string name="safety_source_aoc">MDES: AOC 1441 and reporting in Thailand</string>
+    <string name="safety_source_qr">FTC: QR payment scams (September 2026)</string>
+    <string name="safety_source_tasks">FTC: task job scams (August 2025)</string>
+    <string name="safety_source_recovery">FTC: recovery scams (August 2026)</string>
+    <string name="safety_source_play">Google: Play Protect settings and data use</string>
+    <string name="safety_source_calls">Google: fake call detection (June 2026)</string>
+    <string name="safety_source_accounts">FTC: steps after a scam or account exposure</string>
+    <string name="safety_expanded">Expanded</string>
+    <string name="safety_collapsed">Collapsed</string>
+    <string name="safety_no_handler">No app can open this action. Use another device to call 1441 in Thailand or read the listed official references.</string>
+</resources>

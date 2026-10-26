@@ -5,7 +5,7 @@ import com.akexorcist.ruammij.base.data.MediaProjectionApp
 import com.akexorcist.ruammij.base.data.database.SafeApp
 import com.akexorcist.ruammij.functional.device.DeviceRepository
 
-class FakeDeviceRepository : DeviceRepository {
+open class FakeDeviceRepository : DeviceRepository {
     override suspend fun getInstalledApps(forceRefresh: Boolean): List<InstalledApp> {
         return emptyList()
     }
@@ -15,6 +15,9 @@ class FakeDeviceRepository : DeviceRepository {
     }
 
     override suspend fun markAsSafe(packageName: String) {
+    }
+
+    override suspend fun unmarkAsSafe(packageName: String) {
     }
 
     override suspend fun getInstalledApp(

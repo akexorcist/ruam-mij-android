@@ -22,8 +22,8 @@ android {
         applicationId = "com.akexorcist.ruammij"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 28
-        versionName = "1.3.0"
+        versionCode = 30
+        versionName = "1.3.2"
 
         testInstrumentationRunner = "androidx.test.runner.InstrumentationTestRunner"
         vectorDrawables {
@@ -32,6 +32,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-test"
+        }
         release {
             isMinifyEnabled = true
             proguardFiles(
@@ -115,6 +119,7 @@ dependencies {
     testImplementation(libs.androidx.ui.test.junit4)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)
     testImplementation(libs.robolectric)

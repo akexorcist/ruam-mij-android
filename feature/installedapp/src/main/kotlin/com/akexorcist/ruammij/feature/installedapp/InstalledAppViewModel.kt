@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.CancellationException
 import java.time.Instant
 
 class InstalledAppViewModel(
@@ -17,6 +18,9 @@ class InstalledAppViewModel(
 ) : ViewModel() {
     val installedAppUiState: StateFlow<InstalledAppUiState>
         field: MutableStateFlow<InstalledAppUiState> = MutableStateFlow(InstalledAppUiState.Loading(DisplayOption.default))
+
+    val trustUpdateFailed: StateFlow<Boolean>
+        field: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     fun loadInstalledApps(
         preferredInstaller: String?,
@@ -81,13 +85,35 @@ class InstalledAppViewModel(
         }
     }
 
-    fun markAsSafe(packageName: String) = viewModelScope.launch {
-        deviceRepository.markAsSafe(packageName)
-        loadInstalledApps(
-            preferredInstaller = null,
-            preferredShowSystemApp = false,
-            forceRefresh = true,
-        )
+    fun toggleUserTrust(packageName: String) = viewModelScope.launch {
+        val state = installedAppUiState.value as? InstalledAppUiState.InstalledAppLoaded ?: return@launch
+        val app = state.installedApps.find { it.packageName == packageName } ?: return@launch
+        try {
+            if (app.isTrustedByUser) {
+                deviceRepository.unmarkAsSafe(packageName)
+            } else {
+                deviceRepository.markAsSafe(packageName)
+            }
+            val apps = deviceRepository.getInstalledApps(forceRefresh = true)
+            installedAppUiState.update { current ->
+                when (current) {
+                    is InstalledAppUiState.InstalledAppLoaded -> current.copy(
+                        installedApps = apps,
+                        installers = apps.map { it.installer }.distinct().sortedBy { it.packageName },
+                        displayInstalledApps = apps.applyDisplayOption(current.displayOption),
+                    )
+                    else -> current
+                }
+            }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            trustUpdateFailed.value = true
+        }
+    }
+
+    fun dismissTrustUpdateError() {
+        trustUpdateFailed.value = false
     }
 }
 

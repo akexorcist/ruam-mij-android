@@ -18,8 +18,8 @@
     <string name="overview_loading_title">Scanning all apps</string>
     <string name="overview_media_projection_auto_detected_when">%1$s</string>
     <string name="overview_media_projection_deactivated">Stopped</string>
-    <string name="overview_media_projection_description">The list of apps shown in this section are apps that are currently using Media Projection, which allows them to capture your mobile screen.</string>
-    <string name="overview_media_projection_empty">No apps found using Media Projection</string>
+    <string name="overview_media_projection_description">Screen-sharing sessions detected by this app. Android and device limitations may hide sessions; this list may be incomplete.</string>
+    <string name="overview_media_projection_empty">No screen-sharing sessions detected. This does not confirm that recording is absent.</string>
     <string name="overview_media_projection_running">Running</string>
     <string name="overview_media_projection_title">Media Projection</string>
     <string name="overview_running_accessibility_service_description">The list of apps shown in this section are apps that are currently using Accessibility Service.</string>
@@ -27,10 +27,10 @@
     <string name="overview_running_accessibility_service_title">Accessibility Service</string>
     <string name="overview_subtitle">Overall privacy details for device at risk of being controlled by unsafe apps</string>
     <string name="overview_title">Device Privacy Overview</string>
-    <string name="overview_unverified_installed_app_description_1">Details of app sources on the device that are not installed from Google Play or a trusted App Store.</string>
-    <string name="overview_unverified_installed_app_description_2">Some app installers shown here may by trusted, but this app is unknown, so users should check it themselves again.</string>
-    <string name="overview_unverified_installed_app_empty">No apps found installed by untrusted installers</string>
-    <string name="overview_unverified_installed_app_title">Apps installed by untrusted installers</string>
+    <string name="overview_unverified_installed_app_description_1">Apps whose installer is not verified by this app, excluding apps you explicitly trust. Review the source and purpose before deciding what to do.</string>
+    <string name="overview_unverified_installed_app_description_2">Unverified does not mean malicious. A known installer or your trust decision also does not guarantee safety.</string>
+    <string name="overview_unverified_installed_app_empty">No apps need review under this installer check. Other risks may still exist.</string>
+    <string name="overview_unverified_installed_app_title">Apps with installers to review</string>
     <string name="overview_usb_debugging_label">USB Debugging</string>
     <string name="overview_wireless_debugging_additional_label">(For Android 11 or higher)</string>
     <string name="overview_wireless_debugging_label">Wireless Debugging</string>
@@ -74,14 +74,18 @@
     <string name="installed_app_title">Installed Apps</string>
 
     <string name="app_info_button_app_info">App info</string>
-    <string name="app_info_button_mark_as_safe">Mark as safe</string>
+    <string name="app_info_button_mark_as_safe">Trust this app</string>
+    <string name="app_info_button_remove_trust">Remove trust</string>
+    <string name="app_info_trusted_by_user">Trusted by you</string>
+    <string name="app_info_user_trust_description">Trust applies only to this app and its current signing certificate. It does not verify its installer or prove the app is safe. You can remove trust here at any time.</string>
+    <string name="app_info_trust_update_failed">Could not update trust. The app may have been removed or its signing certificate could not be read. Scan again and retry.</string>
     <string name="app_info_general_section_title">General Information</string>
     <string name="app_info_installed_at">Installed on</string>
     <string name="app_info_installed_by">Installed by</string>
     <string name="app_info_installer_sideload" translatable="false">Sideload</string>
     <string name="app_info_installer_unknown">OS or ADB</string>
     <string name="app_info_open_settings">Open app settings</string>
-    <string name="app_info_permissions_section_title">Permissions</string>
+    <string name="app_info_permissions_section_title">Requested permissions (not necessarily granted)</string>
     <string name="app_info_version">Version</string>
     <string name="app_installed_at_unknown">Unknown time</string>
 
@@ -124,11 +128,11 @@
     <string name="privacy_policy_1_item_1">Display a list of applications installed on the device</string>
     <string name="privacy_policy_1_item_2">Display information about applications, such as Accessibility Service usage, Media Projection usage, and installer</string>
     <string name="privacy_policy_1_title">Data Usage</string>
-    <string name="privacy_policy_2_detail">This application does not collect any personal data from users. This application does not request permission to access personal data such as contacts, photos, or messages. And does not connect to the internet</string>
+    <string name="privacy_policy_2_detail">Installed-app information is read on your device. Your trust decisions, including package names and signing-certificate fingerprints, are stored locally and can be removed in app details. This app has no INTERNET permission and does not upload this information or use analytics. Opening a reference uses your browser; choosing the help button opens your dialer. Those external apps have their own data practices. App data may be included in Android backup according to your device settings.</string>
     <string name="privacy_policy_2_title">Data Collection</string>
     <string name="privacy_policy_3_detail">This application does not share any user data with third parties.</string>
     <string name="privacy_policy_3_title">Data Sharing</string>
     <string name="privacy_policy_app_name">@string/app_name</string>
     <string name="privacy_policy_introduction">This application is developed to help users check other applications installed on their device conveniently and quickly. This application places great importance on user privacy. This Privacy Policy explains how this application collects, uses, and manages user data.</string>
-    <string name="privacy_policy_year">2024</string>
+    <string name="privacy_policy_year">2024–2026</string>
 </resources>

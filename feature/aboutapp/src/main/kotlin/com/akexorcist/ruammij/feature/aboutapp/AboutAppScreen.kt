@@ -3,6 +3,9 @@
 package com.akexorcist.ruammij.feature.aboutapp
 
 import android.content.Intent
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.widget.Toast
 import android.net.Uri
 import android.os.Build
 import androidx.activity.compose.LocalActivity
@@ -37,6 +40,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -66,8 +70,15 @@ fun AboutAppRoute(
     val activity = LocalActivity.current
     var showPrivacyPolicy by remember { mutableStateOf(false) }
     var showContributor by remember { mutableStateOf(false) }
+    var showSafetyGuide by rememberSaveable { mutableStateOf(false) }
 
     when {
+        showSafetyGuide -> ScamSafetyGuideBottomSheet(
+            onDismissRequest = { showSafetyGuide = false },
+            onOpenSource = { url -> activity?.openSafetyGuideIntent(Intent(Intent.ACTION_VIEW, Uri.parse(url))) },
+            onDialHelp = { activity?.openSafetyGuideIntent(Intent(Intent.ACTION_DIAL, Uri.parse("tel:1441"))) },
+        )
+
         showPrivacyPolicy -> PrivacyPolicyBottomSheet(
             onDismissRequest = { showPrivacyPolicy = false }
         )
@@ -78,7 +89,7 @@ fun AboutAppRoute(
     }
 
     AboutAppScreen(
-        onFaqClick = {},
+        onFaqClick = { showSafetyGuide = true },
         onPrivacyPolicyClick = {
             showPrivacyPolicy = true
         },
@@ -93,6 +104,14 @@ fun AboutAppRoute(
             activity?.startActivity(intent)
         },
     )
+}
+
+private fun Context.openSafetyGuideIntent(intent: Intent) {
+    try {
+        startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        Toast.makeText(this, R.string.safety_no_handler, Toast.LENGTH_LONG).show()
+    }
 }
 
 @Composable
@@ -129,13 +148,12 @@ private fun AboutAppScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // TODO Add FAQ section
-//        MenuItem(
-//            label = stringResource(R.string.about_app_menu_frequently_asked_questions),
-//            icon = painterResource(R.drawable.ic_about_app_faq),
-//            onClick = onFaqClick,
-//        )
-//        Spacer(modifier = Modifier.height(16.dp))
+        MenuItem(
+            label = stringResource(R.string.safety_guide_title),
+            icon = painterResource(R.drawable.ic_about_app_faq),
+            onClick = onFaqClick,
+        )
+        Spacer(modifier = Modifier.height(16.dp))
         MenuItem(
             label = stringResource(R.string.about_app_menu_privacy_policy),
             icon = painterResource(R.drawable.ic_about_app_privacy_policy),

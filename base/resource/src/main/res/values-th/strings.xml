@@ -18,8 +18,8 @@
     <string name="overview_loading_title">กำลังตรวจสอบแอปทั้งหมด</string>
     <string name="overview_media_projection_auto_detected_when">เมื่อ %1$s</string>
     <string name="overview_media_projection_deactivated">หยุดทำงานแล้ว</string>
-    <string name="overview_media_projection_description">รายชื่อแอปที่แสดงในหัวข้อนี้คือแอปที่กำลังใช้เปิดใช้งาน Media Projection ที่ทำให้แอปเหล่านี้สามารถจับภาพหน้าจอมือถือได้</string>
-    <string name="overview_media_projection_empty">ไม่พบแอปที่กำลังใช้งาน Media Projection</string>
+    <string name="overview_media_projection_description">รายการแชร์จอที่แอปตรวจพบ ข้อจำกัดของ Android และอุปกรณ์อาจทำให้ตรวจไม่พบรายการบางส่วน</string>
+    <string name="overview_media_projection_empty">ตรวจไม่พบรายการแชร์จอ แต่ยังยืนยันไม่ได้ว่าไม่มีการบันทึกหน้าจอ</string>
     <string name="overview_media_projection_running">กำลังทำงานอยู่</string>
     <string name="overview_media_projection_title">Media Projection</string>
     <string name="overview_running_accessibility_service_description">รายชื่อแอปที่แสดงในหัวข้อนี้คือแอปที่กำลังใช้งาน Accessibility Service หรือการช่วยเหลือพิเศษอยู่</string>
@@ -27,10 +27,10 @@
     <string name="overview_running_accessibility_service_title">Accessibility Service</string>
     <string name="overview_subtitle">รายละเอียดโดยรวมสำหรับความปลอดภัยของอุปกรณ์ที่สุ่มเสี่ยงต่อการถูกควบคุมจากแอปที่ไม่ปลอดภัยที่ติดตั้งอยู่ในเครื่อง</string>
     <string name="overview_title">ภาพรวมความปลอดภัยของอุปกรณ์</string>
-    <string name="overview_unverified_installed_app_description_1">รายละเอียดแหล่งที่มาของแอปภายในเครื่องที่ไม่ได้ติดตั้งจาก Google Play หรือ App Store ที่มีความน่าเชื่อถือ</string>
-    <string name="overview_unverified_installed_app_description_2">ผู้ติดตั้งแอปบางรายที่แสดงในนี้อาจจะมีความน่าเชื่อถือ แต่แอปนี้ไม่รู้จัก ดังนั้นผู้ใช้ควรตรวจสอบด้วยตัวเองอีกครั้ง</string>
-    <string name="overview_unverified_installed_app_empty">ไม่พบแอปที่ถูกติดตั้งโดยผู้ติดตั้งที่ไม่น่าเชื่อถือ</string>
-    <string name="overview_unverified_installed_app_title">แอปที่ติดตั้งโดยผู้ติดตั้งที่ไม่น่าเชื่อถือ</string>
+    <string name="overview_unverified_installed_app_description_1">แอปที่ระบบยังไม่ยืนยันผู้ติดตั้ง โดยไม่นับแอปที่คุณเลือกเชื่อถือ ควรตรวจแหล่งที่มาและความจำเป็นก่อนตัดสินใจ</string>
+    <string name="overview_unverified_installed_app_description_2">ยังไม่ยืนยันไม่ได้แปลว่าเป็นแอปอันตราย และการรู้จักผู้ติดตั้งหรือเลือกเชื่อถือก็ไม่ได้รับรองความปลอดภัย</string>
+    <string name="overview_unverified_installed_app_empty">ไม่มีแอปที่ต้องตรวจเพิ่มตามเกณฑ์ผู้ติดตั้งนี้ แต่อาจมีความเสี่ยงด้านอื่น</string>
+    <string name="overview_unverified_installed_app_title">แอปที่ควรตรวจสอบผู้ติดตั้ง</string>
     <string name="overview_usb_debugging_label">การแก้ไขข้อบกพร่อง USB</string>
     <string name="overview_wireless_debugging_additional_label">(สำหรับ Android 11 ขึ้นไป)</string>
     <string name="overview_wireless_debugging_label">การแก้ไขข้อบกพร่องผ่าน Wi-Fi</string>
@@ -74,13 +74,17 @@
     <string name="installed_app_title">แอปที่ติดตั้งภายในเครื่อง</string>
 
     <string name="app_info_button_app_info">ดูข้อมูล</string>
-    <string name="app_info_button_mark_as_safe">ยืนยันว่าปลอดภัย</string>
+    <string name="app_info_button_mark_as_safe">เชื่อถือแอปนี้</string>
+    <string name="app_info_button_remove_trust">เลิกเชื่อถือ</string>
+    <string name="app_info_trusted_by_user">คุณเลือกเชื่อถือแอปนี้</string>
+    <string name="app_info_user_trust_description">ความเชื่อถือมีผลเฉพาะแอปนี้กับใบรับรองการลงนามปัจจุบัน ไม่ได้ยืนยันผู้ติดตั้งหรือรับรองว่าแอปปลอดภัย คุณเลิกเชื่อถือได้ที่นี่ทุกเมื่อ</string>
+    <string name="app_info_trust_update_failed">เปลี่ยนความเชื่อถือไม่ได้ แอปอาจถูกถอนการติดตั้งหรืออ่านใบรับรองการลงนามไม่ได้ โปรดตรวจสอบใหม่แล้วลองอีกครั้ง</string>
     <string name="app_info_general_section_title">ข้อมูลทั่วไป</string>
     <string name="app_info_installed_at">ติดตั้งเมื่อ</string>
     <string name="app_info_installed_by">ติดตั้งโดย</string>
     <string name="app_info_installer_unknown">Preload หรือ ADB</string>
     <string name="app_info_open_settings">เปิดการตั้งค่าของแอป</string>
-    <string name="app_info_permissions_section_title">สิทธิ์ที่ขอจากแอปนี้</string>
+    <string name="app_info_permissions_section_title">สิทธิ์ที่แอปขอ (อาจยังไม่ได้รับอนุญาต)</string>
     <string name="app_info_version">เวอร์ชัน</string>
     <string name="app_installed_at_unknown">ไม่ทราบเวลา</string>
 
@@ -121,11 +125,11 @@
     <string name="privacy_policy_1_item_1">แสดงรายชื่อแอปพลิเคชันที่ติดตั้งอยู่ในเครื่อง</string>
     <string name="privacy_policy_1_item_2">แสดงข้อมูลเกี่ยวกับแอปพลิเคชัน เช่น การใช้งาน Accessibility Service, การใช้งาน Media Projection, และผู้ติดตั้ง</string>
     <string name="privacy_policy_1_title">การใช้ข้อมูล</string>
-    <string name="privacy_policy_2_detail">แอปพลิเคชันนี้ไม่รวบรวมข้อมูลส่วนตัวใด ๆ ของผู้ใช้ และไม่ขออนุญาตเข้าถึงข้อมูลส่วนตัว เช่น ข้อมูลติดต่อ รูปภาพ หรือข้อความ และไม่มีการเชื่อมต่ออินเตอร์เน็ต</string>
+    <string name="privacy_policy_2_detail">แอปอ่านข้อมูลแอปที่ติดตั้งบนอุปกรณ์ของคุณ และเก็บการเลือกเชื่อถือ ชื่อแพ็กเกจ กับลายนิ้วมือใบรับรองการลงนามไว้ในเครื่อง คุณเลิกเชื่อถือได้จากหน้ารายละเอียด แอปไม่มีสิทธิ์ INTERNET ไม่อัปโหลดข้อมูลนี้และไม่มีระบบวิเคราะห์การใช้งาน การเปิดแหล่งอ้างอิงใช้เบราว์เซอร์ ส่วนปุ่มช่วยเหลือเปิดแอปโทรศัพท์ ซึ่งมีแนวทางใช้ข้อมูลของบริการนั้นเอง ข้อมูลแอปอาจรวมอยู่ในการสำรองข้อมูล Android ตามการตั้งค่าอุปกรณ์</string>
     <string name="privacy_policy_2_title">ข้อมูลที่รวบรวม</string>
     <string name="privacy_policy_3_detail">แอปพลิเคชันนี้ไม่เปิดเผยข้อมูลใด ๆ ของผู้ใช้แก่บุคคลที่สาม</string>
     <string name="privacy_policy_3_title">การเปิดเผยข้อมูล</string>
     <string name="privacy_policy_app_name">@string/app_name</string>
     <string name="privacy_policy_introduction">แอปพลิเคชันนี้ถูกพัฒนาขึ้นเพื่อช่วยให้ผู้ใช้สามารถตรวจสอบแอปพลิเคชันอื่น ๆ ที่ติดตั้งอยู่ในเครื่องได้สะดวกและรวดเร็วยิ่งขึ้น แอปพลิเคชันนี้ให้ความสำคัญกับความเป็นส่วนตัวของผู้ใช้เป็นอย่างมาก นโยบายความเป็นส่วนตัวนี้จึงอธิบายถึงวิธีการที่แอปพลิเคชันนี้รวบรวม ใช้ และจัดการข้อมูลของผู้ใช้</string>
-    <string name="privacy_policy_year">2024</string>
+    <string name="privacy_policy_year">2024–2026</string>
 </resources>

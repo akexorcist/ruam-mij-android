@@ -58,6 +58,7 @@ aboutLibraries-core = { group = "com.mikepenz", name = "aboutlibraries-core", ve
 aboutLibraries-composeM3 = { group = "com.mikepenz", name = "aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
 kotlin-seriailization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.11.0" }
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.11.0" }
+kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version = "1.11.0" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

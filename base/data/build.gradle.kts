@@ -4,6 +4,10 @@ plugins {
     alias(libs.plugins.devToolsKsp)
 }
 
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 android {
     namespace = "com.akexorcist.ruammij.base.data"
     compileSdk = libs.versions.compileSdk.get().toInt()

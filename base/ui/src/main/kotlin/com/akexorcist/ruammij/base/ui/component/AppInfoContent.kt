@@ -57,6 +57,12 @@ fun AppInfoContent(
                     }
                     Spacer(modifier = Modifier.width(4.dp))
                 }
+                if (app.isTrustedByUser) {
+                    BodyText(
+                        text = stringResource(R.string.app_info_trusted_by_user),
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                }
                 if (app.systemApp) {
                     Spacer(modifier = Modifier.height(6.dp))
                     SystemAppBadge()

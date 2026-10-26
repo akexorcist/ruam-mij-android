@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "safe_app")
 data class SafeApp(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo val packageName: String
+    @ColumnInfo val packageName: String,
+    @ColumnInfo(defaultValue = "''") val signingSha256: String = "",
 )

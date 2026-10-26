@@ -37,7 +37,7 @@ class OverviewViewModel(
         }
         val unknownInstallerDeferred = async {
             deviceRepository.getInstalledApps(forceRefresh).filter {
-                it.installer.verificationStatus != InstallerVerificationStatus.VERIFIED
+                it.installer.verificationStatus != InstallerVerificationStatus.VERIFIED && !it.isTrustedByUser
             }
         }
         overviewUiState.update {

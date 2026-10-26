@@ -12,4 +12,5 @@ data class InstalledApp(
     val installer: Installer,
     val sha256: String,
     val permissions: List<PermissionInfo> = listOf(),
+    val isTrustedByUser: Boolean = false,
 )
